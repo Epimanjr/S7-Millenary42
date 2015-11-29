@@ -1,0 +1,39 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29 nov. 2015, 14:55:13
+    Author     : Guillaume
+*/
+
+@import url(https://fonts.googleapis.com/css?family=Poiret+One);
+
+body { 
+    padding-top: 50px; 
+    background-color: #f5f5f5 ;
+}
+
+.logo-brand {
+    font-size: 200%;
+    font-weight: bold;
+    font-family: 'Poiret One', cursive;
+}
+
+.logo-brand {
+    color: #f0ad4e;
+}
+
+.page-title {
+    position:fixed;
+    z-index:1000;
+    background-color: #fff;
+    border-bottom: solid 1px #e3e3e3;
+}
+
+.page-content{
+    padding-top: 90px;
+    background-color: #f5f5f5 ;
+    height:100%;
+}
