@@ -84,7 +84,7 @@ class Adresse {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update location set quartier= ?, numRue= ?, rue= ?, codePostal= ?, ville= ?, batiment= ?, etage= ?, porte= ? where id_adresse=?");
+        $query = $c->prepare("update adresse set quartier= ?, numRue= ?, rue= ?, codePostal= ?, ville= ?, batiment= ?, etage= ?, porte= ? where id_adresse=?");
         $query->bindParam(1, $this->quartier, PDO::PARAM_STR);
         $query->bindParam(2, $this->numRue, PDO::PARAM_STR);
         $query->bindParam(3, $this->rue, PDO::PARAM_STR);
@@ -119,7 +119,7 @@ class Adresse {
     }
 
     /**
-     * Recherche d'une location avec son ID
+     * Recherche d'une adresse avec son ID
      * 
      * @param integer $id
      * @return \Location
@@ -149,12 +149,12 @@ class Adresse {
     }
 
     /**
-     * Permet de récupérer toutes les locations.
+     * Permet de récupérer toutes les adresses.
      * 
      * @return 
      */
     public static function findAll() {
-        /* Création d'un tableau dans lequel on va stocker toutes les locations */
+        /* Création d'un tableau dans lequel on va stocker toutes les adresses */
         $res = array();
         /* Connexion à la base */
         $c = Database::getConnection();
@@ -180,7 +180,7 @@ class Adresse {
     }
 
     /**
-     * Affichage d'une location.
+     * Affichage d'une adresse.
      */
     function afficher() {
         echo "Adresse n°$this->id_adresse , $this->numRue $this->rue, $this->batiment - $this->etage - $this->porte ; $this->codePostal $this->ville <br/>";

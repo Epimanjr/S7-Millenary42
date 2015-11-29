@@ -80,7 +80,7 @@ class Utilisateur {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update location set nom= ?, prenom= ?, email= ?, telephone= ?, etat= ?, type= ? where id_utilisateur=?");
+        $query = $c->prepare("update utilisateur set nom= ?, prenom= ?, email= ?, telephone= ?, etat= ?, type= ? where id_utilisateur=?");
         $query->bindParam(1, $this->nom, PDO::PARAM_STR);
         $query->bindParam(2, $this->prenom, PDO::PARAM_STR);
         $query->bindParam(3, $this->email, PDO::PARAM_STR);
@@ -113,7 +113,7 @@ class Utilisateur {
     }
 
     /**
-     * Recherche d'une location avec son ID
+     * Recherche d'une utilisateur avec son ID
      * 
      * @param integer $id
      * @return \Location
@@ -141,12 +141,12 @@ class Utilisateur {
     }
 
     /**
-     * Permet de récupérer toutes les locations.
+     * Permet de récupérer toutes les utilisateurs.
      * 
      * @return 
      */
     public static function findAll() {
-        /* Création d'un tableau dans lequel on va stocker toutes les locations */
+        /* Création d'un tableau dans lequel on va stocker toutes les utilisateurs */
         $res = array();
         /* Connexion à la base */
         $c = Database::getConnection();
@@ -170,7 +170,7 @@ class Utilisateur {
     }
 
     /**
-     * Affichage d'une location.
+     * Affichage d'une utilisateur.
      */
     function afficher() {
         echo "Utilisateur n°$this->id_utilisateur , $this->prenom $this->email, $this->type ; $this->telephone $this->etat <br/>";
