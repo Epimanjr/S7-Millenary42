@@ -89,6 +89,7 @@ class TypeAppartement {
         /* Exécution de la requête */
         return $query->execute();
     }
+
     /**
      * Suppression du type d'appartement dans la base de données.
      * 
@@ -108,4 +109,61 @@ class TypeAppartement {
         /* Exécution de la requête */
         return $query->execute();
     }
+
+    /**
+     * Recherche d'un type_appartement avec son ID
+     * 
+     * @param integer $id
+     * @return \TypeAppartement
+     */
+    public static function findById($id) {
+        /* Connexion à la base de données */
+        $c = Database::getConnection();
+        /* Préparation de la requête */
+        $query = $c->prepare("select * from type_appartement where id_type_appart=?");
+        $query->bindParam(1, $id, PDO::PARAM_INT);
+        /* Exécution de la requête */
+        $query->execute();
+        /* Récupération du résultat */
+        $d = $query->fetch(PDO::FETCH_BOTH);
+        /* Création d'un Objet */
+        $typeAppart = new TypeAppartement();
+        $typeAppart->user_id = $d['id_type_appart'];
+        $typeAppart->nom = $d['nom'];
+        $typeAppart->duree = $d['duree'];
+        return $typeAppart;
+    }
+
+    /**
+     * Permet de récupérer tous les utilisateurs
+     * 
+     * @return \Users
+     */
+    public static function findAll() {
+        /* Création d'un tableau dans lequel on va stocker tous les utilisateurs */
+        $res = array();
+        /* Connexion à la base */
+        $c = Database::getConnection();
+        /* Préparation de la requête */
+        $query = $c->prepare("select * from type_appartement");
+        /* Exécution de la requête */
+        $query->execute();
+        /* Parcours du résultat */
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $typeAppart = new TypeAppartement();
+            $typeAppart->user_id = $d['id_type_appart'];
+            $typeAppart->nom = $d['nom'];
+            $typeAppart->duree = $d['duree'];
+            $res[] = $typeAppart;
+        }
+        return $res;
+    }
+
+    /**
+     * Affichage d'un utilisateur.
+     */
+    function afficher() {
+        echo "Type appartement n°$this->id_type_appart , nom=$this->nom, duree=$this->duree";
+    }
+
 }
