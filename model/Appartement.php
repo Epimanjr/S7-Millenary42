@@ -26,4 +26,79 @@ try {
 echo "<br>coucou";
 
 //TODO ici : classe appartement
+class Appartement {
 
+    // Tous les attributs de la classe appartement.
+
+    private $surface;
+    private $nbPieces;
+    private $loyer;
+    private $charges;
+    private $etat;
+    private $forcerVisibiliteSite;
+    private $videoPhone;
+    private $interPhone;
+    private $digicode;
+    private $cable;
+    private $antenneTV;
+    private $espaceVert;
+    private $VMC;
+    private $piscine;
+    private $parkingCollectif;
+    private $jardinPrive;
+    private $ascenseur;
+    private $logeGardien;
+    private $videOrdure;
+    private $doubleVitrage;
+    private $climatisation;
+    private $eauChaudeCollective;
+    private $eauFroideCollective;
+    private $cptEauChaude;
+    private $cptEauFroide;
+    private $chauffage;
+    private $classeEnergie;
+    private $cuisineEquipee;
+    private $branchementMachineLaver;
+    private $evier;
+    private $caves;
+    private $balcons;
+    private $garages;
+    private $terrasses;
+    private $chambreService;
+    private $parkingPrive;
+    private $greniers;
+    private $celliers;
+
+    /**
+     * Construit un appartement.
+     */
+    public function __construct() {
+        
+    }
+
+    /**
+     * GETTER MAGIQUE 
+     * 
+     * @param type $attr_name
+     * @return type
+     */
+    public function __get($attr_name) {
+        if (property_exists(__CLASS__, $attr_name)) {
+            return $this->$attr_name;
+        }
+    }
+
+    /**
+     * SETTER MAGIQUE
+     * 
+     * @param type $attr_name
+     * @param type $attr_val
+     */
+    public function __set($attr_name, $attr_val) {
+        if (property_exists(__CLASS__, $attr_name)) {
+            $this->$attr_name = $attr_val;
+        }
+        //$emess = __CLASS__ . ": unknown member $attr_name (setAttr)";
+    }
+
+}
