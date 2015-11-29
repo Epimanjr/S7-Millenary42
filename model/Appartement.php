@@ -2,7 +2,6 @@
 
 //TODO ici : classe appartement
 class Appartement {
-
     // Tous les attributs de la classe appartement.
 
     /**
@@ -10,229 +9,229 @@ class Appartement {
      * @var type integer
      */
     private $id_appart;
-    
+
     /**
      * Surface de l'appartement, en mètre carré.
      * @var type integer
      */
     private $surface;
-    
+
     /**
      * Nombre de pièces.
      * @var type integer
      */
     private $nbPieces;
-    
+
     /**
      * Montant du loyer, exprimé en €
      * @var type number
      */
     private $loyer;
-    
+
     /**
      * Montant des charges, également exprimé en €
      * @var type number
      */
     private $charges;
-    
+
     /**
      * Etat de l'appartement
      * @var type chaine
      */
     private $etat;
-    
+
     /**
      * 
      * @var type boolean
      */
     private $forcerVisibiliteSite;
-    
+
     /**
      * Présence ou non d'un videophone.
      * @var type boolean
      */
     private $videophone;
-    
+
     /**
      * Présence ou non d'un interphone.
      * @var type boolean
      */
     private $interphone;
-    
+
     /**
      * Présence ou non d'un digicole.
      * @var type boolean
      */
     private $digicode;
-    
+
     /**
      * Présence ou non du câble.
      * @var type boolean
      */
     private $cable;
-    
+
     /**
      * Présence ou non d'une antenne TV.
      * @var type boolean
      */
     private $antenneTV;
-    
+
     /**
      * Présence ou non d'un espace vert.
      * @var type boolean
      */
     private $espaceVert;
-    
+
     /**
      * Présence ou non d'un VMC
      * @var type boolean
      */
     private $VMC;
-    
+
     /**
      * Présence ou non d'une piscine.
      * @var type boolean
      */
     private $piscine;
-    
+
     /**
      * Présence ou non d'un parking collectif.
      * @var type boolean
      */
     private $parkingCollectif;
-    
+
     /**
      * Présence ou non d'un jardin privé.
      * @var type boolean
      */
     private $jardinPrive;
-    
+
     /**
      * Présence ou non d'un ascenseur.
      * @var type boolean
      */
     private $ascenseur;
-    
+
     /**
      * Présence ou non d'une loge pour un gardien.
      * @var type boolean
      */
     private $logeGardien;
-    
+
     /**
      * Présence ou non d'un vide ordure.
      * @var type boolean
      */
     private $videOrdure;
-    
+
     /**
      * Double vitrage ? 
      * @var type boolean
      */
     private $doubleVitrage;
-    
+
     /**
      * Appartement climatisé ?
      * @var type boolean
      */
     private $climatisation;
-    
+
     /**
      * Eau chaude collective ?
      * @var type boolean
      */
     private $eauChaudeCollective;
-    
+
     /**
      * Eau froide collective ?
      * @var type boolean
      */
     private $eauFroideCollective;
-    
+
     /**
      * Complément d'eau chaude personnel ?
      * @var type boolean
      */
     private $cptEauChaude;
-    
+
     /**
      * Complément d'eau froide personnel ?
      * @var type boolean
      */
     private $cptEauFroide;
-    
+
     /**
      * L'appartement est-il chauffé ?
      * @var type boolean
      */
     private $chauffage;
-    
+
     /**
      * Classe d'energie.
      * @var type char
      */
     private $classeEnergie;
-    
+
     /**
      * L'appartement possède-t-il une cuisine équipée ?
      * @var type boolean
      */
     private $cuisineEquipee;
-    
+
     /**
      *
      * @var type boolean
      */
     private $branchementMachineLaver;
-    
+
     /**
      *
      * @var type boolean
      */
     private $evier;
-    
+
     /**
      * Présence ou non d'une case.
      * @var type 
      */
     private $caves;
-    
+
     /**
      * Présence ou non de balcons, et combien ?
      * @var type integer
      */
     private $balcons;
-    
+
     /**
      * Combien de garages ?
      * @var type integer
      */
     private $garages;
-    
+
     /**
      * Combien de terrasse ?
      * @var type integer
      */
     private $terrasses;
-    
+
     /**
      *
      * @var type integer
      */
     private $chambreService;
-    
+
     /**
      * Combien de parking privé ? (0 si absent)
      * @var type integer
      */
     private $parkingPrive;
-    
+
     /**
      * Présence d'un grenier accessible ?
      * @var type boolean
      */
     private $greniers;
-    
+
     /**
      *
      * @var type boolean
@@ -320,7 +319,7 @@ class Appartement {
         $query->execute();
         $this->id_appart = $c->lastInsertId();
     }
-    
+
     /**
      * Permet de mettre à jour un appartement dans la base de données.
      * 
@@ -342,6 +341,7 @@ class Appartement {
         /* Exécution de la requête */
         return $query->execute();
     }
+
     /**
      * Suppression de l'appartement dans la base de données.
      * 
@@ -361,4 +361,172 @@ class Appartement {
         /* Exécution de la requête */
         return $query->execute();
     }
+
+    /**
+     * Recherche d'un utilisateur avec son ID
+     * 
+     * @param type $id
+     * @return \Users
+     */
+    public static function findById($id) {
+        /* Connexion à la base de données */
+        $c = Database::getConnection();
+        /* Préparation de la requête */
+        $query = $c->prepare("select * from appartement where id_appart=?");
+        $query->bindParam(1, $id, PDO::PARAM_INT);
+        /* Exécution de la requête */
+        $query->execute();
+        /* Récupération du résultat */
+        $d = $query->fetch(PDO::FETCH_BOTH);
+        /* Création d'un Objet */
+        $appart = new Appartement();
+        $appart->id_appart = $d['id_appart'];
+        $appart->surface = $d['surface'];
+        $appart->nbPieces = $d['nbPieces'];
+        $appart->loyer = $d['loyer'];
+        $appart->charges = $d['charges'];
+        $appart->etat = $d['etat'];
+        $appart->forcerVisibiliteSite = $d['forcerVisibiliteSite'];
+        $appart->videophone = $d['videophone'];
+        $appart->interphone = $d['interphone'];
+        $appart->digicode = $d['digicode'];
+        $appart->cable = $d['cable'];
+        $appart->antenneTV = $d['antenneTV'];
+        $appart->espaceVert = $d['espaceVert'];
+        $appart->VMC = $d['VMC'];
+        $appart->piscine = $d['piscine'];
+        $appart->parkingCollectif = $d['parkingCollectif'];
+        $appart->jardinPrive = $d['jardinPrive'];
+        $appart->ascenseur = $d['ascenseur'];
+        $appart->logeGardien = $d['logeGardien'];
+        $appart->videOrdure = $d['videOrdure'];
+        $appart->doubleVitrage = $d['doubleVitrage'];
+        $appart->climatisation = $d['climatisation'];
+        $appart->eauChaudeCollective = $d['eauChaudeCollective'];
+        $appart->eauFroideCollective = $d['eauFroideCollective'];
+        $appart->cptEauChaude = $d['cptEauChaude'];
+        $appart->cptEauFroide = $d['cptEauFroide'];
+        $appart->chauffage = $d['chauffage'];
+        $appart->classeEnergie = $d['classeEnergie'];
+        $appart->cuisineEquipee = $d['cuisineEquipee'];
+        $appart->branchementMachineLaver = $d['branchementMachineLaver'];
+        $appart->evier = $d['evier'];
+        $appart->caves = $d['caves'];
+        $appart->balcons = $d['balcons'];
+        $appart->garages = $d['garages'];
+        $appart->terrasses = $d['terrasses'];
+        $appart->chambreService = $d['chambreService'];
+        $appart->parkingPrive = $d['parkingPrive'];
+        $appart->greniers = $d['greniers'];
+        $appart->celliers = $d['celliers'];
+
+        return $appart;
+    }
+
+    /**
+     * Permet de récupérer tous les utilisateurs
+     * 
+     * @return \Users
+     */
+    public static function findAll() {
+        /* Création d'un tableau dans lequel on va stocker tous les utilisateurs */
+        $res = array();
+        /* Connexion à la base */
+        $c = Database::getConnection();
+        /* Préparation de la requête */
+        $query = $c->prepare("select * from appartement");
+        /* Exécution de la requête */
+        $query->execute();
+        /* Parcours du résultat */
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $appart = new Appartement();
+            $appart->id_appart = $d['id_appart'];
+            $appart->surface = $d['surface'];
+            $appart->nbPieces = $d['nbPieces'];
+            $appart->loyer = $d['loyer'];
+            $appart->charges = $d['charges'];
+            $appart->etat = $d['etat'];
+            $appart->forcerVisibiliteSite = $d['forcerVisibiliteSite'];
+            $appart->videophone = $d['videophone'];
+            $appart->interphone = $d['interphone'];
+            $appart->digicode = $d['digicode'];
+            $appart->cable = $d['cable'];
+            $appart->antenneTV = $d['antenneTV'];
+            $appart->espaceVert = $d['espaceVert'];
+            $appart->VMC = $d['VMC'];
+            $appart->piscine = $d['piscine'];
+            $appart->parkingCollectif = $d['parkingCollectif'];
+            $appart->jardinPrive = $d['jardinPrive'];
+            $appart->ascenseur = $d['ascenseur'];
+            $appart->logeGardien = $d['logeGardien'];
+            $appart->videOrdure = $d['videOrdure'];
+            $appart->doubleVitrage = $d['doubleVitrage'];
+            $appart->climatisation = $d['climatisation'];
+            $appart->eauChaudeCollective = $d['eauChaudeCollective'];
+            $appart->eauFroideCollective = $d['eauFroideCollective'];
+            $appart->cptEauChaude = $d['cptEauChaude'];
+            $appart->cptEauFroide = $d['cptEauFroide'];
+            $appart->chauffage = $d['chauffage'];
+            $appart->classeEnergie = $d['classeEnergie'];
+            $appart->cuisineEquipee = $d['cuisineEquipee'];
+            $appart->branchementMachineLaver = $d['branchementMachineLaver'];
+            $appart->evier = $d['evier'];
+            $appart->caves = $d['caves'];
+            $appart->balcons = $d['balcons'];
+            $appart->garages = $d['garages'];
+            $appart->terrasses = $d['terrasses'];
+            $appart->chambreService = $d['chambreService'];
+            $appart->parkingPrive = $d['parkingPrive'];
+            $appart->greniers = $d['greniers'];
+            $appart->celliers = $d['celliers'];
+            $res[] = $appart;
+        }
+        return $res;
+    }
+
+    /**
+     * Affichage d'un appartement.
+     */
+    function afficher() {
+        echo "ID appartement : $this->id_appart"
+        . "Surface : $this->surface <br/>"
+        . "Nombre pièces : $this->nbPieces <br/>"
+        . "Loyer : $this->loyer <br/>"
+        . "Charges : $this->charges <br/>"
+        . "Etat : $this->etat <br/>"
+        . "Forcer visibilité : $this->forcerVisibiliteSite <br/>"
+        . "Videophone : $this->videophone <br/>"
+        . "Interphone : $this->interphone <br/>"
+        . "Digicode : $this->digicode <br/>"
+        . "Cable : $this->cable <br/>"
+        . "AntenneTV : $this->antenneTV <br/>"
+        . "Espace Vert : $this->espaceVert <br/>"
+        . "VMC : $this->VMC <br/>"
+        . "Piscine : $this->piscine <br/>"
+        . "Parking Collectif : $this->parkingCollectif <br/>"
+        . "Jardin privé : $this->jardinPrive <br/>"
+        . "Ascenseur : $this->ascenseur <br/>"
+        . "Loge gardien : $this->logeGardien <br/>"
+        . "Vide Ordure : $this->videOrdure <br/>"
+        . "Double vitrage : $this->doubleVitrage <br/>"
+        . "Climatisation : $this->climatisation <br/>"
+        . "Eau Chaude Collective : $this->eauChaudeCollective <br/>"
+        . "Eau Froide Collective : $this->eauFroideCollective <br/>"
+        . "Complément eau chaude : $this->cptEauChaude <br/>"
+        . "Complément eau froide : $this->cptEauFroide <br/>"
+        . "Chauffage : $this->chauffage <br/>"
+        . "Classe Energie : $this->classeEnergie <br/>"
+        . "Cuisine équipée : $this->cuisineEquipee <br/>"
+        . "Branchement machines : $this->branchementMachineLaver <br/>"
+        . "Evier : $this->evier <br/>"
+        . "Caves : $this->caves <br/>"
+        . "Balcons : $this->balcons <br/>"
+        . "Garages : $this->garages <br/>"
+        . "Terrasses : $this->terrasses <br/>"
+        . "Chambre service : $this->chambreService <br/>"
+        . "Parking privé : $this->parkingPrive <br/>"
+        . "Greniers : $this->greniers <br/>"
+        . "Celliers : $this->celliers <br/>";
+    }
+
 }
