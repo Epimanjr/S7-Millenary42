@@ -53,11 +53,11 @@ class Location {
         $c = Database::getConnection();
         /* Préparation de la requête */
         $query = $c->prepare("INSERT INTO location (debut, fin, payeParLocataire, payeParAgence, proprietairePaye) VALUES (:debut, :fin, :payeParLocataire, :payeParAgence, :proprietairePaye)");
-        $query->bindParam(':debut', $this->debut, PDO::PARAM_STR);
-        $query->bindParam(':fin', $this->fin, PDO::PARAM_STR);
-        $query->bindParam(':payeParLocataire', $this->payeParLocataire, PDO::PARAM_STR);
-        $query->bindParam(':payeParAgence', $this->payeParAgence, PDO::PARAM_STR);
-        $query->bindParam(':proprietairePaye', $this->proprietairePaye, PDO::PARAM_STR);
+        $query->bindParam(':debut', $this->debut, PDO::PARAM_LOB);
+        $query->bindParam(':fin', $this->fin, PDO::PARAM_LOB);
+        $query->bindParam(':payeParLocataire', $this->payeParLocataire, PDO::PARAM_BOOL);
+        $query->bindParam(':payeParAgence', $this->payeParAgence, PDO::PARAM_BOOL);
+        $query->bindParam(':proprietairePaye', $this->proprietairePaye, PDO::PARAM_BOOL);
 
         /* Exécution de la requête */
         $query->execute();
@@ -79,11 +79,11 @@ class Location {
         $c = Database::getConnection();
         /* Préparation de la requête */
         $query = $c->prepare("update location set debut= ?, fin= ?, payeParLocataire= ?, payeParAgence= ?, proprietairePaye = ? where id_location=?");
-        $query->bindParam(1, $this->debut, PDO::PARAM_STR);
-        $query->bindParam(2, $this->fin, PDO::PARAM_STR);
-        $query->bindParam(3, $this->payeParLocataire, PDO::PARAM_STR);
-        $query->bindParam(4, $this->payeParAgence, PDO::PARAM_STR);
-        $query->bindParam(5, $this->proprietairePaye, PDO::PARAM_STR);
+        $query->bindParam(1, $this->debut, PDO::PARAM_LOB);
+        $query->bindParam(2, $this->fin, PDO::PARAM_LOB);
+        $query->bindParam(3, $this->payeParLocataire, PDO::PARAM_BOOL);
+        $query->bindParam(4, $this->payeParAgence, PDO::PARAM_BOOL);
+        $query->bindParam(5, $this->proprietairePaye, PDO::PARAM_BOOL);
         $query->bindParam(6, $this->id_location, PDO::PARAM_INT);
         /* Exécution de la requête */
         return $query->execute();
