@@ -77,7 +77,7 @@ class Paiement {
         $c = Database::getConnection();
         /* Préparation de la requête */
         $query = $c->prepare("update paiement set montant= ?, date= ?, mode= ?, type= ? where id_paiement=?");
-        $query->bindParam(1, $this->montant, PDO::PARAM_STR);
+        $query->bindParam(1, $this->montant, PDO::PARAM_INT);
         $query->bindParam(2, $this->date, PDO::PARAM_STR);
         $query->bindParam(3, $this->mode, PDO::PARAM_STR);
         $query->bindParam(4, $this->type, PDO::PARAM_STR);
