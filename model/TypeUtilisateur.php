@@ -1,6 +1,6 @@
 <?php
 
-class Utilisateur {
+class TypeUtilisateur {
 
     /**
      * Identifiant du type utilisateur.
@@ -114,10 +114,10 @@ class Utilisateur {
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
-        $uti = new Utilisateur();
-        $uti->id_type_typeutilisateur = $d['id_type_typeutilisateur'];
-        $uti->nom = $d['nom'];
-        return $uti;
+        $tut = new TypeUtilisateur();
+        $tut->id_type_typeutilisateur = $d['id_type_typeutilisateur'];
+        $tut->nom = $d['nom'];
+        return $tut;
     }
 
     /**
@@ -136,10 +136,10 @@ class Utilisateur {
         $query->execute();
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
-            $uti = new Utilisateur();
-            $uti->id_type_typeutilisateur = $d['id_type_typeutilisateur'];
-            $uti->nom = $d['nom'];
-            $res[] = $uti;
+            $tut = new TypeUtilisateur();
+            $tut->id_type_typeutilisateur = $d['id_type_typeutilisateur'];
+            $tut->nom = $d['nom'];
+            $res[] = $tut;
         }
         return $res;
     }
@@ -148,7 +148,7 @@ class Utilisateur {
      * Affichage d'une typeutilisateur.
      */
     function afficher() {
-        echo "Utilisateur n°$this->id_type_typeutilisateur , $this->nom <br/>";
+        echo "TypeUtilisateur n°$this->id_type_typeutilisateur , $this->nom <br/>";
     }
 
 }
