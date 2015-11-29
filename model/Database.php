@@ -12,7 +12,7 @@ class Database {
      * Retourne un objet de type PDO
      * représentant une connexion à la base
      * décrite dans le fichier de configuration
-     * 'seadili-db.ini'
+     * 'm42-db.ini'
      */
     public static function connect() {
         try {
