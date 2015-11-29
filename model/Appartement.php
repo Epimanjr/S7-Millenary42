@@ -278,7 +278,7 @@ class Appartement {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO users (surface, nbPieces, loyer, charges, etat, forcerVisibiliteSite, videophone, interphone, digicode, cable, antenneTV, espaceVert, VMC, piscine, parkingCollectif, jardinPrive, ascenseur, logeGardien, videOrdure, doubleVitrage, climatisation, eauChaudeCollective, eauFroideCollective, cptEauChaude, cptEauFroide, chauffage, classeEnergie, cuisineEquipee, branchementMachineLaver, evier, caves, balcons, garages, terrasses, chambreService, parkingPrive, greniers, celliers) VALUES (:surface, :nbPieces, :loyer, :charges, :etat, :forcerVisibiliteSite, :videophone, :interphone, :digicode, :cable, :antenneTV, :espaceVert, :VMC, :piscine, :parkingCollectif, :jardinPrive, :ascenseur, :logeGardien, :videOrdure, :doubleVitrage, :climatisation, :eauChaudeCollective, :eauFroideCollective, :cptEauChaude, :cptEauFroide, :chauffage, :classeEnergie, :cuisineEquipee, :branchementMachineLaver, :evier, :caves, :balcons, :garages, :terrasses, :chambreService, :parkingPrive, :greniers, :celliers)");
+        $query = $c->prepare("INSERT INTO appartement (surface, nbPieces, loyer, charges, etat, forcerVisibiliteSite, videophone, interphone, digicode, cable, antenneTV, espaceVert, VMC, piscine, parkingCollectif, jardinPrive, ascenseur, logeGardien, videOrdure, doubleVitrage, climatisation, eauChaudeCollective, eauFroideCollective, cptEauChaude, cptEauFroide, chauffage, classeEnergie, cuisineEquipee, branchementMachineLaver, evier, caves, balcons, garages, terrasses, chambreService, parkingPrive, greniers, celliers) VALUES (:surface, :nbPieces, :loyer, :charges, :etat, :forcerVisibiliteSite, :videophone, :interphone, :digicode, :cable, :antenneTV, :espaceVert, :VMC, :piscine, :parkingCollectif, :jardinPrive, :ascenseur, :logeGardien, :videOrdure, :doubleVitrage, :climatisation, :eauChaudeCollective, :eauFroideCollective, :cptEauChaude, :cptEauFroide, :chauffage, :classeEnergie, :cuisineEquipee, :branchementMachineLaver, :evier, :caves, :balcons, :garages, :terrasses, :chambreService, :parkingPrive, :greniers, :celliers)");
         $query->bindParam(':surface', $this->surface, PDO::PARAM_INT);
         $query->bindParam(':nbPieces', $this->nbPieces, PDO::PARAM_STR);
         $query->bindParam(':loyer', $this->loyer, PDO::PARAM_STR);
@@ -319,5 +319,46 @@ class Appartement {
         /* Exécution de la requête */
         $query->execute();
         $this->id_appart = $c->lastInsertId();
+    }
+    
+    /**
+     * Permet de mettre à jour un appartement dans la base de données.
+     * 
+     * @return type
+     * @throws Exception
+     */
+    public function update() {
+        /* On test si l'ID est défini, sinon on ne peut pas faire la mise à jour */
+        if (!isset($this->id_appart)) {
+            throw new Exception(__CLASS__ . ": Primary Key undefined : cannot update");
+        }
+        /* Connexion à la base */
+        $c = Database::getConnection();
+        /* Préparation de la requête */
+        $query = $c->prepare("update appartement set surface= ?, nbPieces= ?, loyer= ?, charges= ?, etat= ?, forcerVisibiliteSite= ?, videophone= ?, interphone= ?, digicode= ?, cable= ?, antenneTV= ?, espaceVert= ?, VMC= ?, piscine= ?, parkingCollectif= ?, jardinPrive= ?, ascenseur= ?, logeGardien= ?, videOrdure= ?, doubleVitrage= ?, climatisation= ?, eauChaudeCollective= ?, eauFroideCollective= ?, cptEauChaude= ?, cptEauFroide= ?, chauffage= ?, classeEnergie= ?, cuisineEquipee= ?, branchementMachineLaver= ?, evier= ?, caves= ?, balcons= ?, garages= ?, terrasses= ?, chambreService= ?, parkingPrive= ?, greniers= ?, celliers= ? where id_appart=?");
+        $query->bindParam(1, $this->nom, PDO::PARAM_STR);
+        $query->bindParam(2, $this->duree, PDO::PARAM_STR);
+        $query->bindParam(3, $this->id_appart, PDO::PARAM_INT);
+        /* Exécution de la requête */
+        return $query->execute();
+    }
+    /**
+     * Suppression de l'appartement dans la base de données.
+     * 
+     * @return type
+     * @throws Exception
+     */
+    public function delete() {
+        /* On vérifie si l'id est renseigné, sinon on ne peut pas supprimer */
+        if (!isset($this->id_appart)) {
+            throw new Exception(__CLASS__ . ": Primary Key undefined : cannot delete");
+        }
+        /* Connexion à la base de données */
+        $c = Database::getConnection();
+        /* Préparation de la requête */
+        $query = $c->prepare("DELETE FROM appartement where id_appart=?");
+        $query->bindParam(1, $this->id_appart, PDO::PARAM_INT);
+        /* Exécution de la requête */
+        return $query->execute();
     }
 }
