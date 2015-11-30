@@ -6,237 +6,237 @@ class Appartement {
 
     /**
      * Identifiant de l'appartement.
-     * @var type integer
+     * @var integer
      */
     private $id_appart;
 
     /**
      * Surface de l'appartement, en mètre carré.
-     * @var type integer
+     * @var integer
      */
     private $surface;
 
     /**
      * Nombre de pièces.
-     * @var type integer
+     * @var integer
      */
     private $nbPieces;
 
     /**
      * Montant du loyer, exprimé en €
-     * @var type number
+     * @var number
      */
     private $loyer;
 
     /**
      * Montant des charges, également exprimé en €
-     * @var type number
+     * @var number
      */
     private $charges;
 
     /**
      * Etat de l'appartement
-     * @var type chaine
+     * @var chaine
      */
     private $etat;
 
     /**
      * 
-     * @var type boolean
+     * @var boolean
      */
-    private $forcerVisibiliteSite;
+    private $forcerVisibiliteSite = false;
 
     /**
      * Présence ou non d'un videophone.
-     * @var type boolean
+     * @var boolean
      */
-    private $videophone;
+    private $videophone = false;
 
     /**
      * Présence ou non d'un interphone.
-     * @var type boolean
+     * @var boolean
      */
-    private $interphone;
+    private $interphone = false;
 
     /**
      * Présence ou non d'un digicole.
-     * @var type boolean
+     * @var boolean
      */
-    private $digicode;
+    private $digicode = false;
 
     /**
      * Présence ou non du câble.
-     * @var type boolean
+     * @var boolean
      */
-    private $cable;
+    private $cable = false;
 
     /**
      * Présence ou non d'une antenne TV.
-     * @var type boolean
+     * @var boolean
      */
-    private $antenneTV;
+    private $antenneTV = false;
 
     /**
      * Présence ou non d'un espace vert.
-     * @var type boolean
+     * @var boolean
      */
-    private $espaceVert;
+    private $espaceVert = false;
 
     /**
      * Présence ou non d'un VMC
-     * @var type boolean
+     * @var integer
      */
-    private $VMC;
+    private $VMC = 0;
 
     /**
      * Présence ou non d'une piscine.
-     * @var type boolean
+     * @var integer
      */
-    private $piscine;
+    private $piscine = 0;
 
     /**
      * Présence ou non d'un parking collectif.
-     * @var type boolean
+     * @var boolean
      */
-    private $parkingCollectif;
+    private $parkingCollectif = false;
 
     /**
      * Présence ou non d'un jardin privé.
-     * @var type boolean
+     * @var boolean
      */
-    private $jardinPrive;
+    private $jardinPrive = false;
 
     /**
      * Présence ou non d'un ascenseur.
-     * @var type boolean
+     * @var boolean
      */
-    private $ascenseur;
+    private $ascenseur = false;
 
     /**
      * Présence ou non d'une loge pour un gardien.
-     * @var type boolean
+     * @var boolean
      */
-    private $logeGardien;
+    private $logeGardien = false;
 
     /**
      * Présence ou non d'un vide ordure.
-     * @var type boolean
+     * @var boolean
      */
-    private $videOrdure;
+    private $videOrdure = false;
 
     /**
      * Double vitrage ? 
-     * @var type boolean
+     * @var boolean
      */
-    private $doubleVitrage;
+    private $doubleVitrage = false;
 
     /**
      * Appartement climatisé ?
-     * @var type boolean
+     * @var boolean
      */
-    private $climatisation;
+    private $climatisation = false;
 
     /**
      * Eau chaude collective ?
-     * @var type boolean
+     * @var boolean
      */
-    private $eauChaudeCollective;
+    private $eauChaudeCollective = false;
 
     /**
      * Eau froide collective ?
-     * @var type boolean
+     * @var boolean
      */
-    private $eauFroideCollective;
+    private $eauFroideCollective = false;
 
     /**
      * Complément d'eau chaude personnel ?
-     * @var type boolean
+     * @var boolean
      */
-    private $cptEauChaude;
+    private $cptEauChaude = false;
 
     /**
      * Complément d'eau froide personnel ?
-     * @var type boolean
+     * @var boolean
      */
-    private $cptEauFroide;
+    private $cptEauFroide = false;
 
     /**
      * L'appartement est-il chauffé ?
-     * @var type boolean
+     * @var String
      */
     private $chauffage;
 
     /**
      * Classe d'energie.
-     * @var type char
+     * @var char
      */
-    private $classeEnergie;
+    private $classeEnergie = false;
 
     /**
      * L'appartement possède-t-il une cuisine équipée ?
-     * @var type boolean
+     * @var boolean
      */
-    private $cuisineEquipee;
+    private $cuisineEquipee = false;
 
     /**
      *
-     * @var type boolean
+     * @var boolean
      */
-    private $branchementMachineLaver;
+    private $branchementMachineLaver = false;
 
     /**
      *
-     * @var type boolean
+     * @var integer
      */
-    private $evier;
+    private $evier = 0;
 
     /**
      * Présence ou non d'une case.
-     * @var type 
+     * @var boolean 
      */
-    private $caves;
+    private $caves = false;
 
     /**
      * Présence ou non de balcons, et combien ?
-     * @var type integer
+     * @var integer
      */
-    private $balcons;
+    private $balcons = 0;
 
     /**
      * Combien de garages ?
-     * @var type integer
+     * @var integer
      */
-    private $garages;
+    private $garages = 0;
 
     /**
      * Combien de terrasse ?
-     * @var type integer
+     * @var integer
      */
-    private $terrasses;
+    private $terrasses = 0;
 
     /**
      *
-     * @var type integer
+     * @var integer
      */
-    private $chambreService;
+    private $chambreService = 0;
 
     /**
      * Combien de parking privé ? (0 si absent)
-     * @var type integer
+     * @var integer
      */
-    private $parkingPrive;
+    private $parkingPrive = 0;
 
     /**
      * Présence d'un grenier accessible ?
-     * @var type boolean
+     * @var boolean
      */
-    private $greniers;
+    private $greniers = false;
 
     /**
      *
-     * @var type boolean
+     * @var boolean
      */
-    private $celliers;
+    private $celliers = false;
 
     /**
      * Construit un appartement.
@@ -279,42 +279,42 @@ class Appartement {
         /* Préparation de la requête */
         $query = $c->prepare("INSERT INTO appartement (surface, nbPieces, loyer, charges, etat, forcerVisibiliteSite, videophone, interphone, digicode, cable, antenneTV, espaceVert, VMC, piscine, parkingCollectif, jardinPrive, ascenseur, logeGardien, videOrdure, doubleVitrage, climatisation, eauChaudeCollective, eauFroideCollective, cptEauChaude, cptEauFroide, chauffage, classeEnergie, cuisineEquipee, branchementMachineLaver, evier, caves, balcons, garages, terrasses, chambreService, parkingPrive, greniers, celliers) VALUES (:surface, :nbPieces, :loyer, :charges, :etat, :forcerVisibiliteSite, :videophone, :interphone, :digicode, :cable, :antenneTV, :espaceVert, :VMC, :piscine, :parkingCollectif, :jardinPrive, :ascenseur, :logeGardien, :videOrdure, :doubleVitrage, :climatisation, :eauChaudeCollective, :eauFroideCollective, :cptEauChaude, :cptEauFroide, :chauffage, :classeEnergie, :cuisineEquipee, :branchementMachineLaver, :evier, :caves, :balcons, :garages, :terrasses, :chambreService, :parkingPrive, :greniers, :celliers)");
         $query->bindParam(':surface', $this->surface, PDO::PARAM_INT);
-        $query->bindParam(':nbPieces', $this->nbPieces, PDO::PARAM_STR);
-        $query->bindParam(':loyer', $this->loyer, PDO::PARAM_STR);
-        $query->bindParam(':charges', $this->charges, PDO::PARAM_STR);
+        $query->bindParam(':nbPieces', $this->nbPieces, PDO::PARAM_INT);
+        $query->bindParam(':loyer', $this->loyer, PDO::PARAM_LOB);
+        $query->bindParam(':charges', $this->charges, PDO::PARAM_LOB);
         $query->bindParam(':etat', $this->etat, PDO::PARAM_STR);
-        $query->bindParam(':forcerVisibiliteSite', $this->forcerVisibiliteSite, PDO::PARAM_STR);
-        $query->bindParam(':videophone', $this->videophone, PDO::PARAM_STR);
-        $query->bindParam(':interphone', $this->interphone, PDO::PARAM_STR);
-        $query->bindParam(':digicode', $this->digicode, PDO::PARAM_STR);
-        $query->bindParam(':antenneTV', $this->antenneTV, PDO::PARAM_STR);
-        $query->bindParam(':espaceVert', $this->espaceVert, PDO::PARAM_STR);
-        $query->bindParam(':VMC', $this->VMC, PDO::PARAM_STR);
-        $query->bindParam(':piscine', $this->piscine, PDO::PARAM_STR);
-        $query->bindParam(':parkingCollectif', $this->parkingCollectif, PDO::PARAM_STR);
-        $query->bindParam(':jardinPrive', $this->jardinPrive, PDO::PARAM_STR);
-        $query->bindParam(':ascenseur', $this->ascenseur, PDO::PARAM_STR);
-        $query->bindParam(':logeGardien', $this->logeGardien, PDO::PARAM_STR);
-        $query->bindParam(':videOrdure', $this->videOrdure, PDO::PARAM_STR);
-        $query->bindParam(':doubleVitrage', $this->doubleVitrage, PDO::PARAM_STR);
-        $query->bindParam(':climatisation', $this->climatisation, PDO::PARAM_STR);
-        $query->bindParam(':eauChaudeCollective', $this->eauChaudeCollective, PDO::PARAM_STR);
-        $query->bindParam(':eauFroideCollective', $this->eauFroideCollective, PDO::PARAM_STR);
-        $query->bindParam(':cptEauChaude', $this->cptEauChaude, PDO::PARAM_STR);
-        $query->bindParam(':cptEauFroide', $this->cptEauFroide, PDO::PARAM_STR);
+        $query->bindParam(':forcerVisibiliteSite', $this->forcerVisibiliteSite, PDO::PARAM_BOOL);
+        $query->bindParam(':videophone', $this->videophone, PDO::PARAM_BOOL);
+        $query->bindParam(':interphone', $this->interphone, PDO::PARAM_BOOL);
+        $query->bindParam(':digicode', $this->digicode, PDO::PARAM_BOOL);
+        $query->bindParam(':antenneTV', $this->antenneTV, PDO::PARAM_BOOL);
+        $query->bindParam(':espaceVert', $this->espaceVert, PDO::PARAM_BOOL);
+        $query->bindParam(':VMC', $this->VMC, PDO::PARAM_INT);
+        $query->bindParam(':piscine', $this->piscine, PDO::PARAM_INT);
+        $query->bindParam(':parkingCollectif', $this->parkingCollectif, PDO::PARAM_BOOL);
+        $query->bindParam(':jardinPrive', $this->jardinPrive, PDO::PARAM_BOOL);
+        $query->bindParam(':ascenseur', $this->ascenseur, PDO::PARAM_BOOL);
+        $query->bindParam(':logeGardien', $this->logeGardien, PDO::PARAM_BOOL);
+        $query->bindParam(':videOrdure', $this->videOrdure, PDO::PARAM_BOOL);
+        $query->bindParam(':doubleVitrage', $this->doubleVitrage, PDO::PARAM_BOOL);
+        $query->bindParam(':climatisation', $this->climatisation, PDO::PARAM_BOOL);
+        $query->bindParam(':eauChaudeCollective', $this->eauChaudeCollective, PDO::PARAM_BOOL);
+        $query->bindParam(':eauFroideCollective', $this->eauFroideCollective, PDO::PARAM_BOOL);
+        $query->bindParam(':cptEauChaude', $this->cptEauChaude, PDO::PARAM_BOOL);
+        $query->bindParam(':cptEauFroide', $this->cptEauFroide, PDO::PARAM_BOOL);
         $query->bindParam(':chauffage', $this->chauffage, PDO::PARAM_STR);
         $query->bindParam(':classeEnergie', $this->classeEnergie, PDO::PARAM_STR);
-        $query->bindParam(':cuisineEquipee', $this->cuisineEquipee, PDO::PARAM_STR);
-        $query->bindParam(':branchementMachineLaver', $this->branchementMachineLaver, PDO::PARAM_STR);
-        $query->bindParam(':evier', $this->evier, PDO::PARAM_STR);
-        $query->bindParam(':caves', $this->caves, PDO::PARAM_STR);
-        $query->bindParam(':balcons', $this->balcons, PDO::PARAM_STR);
-        $query->bindParam(':garages', $this->garages, PDO::PARAM_STR);
-        $query->bindParam(':terrasses', $this->terrasses, PDO::PARAM_STR);
-        $query->bindParam(':chambreService', $this->chambreService, PDO::PARAM_STR);
-        $query->bindParam(':parkingPrive', $this->parkingPrive, PDO::PARAM_STR);
-        $query->bindParam(':greniers', $this->greniers, PDO::PARAM_STR);
-        $query->bindParam(':celliers', $this->celliers, PDO::PARAM_STR);
+        $query->bindParam(':cuisineEquipee', $this->cuisineEquipee, PDO::PARAM_BOOL);
+        $query->bindParam(':branchementMachineLaver', $this->branchementMachineLaver, PDO::PARAM_BOOL);
+        $query->bindParam(':evier', $this->evier, PDO::PARAM_INT);
+        $query->bindParam(':caves', $this->caves, PDO::PARAM_BOOL);
+        $query->bindParam(':balcons', $this->balcons, PDO::PARAM_INT);
+        $query->bindParam(':garages', $this->garages, PDO::PARAM_INT);
+        $query->bindParam(':terrasses', $this->terrasses, PDO::PARAM_INT);
+        $query->bindParam(':chambreService', $this->chambreService, PDO::PARAM_INT);
+        $query->bindParam(':parkingPrive', $this->parkingPrive, PDO::PARAM_BOOL);
+        $query->bindParam(':greniers', $this->greniers, PDO::PARAM_BOOL);
+        $query->bindParam(':celliers', $this->celliers, PDO::PARAM_BOOL);
         /* Exécution de la requête */
         $query->execute();
         $this->id_appart = $c->lastInsertId();
@@ -335,9 +335,44 @@ class Appartement {
         $c = Database::getConnection();
         /* Préparation de la requête */
         $query = $c->prepare("update appartement set surface= ?, nbPieces= ?, loyer= ?, charges= ?, etat= ?, forcerVisibiliteSite= ?, videophone= ?, interphone= ?, digicode= ?, cable= ?, antenneTV= ?, espaceVert= ?, VMC= ?, piscine= ?, parkingCollectif= ?, jardinPrive= ?, ascenseur= ?, logeGardien= ?, videOrdure= ?, doubleVitrage= ?, climatisation= ?, eauChaudeCollective= ?, eauFroideCollective= ?, cptEauChaude= ?, cptEauFroide= ?, chauffage= ?, classeEnergie= ?, cuisineEquipee= ?, branchementMachineLaver= ?, evier= ?, caves= ?, balcons= ?, garages= ?, terrasses= ?, chambreService= ?, parkingPrive= ?, greniers= ?, celliers= ? where id_appart=?");
-        $query->bindParam(1, $this->nom, PDO::PARAM_STR);
-        $query->bindParam(2, $this->duree, PDO::PARAM_STR);
-        $query->bindParam(3, $this->id_appart, PDO::PARAM_INT);
+        $query->bindParam(1, $this->surface, PDO::PARAM_INT);
+        $query->bindParam(2, $this->nbPieces, PDO::PARAM_INT);
+        $query->bindParam(3, $this->loyer, PDO::PARAM_LOB);
+        $query->bindParam(4, $this->charges, PDO::PARAM_LOB);
+        $query->bindParam(5, $this->etat, PDO::PARAM_STR);
+        $query->bindParam(6, $this->forcerVisibiliteSite, PDO::PARAM_BOOL);
+        $query->bindParam(7, $this->videophone, PDO::PARAM_BOOL);
+        $query->bindParam(8, $this->interphone, PDO::PARAM_BOOL);
+        $query->bindParam(9, $this->digicode, PDO::PARAM_BOOL);
+        $query->bindParam(10, $this->antenneTV, PDO::PARAM_BOOL);
+        $query->bindParam(11, $this->espaceVert, PDO::PARAM_BOOL);
+        $query->bindParam(12, $this->VMC, PDO::PARAM_INT);
+        $query->bindParam(13, $this->piscine, PDO::PARAM_INT);
+        $query->bindParam(14, $this->parkingCollectif, PDO::PARAM_BOOL);
+        $query->bindParam(15, $this->jardinPrive, PDO::PARAM_BOOL);
+        $query->bindParam(16, $this->ascenseur, PDO::PARAM_BOOL);
+        $query->bindParam(17, $this->logeGardien, PDO::PARAM_BOOL);
+        $query->bindParam(18, $this->videOrdure, PDO::PARAM_BOOL);
+        $query->bindParam(19, $this->doubleVitrage, PDO::PARAM_BOOL);
+        $query->bindParam(20, $this->climatisation, PDO::PARAM_BOOL);
+        $query->bindParam(21, $this->eauChaudeCollective, PDO::PARAM_BOOL);
+        $query->bindParam(22, $this->eauFroideCollective, PDO::PARAM_BOOL);
+        $query->bindParam(23, $this->cptEauChaude, PDO::PARAM_BOOL);
+        $query->bindParam(24, $this->cptEauFroide, PDO::PARAM_BOOL);
+        $query->bindParam(25, $this->chauffage, PDO::PARAM_STR);
+        $query->bindParam(26, $this->classeEnergie, PDO::PARAM_STR);
+        $query->bindParam(27, $this->cuisineEquipee, PDO::PARAM_BOOL);
+        $query->bindParam(28, $this->branchementMachineLaver, PDO::PARAM_BOOL);
+        $query->bindParam(29, $this->evier, PDO::PARAM_INT);
+        $query->bindParam(30, $this->caves, PDO::PARAM_BOOL);
+        $query->bindParam(31, $this->balcons, PDO::PARAM_INT);
+        $query->bindParam(32, $this->garages, PDO::PARAM_INT);
+        $query->bindParam(33, $this->terrasses, PDO::PARAM_INT);
+        $query->bindParam(34, $this->chambreService, PDO::PARAM_INT);
+        $query->bindParam(35, $this->parkingPrive, PDO::PARAM_BOOL);
+        $query->bindParam(36, $this->greniers, PDO::PARAM_BOOL);
+        $query->bindParam(37, $this->celliers, PDO::PARAM_BOOL);
+        $query->bindParam(38, $this->id_appart, PDO::PARAM_INT);
         /* Exécution de la requête */
         return $query->execute();
     }
