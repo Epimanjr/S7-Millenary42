@@ -10,4 +10,6 @@ and open the template in the editor.
 .appartement-caracs-title{
     font-size: 135%;
 }
-
+.filters{
+    position:fixed;
+}
