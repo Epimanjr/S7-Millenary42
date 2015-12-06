@@ -20,11 +20,7 @@ $appart->insert();
 echo "OK<br/>";
 
 // Liste de tous les appartements
-echo "Liste des appartements disponibles dans la base : <br/>";
-$listeAppartements = Appartement::findAll();
-foreach ($listeAppartements as $value) {
-    $value->afficher();
-}
+listerTout();
 
 // Apport d'une modification
 $appart->loyer = 650;
@@ -42,8 +38,13 @@ $selectionAppart->delete();
 echo "OK<br/>";
 
 // Liste de tous les appartements
-echo "Liste des appartements disponibles dans la base : <br/>";
-$newListeAppartements = Appartement::findAll();
-foreach ($newListeAppartements as $value) {
-    $value->afficher();
+listerTout();
+
+function listerTout() {
+// Liste de tous les appartements
+    echo "Liste des appartements disponibles dans la base : <br/>";
+    $ListeAppartements = Appartement::findAll();
+    foreach ($ListeAppartements as $value) {
+        $value->afficher();
+    }
 }
