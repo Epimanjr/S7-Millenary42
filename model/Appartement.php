@@ -164,7 +164,7 @@ class Appartement {
      * L'appartement est-il chauffé ?
      * @var String
      */
-    private $chauffage;
+    private $chauffage = "";
 
     /**
      * Classe d'energie.

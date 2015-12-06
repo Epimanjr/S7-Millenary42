@@ -1,27 +1,49 @@
 <?php
 
-echo "Salut!<br>";
+/**
+ * Classe de test pour l'entité Appartement
+ */
+include_once '../Database.php';
+include_once '../Appartement.php';
 
-include_once "../Database.php";
+// Création d'un appartement
+echo "Création d'un appartement ... ";
+$appart = new Appartement();
+$appart->surface = 130;
+$appart->nbPieces = 4;
+$appart->loyer = 550;
+$appart->charges = 80;
+$appart->etat = "Bon état";
+// Ajout dans la base
+echo "OK<br/>Ajout de l'appartement dans la base ... ";
+$appart->insert();
+echo "OK<br/>";
 
-$db = Database::getConnection();
-
-//$db->exec("CREATE TABLE Test(numero NUMERIC(5),nom CHAR(20) NOT NULL,commentaire CHAR(255))");
-//$db->exec("INSERT INTO Test VALUES(1,'Test1','Aurais-je enfin reussi ?')");
-//$db->exec("INSERT INTO Test VALUES(2,'Test2','Il semble que oui...')");
-
-try {
-
-    $sql = 'SELECT * FROM Test';
-    foreach ($db->query($sql) as $row) {
-        print $row['numero'] . "\t";
-        print $row['nom'] . "\t";
-        print $row['commentaire'] . "\n";
-    }
-} catch (Exception $e) {
-    $trace = $e->getTrace();
-    echo "Erreur pendant findById: $trace";
+// Liste de tous les appartements
+echo "Liste des appartements disponibles dans la base : <br/>";
+$listeAppartements = Appartement::findAll();
+foreach ($listeAppartements as $value) {
+    $value->afficher();
 }
 
-echo "<br>coucou";
+// Apport d'une modification
+$appart->loyer = 650;
+echo "Augmentation du loyer ! Mise à jour dans la base ... ";
+$appart->update();
+echo "OK<br/>";
 
+// Sélection de l'appartement
+$selectionAppart = Appartement::findById($appart->id);
+$selectionAppart->afficher();
+
+// Suppression de l'appartement
+echo "Suppression de l'appartement de la base ... ";
+$selectionAppart->delete();
+echo "OK<br/>";
+
+// Liste de tous les appartements
+echo "Liste des appartements disponibles dans la base : <br/>";
+$newListeAppartements = Appartement::findAll();
+foreach ($newListeAppartements as $value) {
+    $value->afficher();
+}
