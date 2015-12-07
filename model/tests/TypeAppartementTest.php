@@ -20,9 +20,9 @@ echo "OK<br/>";
 listerTout();
 
 // Apport d'une modification
-$appart->duree = 2;
+$typeAppart->duree = 2;
 echo "Modification de la durée ! Mise à jour dans la base ... ";
-$appart->update();
+$typeAppart->update();
 echo "OK<br/>";
 
 // Sélection de l'appartement
