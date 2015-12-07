@@ -9,8 +9,8 @@ include_once '../Demande.php';
 // Création d'un demande
 echo "Création d'une demande ... ";
 $demande = new Demande();
-$demande->nom = "Demande";
-$demande->duree = 1;
+$demande->type = "Demande";
+$demande->contenu = "Contenu demande";
 // Ajout dans la base
 echo "OK<br/>Ajout de la demande dans la base ... ";
 $demande->insert();
@@ -20,18 +20,18 @@ echo "OK<br/>";
 listerTout();
 
 // Apport d'une modification
-$demande->duree = 2;
+$demande->type = "TypeDemande";
 echo "Modification de la durée ! Mise à jour dans la base ... ";
 $demande->update();
 echo "OK<br/>";
 
 // Sélection de l'appartement
-$selectionTypeAppart = Demande::findById($demande->id);
-$selectionTypeAppart->afficher();
+$selectionDemande = Demande::findById($demande->id_demande);
+$selectionDemande->afficher();
 
 // Suppression du demande
 echo "Suppression de la demande de la base ... ";
-$selectionTypeAppart->delete();
+$selectionDemande->delete();
 echo "OK<br/>";
 
 // Liste de tous les demandes

@@ -15,7 +15,7 @@ class Utilisateur {
     private $type;
 
     /**
-     * Construit un type d'appartement.
+     * Construit un utilisateur.
      */
     public function __construct() {
         
