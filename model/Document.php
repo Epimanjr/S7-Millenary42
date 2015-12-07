@@ -10,6 +10,12 @@ class Document {
     private $type;
     private $debut;
     private $fin;
+    // Clé étrangère
+    /**
+     * Identifiant de l'appartement.
+     * @var integer
+     */
+    private $id_appartement;
 
     /**
      * Construit un document.
@@ -50,10 +56,11 @@ class Document {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO document (type, debut, fin) VALUES (:type, :debut, :fin)");
+        $query = $c->prepare("INSERT INTO document (type, debut, fin, id_appartement) VALUES (:type, :debut, :fin, :id_appartement)");
         $query->bindParam(':type', $this->type, PDO::PARAM_STR);
         $query->bindParam(':debut', $this->debut, PDO::PARAM_STR);
         $query->bindParam(':fin', $this->fin, PDO::PARAM_STR);
+        $query->bindParam(':id_appartement', $this->id_appartement, PDO::PARAM_INT);
 
         /* Exécution de la requête */
         $query->execute();
@@ -74,11 +81,12 @@ class Document {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update document set type= ?, debut= ?, fin= ? where id_document=?");
+        $query = $c->prepare("update document set type= ?, debut= ?, fin= ?, id_appartement= ? where id_document=?");
         $query->bindParam(1, $this->type, PDO::PARAM_STR);
         $query->bindParam(2, $this->debut, PDO::PARAM_STR);
         $query->bindParam(3, $this->fin, PDO::PARAM_STR);
-        $query->bindParam(4, $this->id_document, PDO::PARAM_INT);
+        $query->bindParam(4, $this->id_appartement, PDO::PARAM_INT);
+        $query->bindParam(5, $this->id_document, PDO::PARAM_INT);
         /* Exécution de la requête */
         return $query->execute();
     }
@@ -125,6 +133,7 @@ class Document {
         $docu->type = $d['type'];
         $docu->debut = $d['debut'];
         $docu->fin = $d['fin'];
+        $docu->id_appartement = $d['id_appartement'];
         return $docu;
     }
 
@@ -145,10 +154,11 @@ class Document {
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
             $docu = new Document();
-        $docu->id_document = $d['id_document'];
-        $docu->type = $d['type'];
-        $docu->debut = $d['debut'];
-        $docu->fin = $d['fin'];
+            $docu->id_document = $d['id_document'];
+            $docu->type = $d['type'];
+            $docu->debut = $d['debut'];
+            $docu->fin = $d['fin'];
+            $docu->id_appartement = $d['id_appartement'];
             $res[] = $docu;
         }
         return $res;
@@ -158,7 +168,7 @@ class Document {
      * Affichage d'un docment
      */
     function afficher() {
-        echo "Document n°$this->id_document , Type : $this->type, du $this->debut au $this->fin ; <br/>";
+        echo "Document n°$this->id_document , Type : $this->type, du $this->debut au $this->fin ; pour l'appartement n°$this->id_appartement<br/>";
     }
 
 }
