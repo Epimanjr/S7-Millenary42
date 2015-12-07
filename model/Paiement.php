@@ -3,7 +3,7 @@
 class Paiement {
 
     /**
-     * Identifiant de l'paiement.
+     * Identifiant de paiement.
      * @var integer
      */
     private $id_paiement;
@@ -13,7 +13,7 @@ class Paiement {
     private $type;
 
     /**
-     * Construit un type d'appartement.
+     * Construit un paiement.
      */
     public function __construct() {
         
@@ -45,7 +45,7 @@ class Paiement {
     }
 
     /**
-     * Insertion d'une nouvelle paiement dans la base de données.
+     * Insertion d'un nouveau paiement dans la base de données.
      */
     public function insert() {
         /* Connexion à la base */
@@ -87,7 +87,7 @@ class Paiement {
     }
 
     /**
-     * Suppression de l'paiement dans la base de données.
+     * Suppression de paiement dans la base de données.
      * 
      * @return type
      * @throws Exception
