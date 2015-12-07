@@ -7,7 +7,7 @@ class Document {
      * @var integer
      */
     private $id_document;
-    private $type;
+    private $type = "bail";
     private $debut;
     private $fin;
     // Clé étrangère
