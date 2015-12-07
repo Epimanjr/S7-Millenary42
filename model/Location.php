@@ -9,9 +9,11 @@ class Location {
     private $id_location;
     private $debut;
     private $fin;
-    private $payeParLocataire;
-    private $payeParAgence;
-    private $proprietairePaye;
+    private $payeParLocataire = false;
+    private $payeParAgence = false;
+    private $proprietairePaye = false;
+    // Clé étrangère
+    private $id_appart;
 
     /**
      * Construit un type d'appartement.
@@ -52,12 +54,13 @@ class Location {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO location (debut, fin, payeParLocataire, payeParAgence, proprietairePaye) VALUES (:debut, :fin, :payeParLocataire, :payeParAgence, :proprietairePaye)");
+        $query = $c->prepare("INSERT INTO location (debut, fin, payeParLocataire, payeParAgence, proprietairePaye, id_appartement) VALUES (:debut, :fin, :payeParLocataire, :payeParAgence, :proprietairePaye, :id_appartement)");
         $query->bindParam(':debut', $this->debut, PDO::PARAM_LOB);
         $query->bindParam(':fin', $this->fin, PDO::PARAM_LOB);
         $query->bindParam(':payeParLocataire', $this->payeParLocataire, PDO::PARAM_BOOL);
         $query->bindParam(':payeParAgence', $this->payeParAgence, PDO::PARAM_BOOL);
         $query->bindParam(':proprietairePaye', $this->proprietairePaye, PDO::PARAM_BOOL);
+        $query->bindParam(':id_appartement', $this->id_appart, PDO::PARAM_INT);
 
         /* Exécution de la requête */
         $query->execute();
@@ -78,13 +81,14 @@ class Location {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update location set debut= ?, fin= ?, payeParLocataire= ?, payeParAgence= ?, proprietairePaye = ? where id_location=?");
+        $query = $c->prepare("update location set debut= ?, fin= ?, payeParLocataire= ?, payeParAgence= ?, proprietairePaye = ?, id_appartement= ? where id_location=?");
         $query->bindParam(1, $this->debut, PDO::PARAM_LOB);
         $query->bindParam(2, $this->fin, PDO::PARAM_LOB);
         $query->bindParam(3, $this->payeParLocataire, PDO::PARAM_BOOL);
         $query->bindParam(4, $this->payeParAgence, PDO::PARAM_BOOL);
         $query->bindParam(5, $this->proprietairePaye, PDO::PARAM_BOOL);
-        $query->bindParam(6, $this->id_location, PDO::PARAM_INT);
+        $query->bindParam(6, $this->id_appart, PDO::PARAM_INT);
+        $query->bindParam(7, $this->id_location, PDO::PARAM_INT);
         /* Exécution de la requête */
         return $query->execute();
     }
@@ -133,6 +137,7 @@ class Location {
         $loc->payeParLocataire = $d['payeParLocataire'];
         $loc->payeParAgence = $d['payeParAgence'];
         $loc->proprietairePaye = $d['proprietairePaye'];
+        $loc->id_appart = $d['id_appart'];
         return $loc;
     }
 
@@ -159,6 +164,7 @@ class Location {
             $loc->payeParLocataire = $d['payeParLocataire'];
             $loc->payeParAgence = $d['payeParAgence'];
             $loc->proprietairePaye = $d['proprietairePaye'];
+            $loc->id_appart = $d['id_appart'];
             $res[] = $loc;
         }
         return $res;
@@ -171,7 +177,8 @@ class Location {
         echo "Location n°$this->id_location , du $this->debut au $this->fin <br/>"
         . "PayeParLocataire = $this->payeParLocataire"
         . "PayeParAgence = $this->payeParAgence"
-        . "PropriétairePaie = $this->proprietairePaye";
+        . "PropriétairePaie = $this->proprietairePaye"
+        . "Id de l'appartement = $this->id_appart";
     }
 
 }
