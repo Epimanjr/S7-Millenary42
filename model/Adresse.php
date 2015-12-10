@@ -15,8 +15,6 @@ class Adresse {
     private $batiment = "";
     private $etage = 0;
     private $porte = 0;
-    // Clé étrangère
-    private $id_agence;
 
     /**
      * Construit un type d'appartement.
@@ -57,19 +55,9 @@ class Adresse {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO adresse (quartier, numRue, rue, codePostal, ville, batiment, etage, porte, id_agence) VALUES (:quartier, :numRue, :rue, :codePostal, :ville, :batiment, :etage, :porte, :id_agence)");
-        $query->bindParam(':quartier', $this->quartier, PDO::PARAM_STR);
-        $query->bindParam(':numRue', $this->numRue, PDO::PARAM_INT);
-        $query->bindParam(':rue', $this->rue, PDO::PARAM_STR);
-        $query->bindParam(':codePostal', $this->codePostal, PDO::PARAM_INT);
-        $query->bindParam(':ville', $this->ville, PDO::PARAM_STR);
-        $query->bindParam(':batiment', $this->batiment, PDO::PARAM_STR);
-        $query->bindParam(':etage', $this->etage, PDO::PARAM_STR);
-        $query->bindParam(':porte', $this->porte, PDO::PARAM_STR);
-        $query->bindParam(':id_agence', $this->id_agence, PDO::PARAM_INT);
-
+        $sql = "INSERT INTO Adresse(quartier, numRue, rue, codePostal, ville, batiment, etage, porte) VALUES('$this->quartier', $this->numRue, '$this->rue', $this->codePostal, '$this->ville', '$this->batiment', $this->etage, $this->porte)";
         /* Exécution de la requête */
-        $query->execute();
+        $c->query($sql);
         $this->id_adresse = $c->lastInsertId();
     }
 
@@ -87,19 +75,9 @@ class Adresse {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update adresse set quartier= ?, numRue= ?, rue= ?, codePostal= ?, ville= ?, batiment= ?, etage= ?, porte= ?, id_agence= ? where id_adresse=?");
-        $query->bindParam(1, $this->quartier, PDO::PARAM_STR);
-        $query->bindParam(2, $this->numRue, PDO::PARAM_STR);
-        $query->bindParam(3, $this->rue, PDO::PARAM_STR);
-        $query->bindParam(4, $this->codePostal, PDO::PARAM_STR);
-        $query->bindParam(5, $this->ville, PDO::PARAM_STR);
-        $query->bindParam(6, $this->batiment, PDO::PARAM_STR);
-        $query->bindParam(7, $this->etage, PDO::PARAM_STR);
-        $query->bindParam(8, $this->porte, PDO::PARAM_STR);
-        $query->bindParam(9, $this->id_agence, PDO::PARAM_INT);
-        $query->bindParam(10, $this->id_adresse, PDO::PARAM_INT);
+        $sql = "UPDATE Adresse SET quartier='$this->quartier', numRue=$this->numRue, rue='$this->rue', codePostal=$this->codePostal, ville='$this->ville', batiment='$this->batiment', etage=$this->etage, porte=$this->porte WHERE id_adresse=$this->id_adresse";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -116,10 +94,9 @@ class Adresse {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM adresse where id_adresse=?");
-        $query->bindParam(1, $this->id_adresse, PDO::PARAM_INT);
+        $sql = "DELETE FROM Adresse WHERE id_adresse=$this->id_adresse";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -132,10 +109,9 @@ class Adresse {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from adresse where id_adresse=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $sql = "SELECT * FROM Adresse WHERE id_adresse=$id";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
@@ -149,7 +125,6 @@ class Adresse {
         $adr->batiment = $d['batiment'];
         $adr->etage = $d['etage'];
         $adr->porte = $d['porte'];
-        $adr->id_agence = $d['id_agence'];
         return $adr;
     }
 
@@ -164,7 +139,7 @@ class Adresse {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from adresse");
+        $query = $c->prepare("SELECT * from Adresse");
         /* Exécution de la requête */
         $query->execute();
         /* Parcours du résultat */
@@ -179,7 +154,6 @@ class Adresse {
             $adr->batiment = $d['batiment'];
             $adr->etage = $d['etage'];
             $adr->porte = $d['porte'];
-            $adr->id_agence = $d['id_agence'];
             $res[] = $adr;
         }
         return $res;
@@ -189,7 +163,7 @@ class Adresse {
      * Affichage d'une adresse.
      */
     function afficher() {
-        echo "Adresse n°$this->id_adresse , $this->numRue $this->rue, $this->batiment - $this->etage - $this->porte ; $this->codePostal $this->ville ; agence n°$this->id_agence <br/>";
+        echo "Adresse n°$this->id_adresse , $this->numRue $this->rue, $this->batiment - $this->etage - $this->porte ; $this->codePostal $this->ville <br/>";
     }
 
 }
