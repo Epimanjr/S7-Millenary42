@@ -10,7 +10,7 @@ include_once '../TypeAppartement.php';
 echo "Création d'un type d'appartement ... ";
 $typeAppart = new TypeAppartement();
 $typeAppart->nom = "Type1";
-$typeAppart->duree = 1;
+$typeAppart->duree = "36";
 // Ajout dans la base
 echo "OK<br/>Ajout du type d'appartement dans la base ... ";
 $typeAppart->insert();
@@ -20,18 +20,18 @@ echo "OK<br/>";
 listerTout();
 
 // Apport d'une modification
-$typeAppart->duree = 2;
+$typeAppart->duree = "38";
 echo "Modification de la durée ! Mise à jour dans la base ... ";
 $typeAppart->update();
 echo "OK<br/>";
 
 // Sélection de l'appartement
-$selectionTypeAppart = TypeAppartement::findById($typeAppart->id);
+$selectionTypeAppart = TypeAppartement::findById($typeAppart->id_type_appart);
 $selectionTypeAppart->afficher();
 
 // Suppression du type d'appartement
 echo "Suppression du type d'appartement de la base ... ";
-$selectionTypeAppart->delete();
+$typeAppart->delete();
 echo "OK<br/>";
 
 // Liste de tous les types d'appartements

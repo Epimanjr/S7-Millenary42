@@ -59,13 +59,13 @@ class TypeAppartement {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO type_appartement (nom, duree) VALUES (:nom, :duree)");
+        $query = $c->prepare("INSERT INTO TypeAppartement(nom, duree) VALUES (:nom, :duree)");
         $query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
         $query->bindParam(':duree', $this->duree, PDO::PARAM_STR);
 
         /* Exécution de la requête */
         $query->execute();
-        $this->id_appart = $c->lastInsertId();
+        $this->id_type_appart = $c->lastInsertId();
     }
 
     /**
@@ -82,13 +82,11 @@ class TypeAppartement {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update type_appartement set nom= ?, duree= ? where id_type_appart=?");
-        $query->bindParam(1, $this->nom, PDO::PARAM_STR);
-        $query->bindParam(2, $this->duree, PDO::PARAM_STR);
-        $query->bindParam(3, $this->id_type_appart, PDO::PARAM_INT);
+        $sql = "UPDATE TypeAppartement SET nom='$this->nom', duree='$this->duree' WHERE id_type_appart=$this->id_type_appart";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
+    
 
     /**
      * Suppression du type d'appartement dans la base de données.
@@ -104,14 +102,13 @@ class TypeAppartement {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM type_appartement where id_type_appart=?");
-        $query->bindParam(1, $this->id_type_appart, PDO::PARAM_INT);
+        $sql= "DELETE FROM TypeAppartement where id_type_appart=$this->id_type_appart";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
-     * Recherche d'un type_appartement avec son ID
+     * Recherche d'un TypeAppartement avec son ID
      * 
      * @param integer $id
      * @return \TypeAppartement
@@ -120,15 +117,14 @@ class TypeAppartement {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from type_appartement where id_type_appart=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $sql="select * from TypeAppartement where id_type_appart=$id";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
         $typeAppart = new TypeAppartement();
-        $typeAppart->user_id = $d['id_type_appart'];
+        $typeAppart->id_type_appart = $d['id_type_appart'];
         $typeAppart->nom = $d['nom'];
         $typeAppart->duree = $d['duree'];
         return $typeAppart;
@@ -145,13 +141,13 @@ class TypeAppartement {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from type_appartement");
+        $query = $c->prepare("select * from TypeAppartement");
         /* Exécution de la requête */
         $query->execute();
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
             $typeAppart = new TypeAppartement();
-            $typeAppart->user_id = $d['id_type_appart'];
+            $typeAppart->id_type_appart = $d['id_type_appart'];
             $typeAppart->nom = $d['nom'];
             $typeAppart->duree = $d['duree'];
             $res[] = $typeAppart;
@@ -163,7 +159,7 @@ class TypeAppartement {
      * Affichage d'un utilisateur.
      */
     function afficher() {
-        echo "Type appartement n°$this->id_type_appart , nom=$this->nom, duree=$this->duree";
+        echo "Type appartement n$this->id_type_appart , nom=$this->nom, duree=$this->duree <br/>";
     }
 
 }
