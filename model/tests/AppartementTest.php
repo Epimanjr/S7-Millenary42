@@ -13,7 +13,9 @@ $appart->surface = 130;
 $appart->nbPieces = 4;
 $appart->loyer = 550;
 $appart->charges = 80;
-$appart->etat = "Bon état";
+$appart->etat = "Bon etat";
+$appart->id_type_appart = 19;
+$appart->id_adresse = 4;
 // Ajout dans la base
 echo "OK<br/>Ajout de l'appartement dans la base ... ";
 $appart->insert();
@@ -24,12 +26,12 @@ listerTout();
 
 // Apport d'une modification
 $appart->loyer = 650;
-echo "Augmentation du loyer ! Mise à jour dans la base ... ";
+echo "Augmentation du loyer ! Mise a jour dans la base ... ";
 $appart->update();
 echo "OK<br/>";
 
 // Sélection de l'appartement
-$selectionAppart = Appartement::findById($appart->id);
+$selectionAppart = Appartement::findById($appart->id_appart);
 $selectionAppart->afficher();
 
 // Suppression de l'appartement
