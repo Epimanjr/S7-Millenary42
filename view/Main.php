@@ -24,7 +24,7 @@ class Main{
                     </ul>';
 
         if($withConnectBtn == true){
-            $rep.= '<a class="btn btn-default navbar-btn navbar-right" href="./?l=signin">Se connecter</a>';
+            $rep.= '<a class="btn btn-default navbar-btn navbar-right" href="./?a=signin">Se connecter</a>';
         }
                 
         $rep.='</div></nav>'.Main::displayTitle($title1, $title2);
