@@ -61,14 +61,9 @@ class Option {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO option (date, etat, id_utilisateur, id_appartement) VALUES (:date, :etat, :id_utilisateur, :id_appartement)");
-        $query->bindParam(':date', $this->debut, PDO::PARAM_STR);
-        $query->bindParam(':etat', $this->fin, PDO::PARAM_STR);
-        $query->bindParam(':id_utilisateur', $this->id_utilisateur, PDO::PARAM_INT);
-        $query->bindParam(':id_appartement', $this->id_appartement, PDO::PARAM_INT);
-
+        $sql = "INSERT INTO TableOption(date, etat, id_utilisateur, id_appartement) VALUES('$this->date', '$this->etat', $this->id_utilisateur, $this->id_appartement)";
         /* Exécution de la requête */
-        $query->execute();
+        $c->query($sql);
         $this->id_option = $c->lastInsertId();
     }
 
@@ -86,14 +81,9 @@ class Option {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update document set date= ?, etat= ?, id_utilisateur=?, id_appartement=? where id_option=?");
-        $query->bindParam(1, $this->date, PDO::PARAM_STR);
-        $query->bindParam(2, $this->etat, PDO::PARAM_STR);
-        $query->bindParam(3, $this->id_utilisateur, PDO::PARAM_INT);
-        $query->bindParam(4, $this->id_appartement, PDO::PARAM_INT);
-        $query->bindParam(5, $this->id_option, PDO::PARAM_INT);
+        $sql="UPDATE TableOption SET date='$this->date', etat='$this->etat', id_utilisateur=$this->id_utilisateur, id_appartement=$this->id_appartement WHERE id_option=$this->id_option";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -110,10 +100,9 @@ class Option {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM option where id_option=?");
-        $query->bindParam(1, $this->id_option, PDO::PARAM_INT);
+        $sql="DELETE FROM TableOption WHERE id_option=$this->id_option";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -125,62 +114,9 @@ class Option {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from option where id_option=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+       $sql = "SELECT * FROM TableOption WHERE id_option=$id";
         /* Exécution de la requête */
-        $query->execute();
-        /* Récupération du résultat */
-        $d = $query->fetch(PDO::FETCH_BOTH);
-        /* Création d'un Objet */
-        $opt = new Option();
-        $opt->id_option = $d['id_option'];
-        $opt->id_utilisateur = $d['id_utilisateur'];
-        $opt->id_appartement = $d['id_appartement'];
-        $opt->date = $d['date'];
-        $opt->etat = $d['etat'];
-        return $opt;
-    }
-    
-    /**
-     * Recherche d'une option avec ID utilisateur
-     * 
-     * @param integer $id
-     * @return \Option
-     */
-    public static function findByIdUtilisateur($id) {
-        /* Connexion à la base de données */
-        $c = Database::getConnection();
-        /* Préparation de la requête */
-        $query = $c->prepare("select * from option where id_utilisateur=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
-        /* Exécution de la requête */
-        $query->execute();
-        /* Récupération du résultat */
-        $d = $query->fetch(PDO::FETCH_BOTH);
-        /* Création d'un Objet */
-        $opt = new Option();
-        $opt->id_option = $d['id_option'];
-        $opt->id_utilisateur = $d['id_utilisateur'];
-        $opt->id_appartement = $d['id_appartement'];
-        $opt->date = $d['date'];
-        $opt->etat = $d['etat'];
-        return $opt;
-    }
-
-    /**
-     * Recherche d'une option avec ID appartement
-     * 
-     * @param integer $id
-     * @return \Option
-     */
-    public static function findByIdAppartement($id) {
-        /* Connexion à la base de données */
-        $c = Database::getConnection();
-        /* Préparation de la requête */
-        $query = $c->prepare("select * from option where id_appartement=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
-        /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
@@ -204,9 +140,9 @@ class Option {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from option");
+        $sql = "SELECT * FROM TableOption";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
             $opt = new Option();

@@ -9,7 +9,7 @@ include_once '../Option.php';
 // Création d'une option
 echo "Création d'une option ... ";
 $option = new Option();
-$option->date = "28/12/2015";
+$option->date = "2015-12-28";
 $option->etat = "En cours";
 $option->id_utilisateur = 1;
 $option->id_appartement = 1;
