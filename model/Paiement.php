@@ -11,6 +11,9 @@ class Paiement {
     private $date;
     private $mode;
     private $type;
+    // Clé étrangère
+    private $id_utilisateur;
+    private $id_location;
 
     /**
      * Construit un paiement.
@@ -51,14 +54,9 @@ class Paiement {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO paiement (montant, date, mode, type) VALUES (:montant, :date, :mode, :type)");
-        $query->bindParam(':montant', $this->montant, PDO::PARAM_INT);
-        $query->bindParam(':date', $this->date, PDO::PARAM_STR);
-        $query->bindParam(':mode', $this->mode, PDO::PARAM_STR);
-        $query->bindParam(':type', $this->type, PDO::PARAM_STR);
-
+        $sql = "INSERT INTO Paiement(montant, date, mode, type, id_utilisateur, id_location) VALUES($this->montant, '$this->date', '$this->mode', '$this->type', $this->id_utilisateur, $this->id_location)";
         /* Exécution de la requête */
-        $query->execute();
+        $c->query($sql);
         $this->id_paiement = $c->lastInsertId();
     }
 
@@ -76,14 +74,9 @@ class Paiement {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update paiement set montant= ?, date= ?, mode= ?, type= ? where id_paiement=?");
-        $query->bindParam(1, $this->montant, PDO::PARAM_INT);
-        $query->bindParam(2, $this->date, PDO::PARAM_STR);
-        $query->bindParam(3, $this->mode, PDO::PARAM_STR);
-        $query->bindParam(4, $this->type, PDO::PARAM_STR);
-        $query->bindParam(5, $this->id_paiement, PDO::PARAM_INT);
+        $sql = "UPDATE Paiement SET montant=$this->montant, date='$this->date', mode='$this->mode', type='$this->type', id_utilisateur=$this->id_utilisateur, id_location=$this->id_location WHERE id_paiement=$this->id_paiement";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -100,10 +93,9 @@ class Paiement {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM paiement where id_paiement=?");
-        $query->bindParam(1, $this->id_paiement, PDO::PARAM_INT);
+        $sql = "DELETE FROM Paiement where id_paiement=$this->id_paiement";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -116,10 +108,9 @@ class Paiement {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from paiement where id_paiement=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $sql = "select * from Paiement where id_paiement=$id";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
@@ -129,6 +120,8 @@ class Paiement {
         $pai->date = $d['date'];
         $pai->mode = $d['mode'];
         $pai->type = $d['type'];
+        $pai->id_utilisateur = $d['id_utilisateur'];
+        $pai->id_location = $d['id_location'];
         return $pai;
     }
 
@@ -143,9 +136,9 @@ class Paiement {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from paiement");
+        $sql = "SELECT * FROM Paiement";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
             $pai = new Paiement();
@@ -154,6 +147,29 @@ class Paiement {
             $pai->date = $d['date'];
             $pai->mode = $d['mode'];
             $pai->type = $d['type'];
+            $pai->id_utilisateur = $d['id_utilisateur'];
+            $pai->id_location = $d['id_location'];
+            $res[] = $pai;
+        }
+        return $res;
+    }
+
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $pai = new Paiement();
+            $pai->id_paiement = $d['id_paiement'];
+            $pai->montant = $d['montant'];
+            $pai->date = $d['date'];
+            $pai->mode = $d['mode'];
+            $pai->type = $d['type'];
+            $pai->id_utilisateur = $d['id_utilisateur'];
+            $pai->id_location = $d['id_location'];
             $res[] = $pai;
         }
         return $res;
