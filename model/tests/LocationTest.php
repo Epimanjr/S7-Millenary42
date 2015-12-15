@@ -9,9 +9,10 @@ include_once '../Location.php';
 // Création d'une location
 echo "Création d'une location ... ";
 $location = new Location();
-$location->debut="28/12/2015";
-$location->fin="29/12/2015";
-$location->id_appart=1;
+$location->debut="2015-12-28";
+$location->fin="2015-12-29";
+$location->id_appartement=1;
+$location->id_utilisateur=1;
 // Ajout dans la base
 echo "OK<br/>Ajout de la location dans la base ... ";
 $location->insert();
@@ -21,7 +22,7 @@ echo "OK<br/>";
 listerTout();
 
 // Apport d'une modification
-$location->fin="30/12/2015";
+$location->fin="2015-12-30";
 echo "Modification de la fin ! Mise à jour dans la base ... ";
 $location->update();
 echo "OK<br/>";
