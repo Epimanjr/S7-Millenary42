@@ -154,6 +154,23 @@ class TypeAppartement {
         }
         return $res;
     }
+    
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $obj = new TypeAppartement();
+            $obj->id_type_appart = $d['id_type_appart'];
+            $obj->nom = $d['nom'];
+            $obj->duree = $d['duree'];
+            $res[] = $obj;
+        }
+        return $res;
+    }
 
     /**
      * Affichage d'un utilisateur.

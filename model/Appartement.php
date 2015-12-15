@@ -448,6 +448,61 @@ class Appartement {
         }
         return $res;
     }
+    
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $obj = new Appartement();
+            $obj->id_appart = $d['id_appartement'];
+            $obj->surface = $d['surface'];
+            $obj->nbPieces = $d['nbPieces'];
+            $obj->loyer = $d['loyer'];
+            $obj->charges = $d['charges'];
+            $obj->etat = $d['etat'];
+            $obj->forcerVisibiliteSite = $d['forcerVisibiliteSite'];
+            $obj->videophone = $d['videophone'];
+            $obj->interphone = $d['interphone'];
+            $obj->digicode = $d['digicode'];
+            $obj->cable = $d['cable'];
+            $obj->antenneTV = $d['antenneTV'];
+            $obj->espaceVert = $d['espaceVert'];
+            $obj->VMC = $d['VMC'];
+            $obj->piscine = $d['piscine'];
+            $obj->parkingCollectif = $d['parkingCollectif'];
+            $obj->jardinPrive = $d['jardinPrive'];
+            $obj->ascenseur = $d['ascenseur'];
+            $obj->logeGardien = $d['logeGardien'];
+            $obj->videOrdure = $d['videOrdure'];
+            $obj->doubleVitrage = $d['doubleVitrage'];
+            $obj->climatisation = $d['climatisation'];
+            $obj->eauChaudeCollective = $d['eauChaudeCollective'];
+            $obj->eauFroideCollective = $d['eauFroideCollective'];
+            $obj->cptEauChaude = $d['cptEauChaude'];
+            $obj->cptEauFroide = $d['cptEauFroide'];
+            $obj->chauffage = $d['chauffage'];
+            $obj->classeEnergie = $d['classeEnergie'];
+            $obj->cuisineEquipee = $d['cuisineEquipee'];
+            $obj->branchementMachineLaver = $d['branchementMachineLaver'];
+            $obj->evier = $d['evier'];
+            $obj->caves = $d['caves'];
+            $obj->balcons = $d['balcons'];
+            $obj->garages = $d['garages'];
+            $obj->terrasses = $d['terrasses'];
+            $obj->chambreService = $d['chambreService'];
+            $obj->parkingPrive = $d['parkingPrive'];
+            $obj->greniers = $d['greniers'];
+            $obj->celliers = $d['celliers'];
+            $obj->id_adresse = $d['id_adresse'];
+            $obj->id_type_appart = $d['id_type_appart'];
+            $res[] = $obj;
+        }
+        return $res;
+    }
 
     /**
      * Affichage d'un appartement.

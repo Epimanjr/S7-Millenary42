@@ -9,8 +9,12 @@ include_once '../Paiement.php';
 // Création d'un paiement
 echo "Création d'une paiement ... ";
 $paiement = new Paiement();
+$paiement->montant=100;
+$paiement->date = "2015-12-25";
 $paiement->mode = "carte bleue";
-$paiement->type = "type1";
+$paiement->type = "type1u";
+$paiement->id_utilisateur= 1;
+$paiement->id_location= 1;
 // Ajout dans la base
 echo "OK<br/>Ajout de la paiement dans la base ... ";
 $paiement->insert();
@@ -21,7 +25,7 @@ listerTout();
 
 // Apport d'une modification
 $paiement->type = "TypePaiement";
-echo "Modification de la durée ! Mise à jour dans la base ... ";
+echo "Modification du type ! Mise à jour dans la base ... ";
 $paiement->update();
 echo "OK<br/>";
 

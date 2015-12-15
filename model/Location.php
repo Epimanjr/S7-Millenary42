@@ -157,6 +157,28 @@ class Location {
         return $res;
     }
 
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $loc = new Location();
+            $loc->id_location = $d['id_location'];
+            $loc->debut = $d['debut'];
+            $loc->fin = $d['fin'];
+            $loc->payeParLocataire = $d['payeParLocataire'];
+            $loc->payeParAgence = $d['payeParAgence'];
+            $loc->proprietairePaye = $d['proprietairePaye'];
+            $loc->id_appartement = $d['id_appartement'];
+            $loc->id_utilisateur = $d['id_utilisateur'];
+            $res[] = $loc;
+        }
+        return $res;
+    }
+    
     /**
      * Affichage d'une location.
      */
