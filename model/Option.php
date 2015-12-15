@@ -156,6 +156,25 @@ class Option {
         return $res;
     }
 
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $opt = new Option();
+            $opt->id_option = $d['id_option'];
+            $opt->id_utilisateur = $d['id_utilisateur'];
+            $opt->id_appartement = $d['id_appartement'];
+            $opt->date = $d['date'];
+            $opt->etat = $d['etat'];
+            $res[] = $opt;
+        }
+        return $res;
+    }
+    
     /**
      * Affichage d'une option
      */

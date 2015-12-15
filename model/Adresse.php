@@ -158,6 +158,29 @@ class Adresse {
         }
         return $res;
     }
+    
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $adr = new Adresse();
+            $adr->id_adresse = $d['id_adresse'];
+            $adr->quartier = $d['quartier'];
+            $adr->numRue = $d['numRue'];
+            $adr->rue = $d['rue'];
+            $adr->codePostal = $d['codePostal'];
+            $adr->ville = $d['ville'];
+            $adr->batiment = $d['batiment'];
+            $adr->etage = $d['etage'];
+            $adr->porte = $d['porte'];
+            $res[] = $adr;
+        }
+        return $res;
+    }
 
     /**
      * Affichage d'une adresse.

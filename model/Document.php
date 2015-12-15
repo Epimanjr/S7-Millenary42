@@ -151,6 +151,25 @@ class Document {
         }
         return $res;
     }
+    
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $docu = new Document();
+            $docu->id_document = $d['id_document'];
+            $docu->type = $d['type'];
+            $docu->debut = $d['debut'];
+            $docu->fin = $d['fin'];
+            $docu->id_appartement = $d['id_appartement'];
+            $res[] = $docu;
+        }
+        return $res;
+    }
 
     /**
      * Affichage d'un docment
