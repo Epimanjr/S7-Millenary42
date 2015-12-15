@@ -80,38 +80,30 @@ class Utilisateur {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update utilisateur set nom= ?, prenom= ?, email= ?, telephone= ?, etat= ?, type= ? where id_utilisateur=?");
-        $query->bindParam(1, $this->nom, PDO::PARAM_STR);
-        $query->bindParam(2, $this->prenom, PDO::PARAM_STR);
-        $query->bindParam(3, $this->email, PDO::PARAM_STR);
-        $query->bindParam(4, $this->telephone, PDO::PARAM_STR);
-        $query->bindParam(5, $this->etat, PDO::PARAM_STR);
-        $query->bindParam(6, $this->type, PDO::PARAM_STR);
-        $query->bindParam(7, $this->id_utilisateur, PDO::PARAM_INT);
+        $sql = "update utilisateur set nom= '$this->nom', prenom= '$this->prenom', email= '$this->email', telephone= '$this->telephone', etat= '$this->etat', type= '$this->type' where id_utilisateur= '$this->id_utilisateur'";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
-     * Suppression de l'utilisateur dans la base de données.
+     * Suppression du type de la location dans la base de données.
      * 
      * @return type
      * @throws Exception
      */
     public function delete() {
         /* On vérifie si l'id est renseigné, sinon on ne peut pas supprimer */
-        if (!isset($this->id_utilisateur)) {
+        if (!isset($this->id_location)) {
             throw new Exception(__CLASS__ . ": Primary Key undefined : cannot delete");
         }
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM utilisateur where id_utilisateur=?");
-        $query->bindParam(1, $this->id_utilisateur, PDO::PARAM_INT);
+        $sql = "DELETE FROM Location where id_location=$this->id_location";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
-
+    
     /**
      * Recherche d'une utilisateur avec son ID
      * 
@@ -122,10 +114,9 @@ class Utilisateur {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from utilisateur where id_utilisateur=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $sql = "select * from utilisateur where id_utilisateur=$id";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
@@ -151,9 +142,9 @@ class Utilisateur {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from utilisateur");
+        $sql = "select * from utilisateur";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
             $uti = new Utilisateur();
