@@ -10,7 +10,9 @@ include_once '../Impaye.php';
 echo "Création d'un impaye ... ";
 $impaye = new Impaye();
 $impaye->montant = 1000;
-$impaye->dateLimite = "01/01/2016";
+$impaye->dateLimite = "2015-12-26";
+$impaye->id_utilisateur = 1;
+$impaye->id_location = 1;
 // Ajout dans la base
 echo "OK<br/>Ajout de l'impaye dans la base ... ";
 $impaye->insert();
@@ -26,7 +28,7 @@ $impaye->update();
 echo "OK<br/>";
 
 // Sélection de l'appartement
-$selectionImpaye = Impaye::findById($impaye->id);
+$selectionImpaye = Impaye::findById($impaye->id_impaye);
 $selectionImpaye->afficher();
 
 // Suppression du impaye

@@ -8,7 +8,7 @@ class Impaye {
      */
     private $id_impaye;
     private $montant;
-    private $datelimite;
+    private $dateLimite;
     private $id_utilisateur;
     private $id_location;
 
@@ -51,14 +51,9 @@ class Impaye {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO impaye (montant, datelimite, id_utilisateur, id_location) VALUES (:montant, :datelimite, :id_utilisateur, :id_location)");
-        $query->bindParam(':montant', $this->montant, PDO::PARAM_STR);
-        $query->bindParam(':datelimite', $this->datelimite, PDO::PARAM_STR);
-        $query->bindParam(':id_utilisateur', $this->id_utilisateur, PDO::PARAM_STR);
-        $query->bindParam(':id_location', $this->id_location, PDO::PARAM_STR);
-
+        $sql = "INSERT INTO Impaye(montant, dateLimite, id_utilisateur, id_location) VALUES($this->montant, '$this->dateLimite', $this->id_utilisateur, $this->id_location)";
         /* Exécution de la requête */
-        $query->execute();
+        $c->query($sql);
         $this->id_impaye = $c->lastInsertId();
     }
 
@@ -76,14 +71,9 @@ class Impaye {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update impaye set montant= ?, datelimite= ?, id_utilisateur= ?, id_location= ?, etat= ?, type= ? where id_impaye=?");
-        $query->bindParam(1, $this->montant, PDO::PARAM_STR);
-        $query->bindParam(2, $this->datelimite, PDO::PARAM_STR);
-        $query->bindParam(3, $this->id_utilisateur, PDO::PARAM_INT);
-        $query->bindParam(4, $this->id_location, PDO::PARAM_INT);
-        $query->bindParam(5, $this->id_impaye, PDO::PARAM_INT);
+        $sql = "UPDATE Impaye SET montant=$this->montant, dateLimite='$this->dateLimite', id_utilisateur=$this->id_utilisateur, id_location=$this->id_location WHERE id_impaye=$this->id_impaye";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -100,10 +90,9 @@ class Impaye {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM impaye where id_impaye=?");
-        $query->bindParam(1, $this->id_impaye, PDO::PARAM_INT);
+        $sql = "DELETE FROM Impaye WHERE id_impaye=$this->id_impaye";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -116,17 +105,16 @@ class Impaye {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from impaye where id_impaye=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $sql = "SELECT * FROM Impaye WHERE id_impaye=$id";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
         $imp = new Impaye();
         $imp->id_impaye = $d['id_impaye'];
         $imp->montant = $d['montant'];
-        $imp->datelimite = $d['datelimite'];
+        $imp->dateLimite = $d['dateLimite'];
         $imp->id_utilisateur = $d['id_utilisateur'];
         $imp->id_location = $d['id_location'];
         return $imp;
@@ -143,15 +131,34 @@ class Impaye {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from impaye");
+        $sql = "SELECT * FROM Impaye";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
             $imp = new Impaye();
             $imp->id_impaye = $d['id_impaye'];
             $imp->montant = $d['montant'];
-            $imp->datelimite = $d['datelimite'];
+            $imp->dateLimite = $d['dateLimite'];
+            $imp->id_utilisateur = $d['id_utilisateur'];
+            $imp->id_location = $d['id_location'];
+            $res[] = $imp;
+        }
+        return $res;
+    }
+
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $imp = new Impaye();
+            $imp->id_impaye = $d['id_impaye'];
+            $imp->montant = $d['montant'];
+            $imp->dateLimite = $d['dateLimite'];
             $imp->id_utilisateur = $d['id_utilisateur'];
             $imp->id_location = $d['id_location'];
             $res[] = $imp;
@@ -163,7 +170,7 @@ class Impaye {
      * Affichage d'une impaye.
      */
     function afficher() {
-        echo "Impaye n°$this->id_impaye , $this->datelimite $this->id_utilisateur, $this->type ; $this->id_location $this->etat <br/>";
+        echo "Impaye n°$this->id_impaye , montant=$this->montant, $this->datelimite $this->id_utilisateur, location n$this->id_location <br/>";
     }
 
 }
