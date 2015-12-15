@@ -12,7 +12,8 @@ class Utilisateur {
     private $email;
     private $telephone;
     private $etat;
-    private $type;
+    private $id_adresse;
+    private $id_type_utilisateur;
 
     /**
      * Construit un utilisateur.
@@ -53,16 +54,10 @@ class Utilisateur {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO utilisateur (nom, prenom, email, telephone, etat, type) VALUES (:nom, :prenom, :email, :telephone, :etat, :type)");
-        $query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
-        $query->bindParam(':prenom', $this->prenom, PDO::PARAM_STR);
-        $query->bindParam(':email', $this->email, PDO::PARAM_STR);
-        $query->bindParam(':telephone', $this->telephone, PDO::PARAM_STR);
-        $query->bindParam(':etat', $this->etat, PDO::PARAM_STR);
-        $query->bindParam(':type', $this->type, PDO::PARAM_STR);
+        $sql = "INSERT INTO Utilisateur (nom, prenom, email, telephone, etat, id_type_utilisateur, id_adresse) VALUES ('$this->nom', '$this->prenom', '$this->email', '$this->telephone', '$this->etat', $this->id_type_utilisateur, $this->id_adresse)";
 
         /* Exécution de la requête */
-        $query->execute();
+        $c->query($sql);
         $this->id_utilisateur = $c->lastInsertId();
     }
 
@@ -80,26 +75,26 @@ class Utilisateur {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $sql = "update utilisateur set nom= '$this->nom', prenom= '$this->prenom', email= '$this->email', telephone= '$this->telephone', etat= '$this->etat', type= '$this->type' where id_utilisateur= '$this->id_utilisateur'";
+        $sql = "update Utilisateur set nom= '$this->nom', prenom= '$this->prenom', email= '$this->email', telephone= '$this->telephone', etat= '$this->etat', id_type_utilisateur=$this->id_type_utilisateur, id_adresse=$this->id_adresse where id_utilisateur= $this->id_utilisateur";
         /* Exécution de la requête */
         $c->query($sql);
     }
 
     /**
-     * Suppression du type de la location dans la base de données.
+     * Suppression de l'utilisateur dans la base de données.
      * 
      * @return type
      * @throws Exception
      */
     public function delete() {
         /* On vérifie si l'id est renseigné, sinon on ne peut pas supprimer */
-        if (!isset($this->id_location)) {
+        if (!isset($this->id_utilisateur)) {
             throw new Exception(__CLASS__ . ": Primary Key undefined : cannot delete");
         }
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $sql = "DELETE FROM Location where id_location=$this->id_location";
+        $sql = "DELETE FROM Utilisateur where id_utilisateur=$this->id_utilisateur";
         /* Exécution de la requête */
         $c->query($sql);
     }
@@ -114,7 +109,7 @@ class Utilisateur {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $sql = "select * from utilisateur where id_utilisateur=$id";
+        $sql = "select * from Utilisateur where id_utilisateur=$id";
         /* Exécution de la requête */
         $query = $c->query($sql);
         /* Récupération du résultat */
@@ -127,7 +122,8 @@ class Utilisateur {
         $uti->email = $d['email'];
         $uti->telephone = $d['telephone'];
         $uti->etat = $d['etat'];
-        $uti->type = $d['type'];
+        $uti->id_type_utilisateur = $d['id_type_utilisateur'];
+        $uti->id_adresse = $d['id_adresse'];
         return $uti;
     }
 
@@ -142,7 +138,7 @@ class Utilisateur {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $sql = "select * from utilisateur";
+        $sql = "select * from Utilisateur";
         /* Exécution de la requête */
         $query = $c->query($sql);
         /* Parcours du résultat */
@@ -154,7 +150,8 @@ class Utilisateur {
             $uti->email = $d['email'];
             $uti->telephone = $d['telephone'];
             $uti->etat = $d['etat'];
-            $uti->type = $d['type'];
+            $uti->id_type_utilisateur = $d['id_type_utilisateur'];
+            $uti->id_adresse = $d['id_adresse'];
             $res[] = $uti;
         }
         return $res;
@@ -164,7 +161,7 @@ class Utilisateur {
      * Affichage d'une utilisateur.
      */
     function afficher() {
-        echo "Utilisateur n°$this->id_utilisateur , $this->prenom $this->email, $this->type ; $this->telephone $this->etat <br/>";
+        echo "Utilisateur n°$this->id_utilisateur , $this->nom , $this->prenom $this->email ; $this->telephone $this->etat ; $this->id_type_utilisateur $this->id_adresse<br/>";
     }
 
 }

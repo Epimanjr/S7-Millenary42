@@ -6,7 +6,7 @@ class TypeUtilisateur {
      * Identifiant du type utilisateur.
      * @var integer
      */
-    private $id_type_typeutilisateur;
+    private $id_type_utilisateur;
     private $nom;
 
     /**
@@ -42,35 +42,33 @@ class TypeUtilisateur {
     }
 
     /**
-     * Insertion d'une nouvelle typeutilisateur dans la base de données.
+     * Insertion d'une nouvelle TypeUtilisateur dans la base de données.
      */
     public function insert() {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO typeutilisateur (nom) VALUES (:nom)");
-        $query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
-
+        $sql = "INSERT INTO TypeUtilisateur(nom) VALUES('$this->nom')";
         /* Exécution de la requête */
-        $query->execute();
-        $this->id_type_typeutilisateur = $c->lastInsertId();
+        $c->query($sql);
+        $this->id_type_utilisateur = $c->lastInsertId();
     }
 
     /**
-     * Permet de mettre à jour une typeutilisateur dans la base de données.
+     * Permet de mettre à jour une TypeUtilisateur dans la base de données.
      * 
      * @return type
      * @throws Exception
      */
     public function update() {
         /* On test si l'ID est défini, sinon on ne peut pas faire la mise à jour */
-        if (!isset($this->id_type_typeutilisateur)) {
+        if (!isset($this->id_type_utilisateur)) {
             throw new Exception(__CLASS__ . ": Primary Key undefined : cannot update");
         }
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $sql = "update typeutilisateur set nom= '$this->nom' where id_type_typeutilisateur='$this->id_type_typeutilisateur'";
+        $sql = "update TypeUtilisateur set nom='$this->nom' where id_type_utilisateur=$this->id_type_utilisateur";
         /* Exécution de la requête */
         $c->query($sql);
     }
@@ -83,19 +81,19 @@ class TypeUtilisateur {
      */
     public function delete() {
         /* On vérifie si l'id est renseigné, sinon on ne peut pas supprimer */
-        if (!isset($this->id_type_typeutilisateur)) {
+        if (!isset($this->id_type_utilisateur)) {
             throw new Exception(__CLASS__ . ": Primary Key undefined : cannot delete");
         }
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM typeutilisateur where id_type_typeutilisateur=$this->id_type_typeutilisateur");
+        $sql = "DELETE FROM TypeUtilisateur where id_type_utilisateur=$this->id_type_utilisateur";
         /* Exécution de la requête */
         $c->query($sql);
     }
 
     /**
-     * Recherche d'une typeutilisateur avec son ID
+     * Recherche d'une TypeUtilisateur avec son ID
      * 
      * @param integer $id
      * @return \Location
@@ -104,36 +102,34 @@ class TypeUtilisateur {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from typeutilisateur where id_type_typeutilisateur=$id");
+        $sql = "select * from TypeUtilisateur where id_type_utilisateur=$id";
         /* Exécution de la requête */
         $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
         $tut = new TypeUtilisateur();
-        $tut->id_type_typeutilisateur = $d['id_type_typeutilisateur'];
+        $tut->id_type_utilisateur = $d['id_type_utilisateur'];
         $tut->nom = $d['nom'];
         return $tut;
     }
 
     /**
-     * Permet de récupérer toutes les typeutilisateurs.
+     * Permet de récupérer toutes les TypeUtilisateurs.
      * 
      * @return 
      */
     public static function findAll() {
-        /* Création d'un tableau dans lequel on va stocker toutes les typeutilisateurs */
+        /* Création d'un tableau dans lequel on va stocker toutes les TypeUtilisateurs */
         $res = array();
         /* Connexion à la base */
         $c = Database::getConnection();
-        /* Préparation de la requête */
-        $query = $c->prepare("select * from typeutilisateur");
         /* Exécution de la requête */
-        $query = $c->query($sql);
+        $query = $c->query("select * from TypeUtilisateur");
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
             $tut = new TypeUtilisateur();
-            $tut->id_type_typeutilisateur = $d['id_type_typeutilisateur'];
+            $tut->id_type_utilisateur = $d['id_type_utilisateur'];
             $tut->nom = $d['nom'];
             $res[] = $tut;
         }
@@ -141,10 +137,10 @@ class TypeUtilisateur {
     }
 
     /**
-     * Affichage d'une typeutilisateur.
+     * Affichage d'une TypeUtilisateur.
      */
     function afficher() {
-        echo "TypeUtilisateur n°$this->id_type_typeutilisateur , $this->nom <br/>";
+        echo "TypeUtilisateur n°$this->id_type_utilisateur , $this->nom <br/>";
     }
 
 }
