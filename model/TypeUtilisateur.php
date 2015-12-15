@@ -70,11 +70,9 @@ class TypeUtilisateur {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update typeutilisateur set nom= ? where id_type_typeutilisateur=?");
-        $query->bindParam(1, $this->nom, PDO::PARAM_STR);
-        $query->bindParam(2, $this->id_type_typeutilisateur, PDO::PARAM_INT);
+        $sql = "update typeutilisateur set nom= '$this->nom' where id_type_typeutilisateur='$this->id_type_typeutilisateur'";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -91,10 +89,9 @@ class TypeUtilisateur {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM typeutilisateur where id_type_typeutilisateur=?");
-        $query->bindParam(1, $this->id_type_typeutilisateur, PDO::PARAM_INT);
+        $query = $c->prepare("DELETE FROM typeutilisateur where id_type_typeutilisateur=$this->id_type_typeutilisateur");
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -107,10 +104,9 @@ class TypeUtilisateur {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from typeutilisateur where id_type_typeutilisateur=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $query = $c->prepare("select * from typeutilisateur where id_type_typeutilisateur=$id");
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
@@ -133,7 +129,7 @@ class TypeUtilisateur {
         /* Préparation de la requête */
         $query = $c->prepare("select * from typeutilisateur");
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
             $tut = new TypeUtilisateur();
