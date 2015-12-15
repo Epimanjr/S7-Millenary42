@@ -56,14 +56,9 @@ class Document {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO document (type, debut, fin, id_appartement) VALUES (:type, :debut, :fin, :id_appartement)");
-        $query->bindParam(':type', $this->type, PDO::PARAM_STR);
-        $query->bindParam(':debut', $this->debut, PDO::PARAM_STR);
-        $query->bindParam(':fin', $this->fin, PDO::PARAM_STR);
-        $query->bindParam(':id_appartement', $this->id_appartement, PDO::PARAM_INT);
-
+        $sql = "INSERT INTO Document(type, debut, fin, id_appartement) VALUES('$this->type', '$this->debut', '$this->fin', $this->id_appartement)";
         /* Exécution de la requête */
-        $query->execute();
+        $c->query($sql);
         $this->id_document = $c->lastInsertId();
     }
 
@@ -81,14 +76,9 @@ class Document {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update document set type= ?, debut= ?, fin= ?, id_appartement= ? where id_document=?");
-        $query->bindParam(1, $this->type, PDO::PARAM_STR);
-        $query->bindParam(2, $this->debut, PDO::PARAM_STR);
-        $query->bindParam(3, $this->fin, PDO::PARAM_STR);
-        $query->bindParam(4, $this->id_appartement, PDO::PARAM_INT);
-        $query->bindParam(5, $this->id_document, PDO::PARAM_INT);
+        $sql = "UPDATE Document SET type='$this->type', debut='$this->debut', fin='$this->fin', id_appartement=$this->id_appartement WHERE id_document=$this->id_document";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -105,10 +95,9 @@ class Document {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM document where id_document=?");
-        $query->bindParam(1, $this->id_document, PDO::PARAM_INT);
+        $sql = "DELETE FROM Document where id_document=$this->id_document";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -121,10 +110,9 @@ class Document {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from document where id_document=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $sql = "SELECT * FROM Document WHERE id_document=$id";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
@@ -148,9 +136,9 @@ class Document {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from document");
+        $sql = "SELECT * FROM Document";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
             $docu = new Document();

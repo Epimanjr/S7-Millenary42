@@ -7,10 +7,10 @@ include_once '../Database.php';
 include_once '../Document.php';
 
 // Création d'un document
-echo "Création d'une document ... ";
+echo "Création d'un document ... ";
 $document = new Document();
-$document->debut = "28/12/2015";
-$document->fin = "28/12/2015";
+$document->debut = "2015-12-28";
+$document->fin = "2015-12-29";
 $document->id_appartement = 1;
 // Ajout dans la base
 echo "OK<br/>Ajout du document dans la base ... ";
@@ -21,7 +21,7 @@ echo "OK<br/>";
 listerTout();
 
 // Apport d'une modification
-$document->fin = "29/12/2015";
+$document->fin = "2015-12-30";
 echo "Modification de la fin ! Mise à jour dans la base ... ";
 $document->update();
 echo "OK<br/>";
