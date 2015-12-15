@@ -52,14 +52,9 @@ class Possession {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO possession (debut, fin, id_utilisateur, id_appartement) VALUES (:debut, :fin, :id_utilisateur, :id_appartement)");
-        $query->bindParam(':debut', $this->debut, PDO::PARAM_LOB);
-        $query->bindParam(':fin', $this->fin, PDO::PARAM_LOB);
-        $query->bindParam(':id_utilisateur', $this->id_appart, PDO::PARAM_INT);
-        $query->bindParam(':id_appartement', $this->id_appart, PDO::PARAM_INT);
-
+        $sql = "INSERT INTO Possession(debut, fin, id_utilisateur, id_appartement) VALUES('$this->debut', '$this->fin', $this->id_utilisateur, $this->id_appartement)";
         /* Exécution de la requête */
-        $query->execute();
+        $c->query($sql);
         $this->id_possession = $c->lastInsertId();
     }
 
@@ -71,20 +66,15 @@ class Possession {
      */
     public function update() {
         /* On test si l'ID est défini, sinon on ne peut pas faire la mise à jour */
-        if (!isset($this->id_location)) {
+        if (!isset($this->id_possession)) {
             throw new Exception(__CLASS__ . ": Primary Key undefined : cannot update");
         }
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update location set debut= ?, fin= ?, id_utilisateur= ?, id_appartement= ? where id_possession=?");
-        $query->bindParam(1, $this->debut, PDO::PARAM_LOB);
-        $query->bindParam(2, $this->fin, PDO::PARAM_LOB);
-        $query->bindParam(3, $this->id_utilisateur, PDO::PARAM_INT);
-        $query->bindParam(4, $this->id_appartement, PDO::PARAM_INT);
-        $query->bindParam(5, $this->id_possession, PDO::PARAM_INT);
+        $sql = "UPDATE Possession SET debut='$this->debut', fin='$this->fin', id_utilisateur=$this->id_utilisateur, id_appartement=$this->id_appartement WHERE id_possession=$this->id_possession";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -101,10 +91,9 @@ class Possession {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM possession where id_possession=?");
-        $query->bindParam(1, $this->id_possession, PDO::PARAM_INT);
+        $sql = "DELETE FROM Possession WHERE id_possession=$this->id_possession";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -117,10 +106,9 @@ class Possession {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from possession where id_possession=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $sql = "SELECT * FROM Possession WHERE id_possession=$id";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
@@ -144,9 +132,9 @@ class Possession {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from possession");
+        $sql = "select * from Possession";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
             $pos = new Possession();
@@ -164,9 +152,9 @@ class Possession {
      * Affichage d'une location.
      */
     function afficher() {
-        echo "Possession n°$this->id_possession , du $this->debut au $this->fin <br/>"
+        echo "Possession n°$this->id_possession , du $this->debut au $this->fin "
         . "Id de l'utilisateur = $this->id_utilisateur"
-        . "Id de l'appartement = $this->id_appartement";
+        . "Id de l'appartement = $this->id_appartement <br/>";
     }
 
 }

@@ -9,8 +9,8 @@ include_once '../Possession.php';
 // Création d'une possession
 echo "Création d'une possession ... ";
 $possession = new Possession();
-$possession->debut="28/12/2015";
-$possession->fin="29/12/2015";
+$possession->debut="2015-12-28";
+$possession->fin="2015-12-29";
 $possession->id_utilisateur=1;
 $possession->id_appartement=1;
 // Ajout dans la base
@@ -22,7 +22,7 @@ echo "OK<br/>";
 listerTout();
 
 // Apport d'une modification
-$possession->fin="30/12/2015";
+$possession->fin="2015-12-30";
 echo "Modification de la fin ! Mise à jour dans la base ... ";
 $possession->update();
 echo "OK<br/>";
