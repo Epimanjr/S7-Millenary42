@@ -157,6 +157,28 @@ class Utilisateur {
         return $res;
     }
 
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $uti = new Utilisateur();
+            $uti->id_utilisateur = $d['id_utilisateur'];
+            $uti->nom = $d['nom'];
+            $uti->prenom = $d['prenom'];
+            $uti->email = $d['email'];
+            $uti->telephone = $d['telephone'];
+            $uti->etat = $d['etat'];
+            $uti->id_type_utilisateur = $d['id_type_utilisateur'];
+            $uti->id_adresse = $d['id_adresse'];
+            $res[] = $uti;
+        }
+        return $res;
+    }    
+    
     /**
      * Affichage d'une utilisateur.
      */

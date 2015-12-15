@@ -114,6 +114,22 @@ class TypeUtilisateur {
         return $tut;
     }
 
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $tut = new TypeUtilisateur();
+            $tut->id_type_utilisateur = $d['id_type_utilisateur'];
+            $tut->nom = $d['nom'];
+            $res[] = $tut;
+        }
+        return $res;
+    }
+    
     /**
      * Permet de récupérer toutes les TypeUtilisateurs.
      * 
