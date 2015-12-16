@@ -1,17 +1,11 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of AppartementVue
+ * Description of AppartementView
  *
  * @author Guillaume
  */
-class AppartementVue {
+class AppartementView {
     
     /**
      * Génère les filtres pour la liste d'appartements
@@ -69,7 +63,7 @@ class AppartementVue {
 
                                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
                             </form>
-                        </div></div>';
+                        </div>';
     }
     
     /**
@@ -84,7 +78,7 @@ class AppartementVue {
                         </div>
                     <img src="http://www.yooko.fr/wp-content/uploads/2013/07/appartement-W-par-Regis-Botta-7.jpg" />
                                     <div class="caption">
-                                        <h3>Appartement<br><small>'.$appart->adresse.'</small></h3>
+                                        <h3>Appartement<br><small>'.$appart->id_adresse.'</small></h3>
 
                                         <h4>Caractéristiques</h4>
                                         <table class="table table-hover">
@@ -93,7 +87,7 @@ class AppartementVue {
                                                     Surface
                                                 </td>
                                                 <td>
-                                                    '.$apart->surface.'
+                                                    '.$appart->surface.'
                                                 </td>
                                             </tr>
                                             <tr>
@@ -109,17 +103,18 @@ class AppartementVue {
                                                     Type
                                                 </td>
                                                 <td>
-                                                    '.$appart->type.'
+                                                    '.$appart->id_type_appart.'
                                                 </td>
                                             </tr>
                                         </table>
                                         <p>
                                             <span class="pull-right"></span>
-                                            <a href="./?a=details&id='.$appart->id.'" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-list-alt"></span> Détails</a>
+                                            <a href="./?a=details&id='.$appart->id_appartement.'" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-list-alt"></span> Détails</a>
                                         </p>
                                     </div>
                                 </div>
                             </div> ';
+        return $rep;
     }
     
     /**
@@ -128,13 +123,14 @@ class AppartementVue {
      */
     public static function generateListDisplay($list){
         
-        $filters = AppartementVue::generateFilters();
+        $filters = AppartementView::generateFilters();
         
-        $rep = '<div class="col-sm-12 page-content">'.$filters.
-                ' <div class="col-sm-10 col-sm-offset-2">';
+        $rep = '<div class="col-sm-12 page-content"><div class="col-sm-12">';
+        $rep .= $filters;
+        $rep .= '<div class="col-sm-10 col-sm-offset-2">';
         
         foreach ($list as $flat) {
-            $rep .= AppartementVue::generateUniqueListDispay($flat);
+            $rep .= AppartementView::generateUniqueListDispay($flat);
         }
         
         $rep .= '</div></div>';

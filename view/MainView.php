@@ -1,5 +1,6 @@
 <?php
-class Main{
+
+class MainView {
     public static function displayFront($nav,$content){
         return $nav.'       
             <div class="row">
@@ -24,10 +25,10 @@ class Main{
                     </ul>';
 
         if($withConnectBtn == true){
-            $rep.= '<a class="btn btn-default navbar-btn navbar-right" href="./?a=signin">Se connecter</a>';
+            $rep.= '<a class="btn btn-default navbar-btn navbar-right" href="./?a=login">Se connecter / S\'inscrire</a>';
         }
                 
-        $rep.='</div></nav>'.Main::displayTitle($title1, $title2);
+        $rep.='</div></nav>'.MainView::displayTitle($title1, $title2);
         return $rep;
     }
     
