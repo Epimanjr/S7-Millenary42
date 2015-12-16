@@ -55,7 +55,7 @@ class ArchivePaiement {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $sql = "INSERT INTO ArchivePaiement(montant, date, dateArchivage, mode, type, id_utilisateur, id_location) VALUES($this->montant, '$this->date', '$this->dateArchivage', $this->mode', '$this->type', $this->id_utilisateur, $this->id_location)";
+        $sql = "INSERT INTO ArchivePaiement(montant, date, dateArchivage, mode, type, id_utilisateur, id_location) VALUES($this->montant, '$this->date', '$this->dateArchivage', '$this->mode', '$this->type', $this->id_utilisateur, $this->id_location)";
         /* Exécution de la requête */
         $c->query($sql);
         $this->id_archive_paiement = $c->lastInsertId();
@@ -183,7 +183,7 @@ class ArchivePaiement {
      * Affichage d'une archivepaiement.
      */
     function afficher() {
-        echo "ArchivePaiement n°$this->id_archive_paiement , $this->date , $this->dateArchivage ; $this->mode, $this->type ; <br/>";
+        echo "ArchivePaiement n°$this->id_archive_paiement , $this->montant $this->date , $this->dateArchivage ; $this->mode, $this->type ; <br/>";
     }
 
 }
