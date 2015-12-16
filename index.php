@@ -17,10 +17,13 @@
             <?php
             include_once 'controller/HomeController.php';
 
+            // Ce sera utile quand on arrivera à la partie inscription/connexion
             session_start();
 
+            // Création du contrôleur principal
             $HomeController = new HomeController();
 
+            // Si une action est définie dans l'URL grâce à un GET
             if (isset($_GET['a'])) {
                 $HomeController->callAction($_GET);
             } else {

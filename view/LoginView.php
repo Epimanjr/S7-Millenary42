@@ -6,6 +6,11 @@
  * @author Guillaume
  */
 class LoginView {
+    
+    /**
+     * Affiche les formulaires de connexion et d'inscription
+     * @return string
+     */
     public static function displayContent(){
         return '<div class="col-sm-6 page-content">
                     <form class="form-horizontal">

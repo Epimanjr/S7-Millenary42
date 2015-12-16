@@ -137,6 +137,11 @@ class AppartementView {
         return $rep;
     }
     
+    /**
+     * Affiche le détail d'un appartement
+     * @param type $appart
+     * @return string
+     */
     public static function generateDetailDisplay($appart) {
         $rep = "";
         
