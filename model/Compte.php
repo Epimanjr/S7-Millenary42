@@ -8,7 +8,8 @@ class Compte {
      */
     private $id_compte;
     private $identifiant;
-    private $mdp;
+    private $motDePasse;
+    private $id_utilisateur;
 
     /**
      * Construit un type d'appartement.
@@ -49,12 +50,9 @@ class Compte {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO compte (identifiant, mdp, telephone) VALUES (:identifiant, :mdp)");
-        $query->bindParam(':identifiant', $this->identifiant, PDO::PARAM_STR);
-        $query->bindParam(':mdp', $this->mdp, PDO::PARAM_STR);
-
+        $sql = "INSERT INTO Compte (identifiant, motDePasse, id_utilisateur) VALUES ('$this->identifiant', '$this->motDePasse', $this->id_utilisateur)";
         /* Exécution de la requête */
-        $query->execute();
+        $c->query($sql);
         $this->id_compte = $c->lastInsertId();
     }
 
@@ -72,12 +70,9 @@ class Compte {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update compte set identifiant= ?, mdp= ? where id_compte=?");
-        $query->bindParam(1, $this->identifiant, PDO::PARAM_STR);
-        $query->bindParam(2, $this->mdp, PDO::PARAM_STR);
-        $query->bindParam(3, $this->id_compte, PDO::PARAM_INT);
+        $sql = "update Compte set identifiant='$this->identifiant', motDePasse='$this->motDePasse' where id_compte=$this->id_compte";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -94,10 +89,9 @@ class Compte {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM compte where id_compte=?");
-        $query->bindParam(1, $this->id_compte, PDO::PARAM_INT);
+        $sql = "DELETE FROM Compte where id_compte=$this->id_compte";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -110,17 +104,17 @@ class Compte {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from compte where id_compte=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $sql = "select * from Compte where id_compte=$id";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
         $com = new Compte();
         $com->id_compte = $d['id_compte'];
         $com->identifiant = $d['identifiant'];
-        $com->mdp = $d['mdp'];
+        $com->motDePasse = $d['motDePasse'];
+        $com->id_utilisateur = $d['id_utilisateur'];
         return $com;
     }
 
@@ -135,25 +129,44 @@ class Compte {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from compte");
+        $sql = "select * from Compte";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
             $com = new Compte();
             $com->id_compte = $d['id_compte'];
             $com->identifiant = $d['identifiant'];
-            $com->mdp = $d['mdp'];
+            $com->motDePasse = $d['motDePasse'];
+            $com->id_utilisateur = $d['id_utilisateur'];
             $res[] = $com;
         }
         return $res;
     }
 
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $com = new Compte();
+            $com->id_compte = $d['id_compte'];
+            $com->identifiant = $d['identifiant'];
+            $com->motDePasse = $d['motDePasse'];
+            $com->id_utilisateur = $d['id_utilisateur'];
+            $res[] = $com;
+        }
+        return $res;
+    }
+    
     /**
      * Affichage d'une compte.
      */
     function afficher() {
-        echo "Compte n°$this->id_compte , $this->mdp ; <br/>";
+        echo "Compte n°$this->id_compte , $this->identifiant , $this->motDePasse ; $this->id_utilisateur <br/>";
     }
 
 }
