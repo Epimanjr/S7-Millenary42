@@ -1,17 +1,12 @@
 <?php
 
-class Option {
+class Demande {
 
     /**
      * Identifiant de la demande.
      * @var integer
      */
     private $id_demande;
-
-    /**
-     * Identifiant de l'utilisateur.
-     * @var integer 
-     */
     private $id_utilisateur;
     private $type;
     private $contenu;
@@ -55,14 +50,9 @@ class Option {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO demande (id_demande, id_utilisateur, type, contenu) VALUES (:id_demande, :id_utilisateur, :type, :contenu)");
-        $query->bindParam(':id_demande', $this->id_demande, PDO::PARAM_INT);
-        $query->bindParam(':id_utilisateur', $this->id_utilisateur, PDO::PARAM_INT);
-        $query->bindParam(':type', $this->type, PDO::PARAM_STR);
-        $query->bindParam(':contenu', $this->contenu, PDO::PARAM_STR);
-
+        $sql = "INSERT INTO Demande (type, contenu, id_utilisateur) VALUES ('$this->type', '$this->contenu', $this->id_utilisateur)";
         /* Exécution de la requête */
-        $query->execute();
+        $c->query($sql);
         $this->id_demande = $c->lastInsertId();
     }
 
@@ -80,13 +70,9 @@ class Option {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update document set type= ?, contenu= ? where id_demande=? and id_utilisateur=?");
-        $query->bindParam(1, $this->type, PDO::PARAM_STR);
-        $query->bindParam(2, $this->contenu, PDO::PARAM_STR);
-        $query->bindParam(3, $this->id_demande, PDO::PARAM_INT);
-        $query->bindParam(4, $this->id_utilisateur, PDO::PARAM_INT);
+        $sql = "update Demande set type='$this->type', contenu='$this->contenu' where id_demande=$this->id_demande and id_utilisateur=$this->id_utilisateur";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -97,62 +83,58 @@ class Option {
      */
     public function delete() {
         /* On vérifie si l'id est renseigné, sinon on ne peut pas supprimer */
-        if (!isset($this->id_demande) || !isset($this->id_utilisateur)) {
+        if (!isset($this->id_demande)) {
             throw new Exception(__CLASS__ . ": Primary Key undefined : cannot delete");
         }
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM demande where id_utlisateur=? and id_apparteent=?");
-        $query->bindParam(1, $this->id_demande, PDO::PARAM_INT);
-        $query->bindParam(2, $this->id_utilisateur, PDO::PARAM_INT);
+        $sql = "DELETE FROM Demande where id_demande=$this->id_demande";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
-     * Recherche d'une demande avec ID utilisateur
+     * Recherche d'une demande avec ID demande
      * 
      * @param integer $id
-     * @return \Option
+     * @return \Demande
      */
-    public static function findByIdUtilisateur($id) {
+    public static function findByIdDemande($id) {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from demande where id_demande=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $sql = "select * from Demande where id_demande=$id";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
-        $dem = new Option();
+        $dem = new Demande();
         $dem->id_demande = $d['id_demande'];
         $dem->id_utilisateur = $d['id_utilisateur'];
         $dem->type = $d['type'];
         $dem->contenu = $d['contenu'];
         return $dem;
     }
-
+    
     /**
-     * Recherche d'une demande avec ID appartement
+     * Recherche d'une demande avec ID utilisateur
      * 
      * @param integer $id
-     * @return \Option
+     * @return \Demande
      */
-    public static function findByIdAppartement($id) {
+    public static function findByIdUtilisateur($id) {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from demande where id_utilisateur=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $sql = "select * from Demande where id_utilisateur=$id";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
-        $dem = new Option();
+        $dem = new Demande();
         $dem->id_demande = $d['id_demande'];
         $dem->id_utilisateur = $d['id_utilisateur'];
         $dem->type = $d['type'];
@@ -171,12 +153,12 @@ class Option {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from demande");
+        $sql = "select * from Demande";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
-            $dem = new Option();
+            $dem = new Demande();
             $dem->id_demande = $d['id_demande'];
             $dem->id_utilisateur = $d['id_utilisateur'];
             $dem->type = $d['type'];
@@ -186,11 +168,29 @@ class Option {
         return $res;
     }
 
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $dem = new Demande();
+            $dem->id_demande = $d['id_demande'];
+            $dem->id_utilisateur = $d['id_utilisateur'];
+            $dem->type = $d['type'];
+            $dem->contenu = $d['contenu'];
+            $res[] = $dem;
+        }
+        return $res;
+    }
+    
     /**
      * Affichage d'une demande
      */
     function afficher() {
-        echo "Demande pour utilisateur n°$this->id_demande , Appartement n°$this->id_utilisateur, type: $this->type (contenu : $this->contenu) ; <br/>";
+        echo "Demande n°$this->id_demande , Utilisateur n°$this->id_utilisateur, type: $this->type (contenu : $this->contenu) ; <br/>";
     }
 
 }
