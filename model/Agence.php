@@ -10,6 +10,7 @@ class Agence {
     private $nom;
     private $email;
     private $telephone;
+    private $id_adresse;
 
     /**
      * Construit un type d'appartement.
@@ -50,7 +51,7 @@ class Agence {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $sql = "INSERT INTO Agence (nom, email, telephone) VALUES ('$this->nom', '$this->email', '$this->telephone')";
+        $sql = "INSERT INTO Agence (nom, email, telephone, id_adresse) VALUES ('$this->nom', '$this->email', '$this->telephone', $this->id_adresse)";
         /* Exécution de la requête */
         $c->query($sql);
         $this->id_agence = $c->lastInsertId();
@@ -70,7 +71,7 @@ class Agence {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $sql = "update Agence set nom= '$this->nom', email= '$this->email', telephone= '$this->telephone' where id_agence= $this->id_agence";
+        $sql = "update Agence set nom= '$this->nom', email= '$this->email', telephone= '$this->telephone', id_adresse=$this->id_adresse where id_agence= $this->id_agence";
         /* Exécution de la requête */
         $c->query($sql);
     }
@@ -104,7 +105,7 @@ class Agence {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $sql = "select * from Agence where id_agence= $this->id_agence";
+        $sql = "select * from Agence where id_agence=$id";
         /* Exécution de la requête */
         $query = $c->query($sql);
         /* Récupération du résultat */
@@ -115,6 +116,7 @@ class Agence {
         $age->nom = $d['nom'];
         $age->email = $d['email'];
         $age->telephone = $d['telephone'];
+        $age->id_adresse = $d['id_adresse'];
         return $age;
     }
 
@@ -139,6 +141,26 @@ class Agence {
             $age->nom = $d['nom'];
             $age->email = $d['email'];
             $age->telephone = $d['telephone'];
+            $age->id_adresse = $d['id_adresse'];
+            $res[] = $age;
+        }
+        return $res;
+    }
+    
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $age = new Agence();
+            $age->id_agence = $d['id_agence'];
+            $age->nom = $d['nom'];
+            $age->email = $d['email'];
+            $age->telephone = $d['telephone'];
+            $age->id_adresse = $d['id_adresse'];
             $res[] = $age;
         }
         return $res;
@@ -148,7 +170,7 @@ class Agence {
      * Affichage d'une agence.
      */
     function afficher() {
-        echo "Agence n°$this->id_agence , $this->email ; $this->telephone <br/>";
+        echo "Agence n°$this->id_agence , $this->email ; $this->telephone ; $this->id_adresse <br/>";
     }
 
 }

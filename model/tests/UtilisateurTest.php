@@ -11,8 +11,8 @@ echo "Création d'un utilisateur ... ";
 $utilisateur = new Utilisateur();
 $utilisateur->nom= "nono";
 $utilisateur->prenom= "antoine";
-$utilisateur->id_type_utilisateur= 1;
-$utilisateur->id_adresse= 4;
+$utilisateur->id_type_utilisateur= 13;
+$utilisateur->id_adresse= 10;
 // Ajout dans la base
 echo "OK<br/>Ajout du utilisateur dans la base ... ";
 $utilisateur->insert();
