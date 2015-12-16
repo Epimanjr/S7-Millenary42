@@ -1,22 +1,23 @@
 <?php
 
-class Paiement {
+class ArchivePaiement {
 
     /**
-     * Identifiant de paiement.
+     * Identifiant de archivepaiement.
      * @var integer
      */
     private $id_archive_paiement;
     private $montant;
     private $date;
+    private $dateArchivage;
     private $mode;
     private $type;
-    private $dateArchivage;
+    // Clé étrangère
     private $id_utilisateur;
     private $id_location;
 
     /**
-     * Construit un paiement.
+     * Construit un archivepaiement.
      */
     public function __construct() {
         
@@ -48,29 +49,20 @@ class Paiement {
     }
 
     /**
-     * Insertion d'un nouveau paiement dans la base de données.
+     * Insertion d'un nouveau archivepaiement dans la base de données.
      */
     public function insert() {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO paiement (montant, date, mode, type, datea, idu, idl) VALUES (:montant, :date, :mode, :type, :datea, :idu, :idl)");
-        $query->bindParam(':montant', $this->montant, PDO::PARAM_INT);
-        $query->bindParam(':date', $this->date, PDO::PARAM_STR);
-        $query->bindParam(':mode', $this->mode, PDO::PARAM_STR);
-        $query->bindParam(':type', $this->type, PDO::PARAM_STR);
-        $query->bindParam(':type', $this->type, PDO::PARAM_STR);
-        $query->bindParam(':datea', $this->dateArchivage, PDO::PARAM_STR);
-        $query->bindParam(':idu', $this->id_utilisateur, PDO::PARAM_INT);
-        $query->bindParam(':idl', $this->id_location, PDO::PARAM_INT);
-
+        $sql = "INSERT INTO ArchivePaiement(montant, date, dateArchivage, mode, type, id_utilisateur, id_location) VALUES($this->montant, '$this->date', '$this->dateArchivage', $this->mode', '$this->type', $this->id_utilisateur, $this->id_location)";
         /* Exécution de la requête */
-        $query->execute();
+        $c->query($sql);
         $this->id_archive_paiement = $c->lastInsertId();
     }
 
     /**
-     * Permet de mettre à jour une paiement dans la base de données.
+     * Permet de mettre à jour une archivepaiement dans la base de données.
      * 
      * @return type
      * @throws Exception
@@ -83,21 +75,13 @@ class Paiement {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update paiement set montant= ?, date= ?, mode= ?, type=?, datea=?, idu=?, idl=? where id_archive_paiement=?");
-        $query->bindParam(1, $this->montant, PDO::PARAM_INT);
-        $query->bindParam(2, $this->date, PDO::PARAM_STR);
-        $query->bindParam(3, $this->mode, PDO::PARAM_STR);
-        $query->bindParam(4, $this->type, PDO::PARAM_STR);
-        $query->bindParam(5, $this->datea, PDO::PARAM_STR);
-        $query->bindParam(6, $this->idu, PDO::PARAM_INT);
-        $query->bindParam(7, $this->idl, PDO::PARAM_INT);
-        $query->bindParam(8, $this->id_archive_paiement, PDO::PARAM_INT);
+        $sql = "UPDATE ArchivePaiement SET montant=$this->montant, date='$this->date', mode='$this->mode', type='$this->type', id_utilisateur=$this->id_utilisateur, id_location=$this->id_location WHERE id_archive_paiement=$this->id_archive_paiement";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
-     * Suppression de paiement dans la base de données.
+     * Suppression de archivepaiement dans la base de données.
      * 
      * @return type
      * @throws Exception
@@ -110,14 +94,13 @@ class Paiement {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM paiement where id_archive_paiement=?");
-        $query->bindParam(1, $this->id_archive_paiement, PDO::PARAM_INT);
+        $sql = "DELETE FROM ArchivePaiement where id_archive_paiement=$this->id_archive_paiement";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
-     * Recherche d'une paiement avec son ID
+     * Recherche d'une archivepaiement avec son ID
      * 
      * @param integer $id
      * @return \Location
@@ -126,60 +109,81 @@ class Paiement {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from paiement where id_archive_paiement=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $sql = "select * from ArchivePaiement where id_archive_paiement=$id";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
-        $arc = new Paiement();
-        $arc->id_archive_paiement = $d['id_archive_paiement'];
-        $arc->montant = $d['montant'];
-        $arc->date = $d['date'];
-        $arc->mode = $d['mode'];
-        $arc->type = $d['type'];
-        $arc->dateArchivage = $d['dateArchivage'];
-        $arc->id_utilisateur = $d['id_utilisateur'];
-        $arc->id_location = $d['id_location'];
-        return $arc;
+        $pai = new ArchivePaiement();
+        $pai->id_archive_paiement = $d['id_archive_paiement'];
+        $pai->montant = $d['montant'];
+        $pai->date = $d['date'];
+        $pai->dateArchivage = $d['dateArchivage'];
+        $pai->mode = $d['mode'];
+        $pai->type = $d['type'];
+        $pai->id_utilisateur = $d['id_utilisateur'];
+        $pai->id_location = $d['id_location'];
+        return $pai;
     }
 
     /**
-     * Permet de récupérer toutes les paiements.
+     * Permet de récupérer toutes les archivepaiements.
      * 
      * @return 
      */
     public static function findAll() {
-        /* Création d'un tableau dans lequel on va stocker toutes les paiements */
+        /* Création d'un tableau dans lequel on va stocker toutes les archivepaiements */
         $res = array();
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from paiement");
+        $sql = "SELECT * FROM ArchivePaiement";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
-            $arc = new Paiement();
-            $arc->id_archive_paiement = $d['id_archive_paiement'];
-            $arc->montant = $d['montant'];
-            $arc->date = $d['date'];
-            $arc->mode = $d['mode'];
-            $arc->type = $d['type'];
-            $arc->dateArchivage = $d['dateArchivage'];
-            $arc->id_utilisateur = $d['id_utilisateur'];
-            $arc->id_location = $d['id_location'];
-            $res[] = $arc;
+            $pai = new ArchivePaiement();
+            $pai->id_archive_paiement = $d['id_archive_paiement'];
+            $pai->montant = $d['montant'];
+            $pai->date = $d['date'];
+            $pai->dateArchivage = $d['dateArchivage'];
+            $pai->mode = $d['mode'];
+            $pai->type = $d['type'];
+            $pai->id_utilisateur = $d['id_utilisateur'];
+            $pai->id_location = $d['id_location'];
+            $res[] = $pai;
+        }
+        return $res;
+    }
+
+    public static function find($sql) {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query($sql);
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $pai = new ArchivePaiement();
+            $pai->id_archive_paiement = $d['id_archive_paiement'];
+            $pai->montant = $d['montant'];
+            $pai->date = $d['date'];
+            $pai->dateArchivage = $d['dateArchivage'];
+            $pai->mode = $d['mode'];
+            $pai->type = $d['type'];
+            $pai->id_utilisateur = $d['id_utilisateur'];
+            $pai->id_location = $d['id_location'];
+            $res[] = $pai;
         }
         return $res;
     }
 
     /**
-     * Affichage d'une paiement.
+     * Affichage d'une archivepaiement.
      */
     function afficher() {
-        echo "Paiement n°$this->id_archive_paiement , $this->date $this->mode, $this->type ; <br/>";
+        echo "ArchivePaiement n°$this->id_archive_paiement , $this->date , $this->dateArchivage ; $this->mode, $this->type ; <br/>";
     }
 
 }
