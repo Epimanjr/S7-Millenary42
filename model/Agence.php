@@ -50,13 +50,9 @@ class Agence {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("INSERT INTO agence (nom, email, telephone) VALUES (:nom, :email, :telephone)");
-        $query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
-        $query->bindParam(':email', $this->email, PDO::PARAM_STR);
-        $query->bindParam(':telephone', $this->telephone, PDO::PARAM_STR);
-
+        $sql = "INSERT INTO Agence (nom, email, telephone) VALUES ('$this->nom', '$this->email', '$this->telephone')";
         /* Exécution de la requête */
-        $query->execute();
+        $c->query($sql);
         $this->id_agence = $c->lastInsertId();
     }
 
@@ -74,13 +70,9 @@ class Agence {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("update agence set nom= ?, email= ?, telephone= ? where id_agence=?");
-        $query->bindParam(1, $this->nom, PDO::PARAM_STR);
-        $query->bindParam(2, $this->email, PDO::PARAM_STR);
-        $query->bindParam(3, $this->telephone, PDO::PARAM_STR);
-        $query->bindParam(4, $this->id_agence, PDO::PARAM_INT);
+        $sql = "update Agence set nom= '$this->nom', email= '$this->email', telephone= '$this->telephone' where id_agence= $this->id_agence";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -97,10 +89,9 @@ class Agence {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("DELETE FROM agence where id_agence=?");
-        $query->bindParam(1, $this->id_agence, PDO::PARAM_INT);
+        $sql = "DELETE FROM Agence where id_agence= $this->id_agence";
         /* Exécution de la requête */
-        return $query->execute();
+        $c->query($sql);
     }
 
     /**
@@ -113,10 +104,9 @@ class Agence {
         /* Connexion à la base de données */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from agence where id_agence=?");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $sql = "select * from Agence where id_agence= $this->id_agence";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Récupération du résultat */
         $d = $query->fetch(PDO::FETCH_BOTH);
         /* Création d'un Objet */
@@ -139,9 +129,9 @@ class Agence {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $query = $c->prepare("select * from agence");
+        $sql = "select * from Agence";
         /* Exécution de la requête */
-        $query->execute();
+        $query = $c->query($sql);
         /* Parcours du résultat */
         while ($d = $query->fetch(PDO::FETCH_BOTH)) {
             $age = new Agence();
