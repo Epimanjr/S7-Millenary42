@@ -17,6 +17,7 @@ class HomeController extends Controller {
             'home' => 'defaultAction',
             'login' => 'loginAction',
             'search' => 'searchAction',
+            'displayApp' => 'displayAppAction'
         );
     }
 
@@ -72,6 +73,26 @@ class HomeController extends Controller {
         $AppartementView = new AppartementView();
         $content = $AppartementView->generateListDisplay(Appartement::find("Requête SQL à écrire ici"));
         */
+        
+        // Création de la vue globale
+        $front = $MainView->displayFront($nav, $content);
+        
+        // Affichage final
+        echo $front;
+    }
+    
+    public function displayAppAction() {
+        // Création de la vue principale
+        $MainView = new MainView();
+        $title = '<span class="glyphicon glyphicon-home"></span> Détails de l\'appartement X';
+        $nav = $MainView->displayNav($title, null, true);
+        
+        if (isset($_GET["id_app"])) {
+            // Création de la vue détaillée de l'appartement
+            $id_app = $_GET["id_app"];
+            $AppartementView = new AppartementView();
+            $content = $AppartementView->generateDetailDisplay(Appartement::findById($id_app));
+        }
         
         // Création de la vue globale
         $front = $MainView->displayFront($nav, $content);

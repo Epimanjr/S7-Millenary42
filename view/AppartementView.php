@@ -109,7 +109,7 @@ class AppartementView {
                                         </table>
                                         <p>
                                             <span class="pull-right"></span>
-                                            <a href="./?a=details&id='.$appart->id_appartement.'" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-list-alt"></span> Détails</a>
+                                            <a href="./?a=displayApp&id_app=' . $appart->id_appart . '" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-list-alt"></span> Détails</a>
                                         </p>
                                     </div>
                                 </div>
@@ -122,7 +122,6 @@ class AppartementView {
      * @param type $list
      */
     public static function generateListDisplay($list){
-        
         $filters = AppartementView::generateFilters();
         
         $rep = '<div class="col-sm-12 page-content"><div class="col-sm-12">';
@@ -134,6 +133,188 @@ class AppartementView {
         }
         
         $rep .= '</div></div>';
+        
+        return $rep;
+    }
+    
+    public static function generateDetailDisplay($appart) {
+        $rep = "";
+        
+        /*
+         * TO DO
+         * Remplacer le contenu d'exemple par les valeurs dans $appart (et sur la base)
+         * Par exemple, surface et loyer sont déjà faits ! Il suffit de s'en inspirer ;)
+         */
+        
+        $rep .= '<div class="col-sm-12 page-content">
+
+                    <div class="col-sm-5" style="position: fixed;">
+                        <img class="appart-photo" src="http://www.yooko.fr/wp-content/uploads/2013/07/appartement-W-par-Regis-Botta-7.jpg"  />
+                        <h4><strong>Adresse : </strong></h4>
+                        <p>
+                            quartier Faubourg des trois maisons<br>
+                            42 rue générique, 54000 Nancy<br>
+                            3ème étage, appartement 14
+                        </p>
+                        <p>
+                            <strong>Type</strong> : Meublé vacances
+                        </p>
+                    </div>
+                    <div class="col-sm-offset-5 col-sm-7">
+
+                        <table class="table">
+                            <tr>
+                                <td>Surface</td>
+                                <td>' . $appart->surface . ' m²</td>
+                            </tr>
+                            <tr>
+                                <td>Nombre de pièces</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Loyer</td>
+                                <td>' . $appart-> loyer . ' €</td>
+                            </tr>
+                            <tr>
+                                <td>Charges</td>
+                                <td>Comprises</td>
+                            </tr>
+                            <tr>
+                                <td>Etat</td>
+                                <td> ??</td>
+                            </tr> 
+                            <tr>
+                                <td>Vidéophone</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Interphone</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Digicode</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Cable</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Antenne TV</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Espace Vert</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>VMC</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Piscine</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Parking Collectif</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Jardin Privé</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Ascenceur</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Loge Gardien</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Vide Ordure</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Double Vitrage</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Climatisation</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Eau chaude collective</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Eau froide collective</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Complément eau chaude</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Complément eau froide</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Chauffage</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Classe Energie</td>
+                                <td>B</td>
+                            </tr>
+                            <tr>
+                                <td>Cuisine Equipée</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Branchement machine à laver</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Evier</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Caves</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Balcon</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Garages</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Terrasses</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Chambre de service</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Parking privé</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Greniers</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Celliers</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>';
         
         return $rep;
     }
