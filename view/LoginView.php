@@ -119,7 +119,6 @@ class LoginView {
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <!--<a href="../connected_user/index.html" class="btn btn-primary pull-right">Se connecter</a>-->
                                 <button type="submit" class="btn btn-primary pull-right">Se connecter</button>
                             </div>
                         </div>
@@ -199,7 +198,7 @@ class LoginView {
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-success pull-right"><span class="glyphicon glyphicon-ok"></span> Inscription</a>
+                                <button type="submit" class="btn btn-success pull-right"><span class="glyphicon glyphicon-ok"></span> Inscription</button>
                             </div>
                         </div>
                     </form>
