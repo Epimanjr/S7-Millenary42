@@ -13,24 +13,25 @@ class LoginView {
      */
     public static function displayContent(){
         return '<div class="col-sm-6 page-content">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="controller/signin.php" method="POST">
 
                         <div class="form-group">
-                            <label for="signin-email" class="col-sm-2 control-label">Email</label>
+                            <label for="email" class="col-sm-2 control-label">Email</label>
                             <div class="col-sm-4">
-                                <input type="email" class="form-control" id="signin-email" placeholder="Email">
+                                <input name="email" type="email" class="form-control" id="signin-email" placeholder="Email">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="signin-password" class="col-sm-2 control-label">Mot de passe</label>
+                            <label for="motDePasse" class="col-sm-2 control-label">Mot de passe</label>
                             <div class="col-sm-4">
-                                <input type="password" class="form-control" id="signin-password" placeholder="Mot de passe">
+                                <input name="motDePasse" type="password" class="form-control" id="signin-password" placeholder="Mot de passe">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a href="../connected_user/index.html" class="btn btn-primary pull-right">Se connecter</a>
+                                <!--<a href="../connected_user/index.html" class="btn btn-primary pull-right">Se connecter</a>-->
+                                <button type="submit" class="btn btn-primary pull-right">Se connecter</button>
                             </div>
                         </div>
                     </form>

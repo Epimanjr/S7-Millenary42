@@ -54,6 +54,7 @@ class Compte {
         /* Exécution de la requête */
         $c->query($sql);
         $this->id_compte = $c->lastInsertId();
+        //$c->query("INSERT INTO Compte (identifiant, motDePasse, id_utilisateur) VALUES ('visiteur@mail.com', 'azerty', 61)");
     }
 
     /**
@@ -105,6 +106,30 @@ class Compte {
         $c = Database::getConnection();
         /* Préparation de la requête */
         $sql = "select * from Compte where id_compte=$id";
+        /* Exécution de la requête */
+        $query = $c->query($sql);
+        /* Récupération du résultat */
+        $d = $query->fetch(PDO::FETCH_BOTH);
+        /* Création d'un Objet */
+        $com = new Compte();
+        $com->id_compte = $d['id_compte'];
+        $com->identifiant = $d['identifiant'];
+        $com->motDePasse = $d['motDePasse'];
+        $com->id_utilisateur = $d['id_utilisateur'];
+        return $com;
+    }
+    
+    /**
+     * Recherche d'une compte avec son identifiant (email)
+     * 
+     * @param integer $identifiant
+     * @return \Location
+     */
+    public static function findByIdentifant($id) {
+        /* Connexion à la base de données */
+        $c = Database::getConnection();
+        /* Préparation de la requête */
+        $sql = "select * from Compte where identifiant='$id'";
         /* Exécution de la requête */
         $query = $c->query($sql);
         /* Récupération du résultat */

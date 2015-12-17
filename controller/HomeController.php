@@ -9,6 +9,11 @@ include_once 'model/Appartement.php';
 
 class HomeController extends Controller {
 
+    private $MainView;
+    private $nav;
+    private $content;
+    private $front;
+    
     public function __construct() {
         // Création du tableau d'association
         // (à un contenu du GET, on associe une fonction à exécuter)
@@ -21,45 +26,44 @@ class HomeController extends Controller {
         );
     }
 
+    public function begin() {
+        $this->MainView = new MainView();
+        $title = '<span class="glyphicon glyphicon-home"></span> Parcourir les appartements';
+        $this->nav = $this->MainView->displayNav($title, null, true);
+    }
+    
+    public function end() {
+        $this->front = $this->MainView->displayFront($this->nav, $this->content);
+        echo $this->front;
+    }
+    
     public function defaultAction() {
         // Création de la vue principale
-        $MainView = new MainView();
-        $title = '<span class="glyphicon glyphicon-home"></span> Parcourir les appartements';
-        $nav = $MainView->displayNav($title, null, true);
+        $this->begin();
         
         // Création de la vue des appartements
         $AppartementView = new AppartementView();
-        $content = $AppartementView->generateListDisplay(Appartement::findAll());
+        $this->content = $AppartementView->generateListDisplay(Appartement::findAll());
         
-        // Création de la vue globale
-        $front = $MainView->displayFront($nav, $content);
-        
-        // Affichage final
-        echo $front;
+        // Création et affichage de la vue globale
+        $this->end();
     }
     
     public function loginAction() {
         // Création de la vue principale
-        $MainView = new MainView();
-        $title = '<span class="glyphicon glyphicon-home"></span> Parcourir les appartements';
-        $nav = $MainView->displayNav($title, null, true);
+        $this->begin();
         
         // Création de la vue du login
         $LoginView = new LoginView();
-        $content = $LoginView->displayContent();
+        $this->content = $LoginView->displayContent();
         
-        // Création de la vue globale
-        $front = $MainView->displayFront($nav, $content);
-        
-        // Affichage final
-        echo $front;
+        // Création et affichage de la vue globale
+        $this->end();
     }
 
     public function searchAction() {
         // Création de la vue principale
-        $MainView = new MainView();
-        $title = '<span class="glyphicon glyphicon-home"></span> Parcourir les appartements';
-        $nav = $MainView->displayNav($title, null, true);
+        $this->begin();
         
         // Création de la vue des résultats de la recherche
         /* TO DO (début d'idée ci-après)
@@ -71,34 +75,26 @@ class HomeController extends Controller {
                                   );
         }
         $AppartementView = new AppartementView();
-        $content = $AppartementView->generateListDisplay(Appartement::find("Requête SQL à écrire ici"));
+        $this->content = $AppartementView->generateListDisplay(Appartement::find("Requête SQL à écrire ici"));
         */
         
-        // Création de la vue globale
-        $front = $MainView->displayFront($nav, $content);
-        
-        // Affichage final
-        echo $front;
+        // Création et affichage de la vue globale
+        $this->end();
     }
     
     public function displayAppAction() {
         // Création de la vue principale
-        $MainView = new MainView();
-        $title = '<span class="glyphicon glyphicon-home"></span> Détails de l\'appartement X';
-        $nav = $MainView->displayNav($title, null, true);
+        $this->begin();
         
         if (isset($_GET["id_app"])) {
             // Création de la vue détaillée de l'appartement
             $id_app = $_GET["id_app"];
             $AppartementView = new AppartementView();
-            $content = $AppartementView->generateDetailDisplay(Appartement::findById($id_app));
+            $this->content = $AppartementView->generateDetailDisplay(Appartement::findById($id_app));
         }
         
-        // Création de la vue globale
-        $front = $MainView->displayFront($nav, $content);
-        
-        // Affichage final
-        echo $front;
+        // Création et affichage de la vue globale
+        $this->end();
     }
 
 }

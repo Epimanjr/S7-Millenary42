@@ -59,6 +59,7 @@ class Utilisateur {
         /* Exécution de la requête */
         $c->query($sql);
         $this->id_utilisateur = $c->lastInsertId();
+        //$c->query("INSERT INTO Utilisateur (nom, prenom, email, telephone, etat, id_type_utilisateur, id_adresse) VALUES ('DUPONT', 'Jean', 'visiteurtest@mail.com', '061234567891', 'actif', 13, 13)");
     }
 
     /**
