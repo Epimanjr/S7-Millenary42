@@ -15,6 +15,10 @@ class AppartementView {
      * @return string
      */
     public static function generateFilters(){
+        $villeGet = $_GET["ville"];
+        $surfaceGet = $_GET["surface"];
+        $loyerGet = $_GET["loyer"];
+        
         $res= '  <div class="col-sm-1 filters" >
 
                             <form method="GET" action="./index.php">
@@ -23,28 +27,43 @@ class AppartementView {
                                     <label for="filter-town">Ville</label>
                                     <select name="ville" id="filter-town" class="form-control">';
         $villes = Adresse::findVilles();
+        $res .= '<option>indifférent</option>';
         foreach ($villes as $ville) {
-            $res .= '<option>' . $ville . '</option>';
+            if($ville==$villeGet) {
+                $res .= '<option selected>' . $ville . '</option>';
+            } else {
+                $res .= '<option>' . $ville . '</option>';
+            }
+            
         }                                
                                         $res .= '
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="filter-surface">Surface (m²)</label>
-                                    <select name="surface" id="filter-surface" class="form-control">
-                                        <option>< 40</option>
-                                        <option>< 80 </option>
-                                        <option>< 150</option>
-                                    </select>
+                                    <select name="surface" id="filter-surface" class="form-control">';
+                                        $surfaces = AppartementView::generateFiltersSurface();
+                                        foreach ($surfaces as $s) {
+                                            if($s==$surfaceGet) {
+                                                $res .= '<option selected>' . $s . '</option>';
+                                            } else {
+                                                $res .= '<option>' . $s . '</option>';
+                                            }
+                                        }
+                                    $res .= '</select>
                                 </div>
                                 <div class="form-group">
                                     <label for="filter-rent">Loyer (€)</label>
-                                    <select name="loyer" id="filter-rent" class="form-control">
-                                        <option>< 300</option>
-                                        <option>< 500</option>
-                                        <option>< 1000</option>
-                                        <option>< 2000</option>
-                                    </select>
+                                    <select name="loyer" id="filter-rent" class="form-control">';
+                                        $rents = AppartementView::generateFiltersRent();
+                                            foreach ($rents as $r) {
+                                                if($r==$loyerGet) {
+                                                    $res .= '<option selected>' . $r . '</option>';
+                                                } else {
+                                                    $res .= '<option>' . $r . '</option>';
+                                                }
+                                            }
+                                    $res .= '</select>
                                 </div>
 
 
@@ -68,6 +87,25 @@ class AppartementView {
                             </form>
                         </div>';
         return $res;
+    }
+    
+    public static function generateFiltersRent() {
+        $array = array();
+        $array[] = "indifférent";
+        $array[] = "< 300";
+        $array[] = "< 500";
+        $array[] = "< 1000";
+        $array[] = "< 2000";
+        return $array;
+    }
+    
+    public static function generateFiltersSurface() {
+        $array = array();
+        $array[] = "indifférent";
+        $array[] = "< 40";
+        $array[] = "< 80";
+        $array[] = "< 150";
+        return $array;
     }
     
     /**
