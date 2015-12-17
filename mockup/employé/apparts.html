@@ -24,12 +24,12 @@ and open the template in the editor.
                     </div>
 
                     <ul class="nav navbar-nav">
-                        <li><a href="index.html"> Appartements</a></li>
-                        <li class="active"><a href="mes_apparts.html"> Mes appartements<span class="sr-only">(current)</span></a></li>
+                        <li ><a href="index.html"> Tableau de bord</a></li>
+                        <li class="active"><a href="apparts"> Appartements<span class="sr-only">(current)</span></a></li> <!-- Liste de tous les apparts sous forme de tableau sur la page d'après -->
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="contact-form.html"><span class="glyphicon glyphicon-envelope"></span> Nous contacter</a></li>
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Michel Smith <span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -45,7 +45,7 @@ and open the template in the editor.
 
             <div class="row">
                 <div class="col-sm-12 page-title">
-                    <h2><span class="glyphicon glyphicon-list"></span> Mes appartements</h2>
+                    <h2><span class="glyphicon glyphicon-home"></span> Appartements</h2>
                 </div>
             </div> 
             <div class="row">
@@ -56,7 +56,7 @@ and open the template in the editor.
                         <div class="col-sm-1" style="position:fixed;">
 
                             <form>
-                                <!--On affiche les villes des appartements de CE locataire-->
+
                                 <div class="form-group">
                                     <label for="filter-town">Ville</label>
                                     <select id="filter-town" class="form-control">
@@ -90,88 +90,58 @@ and open the template in the editor.
                         <!-- Liste des appartements -->
                         <div class="col-sm-10 col-sm-offset-2">
 
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-default">Ajouter un appartement</button>
+                                
+                            </div>
+
                             <table class="table table-striped">
                                 <!-- header du tableau -->
                                 <thead>
                                 <th class="col-sm-6">Adresse</th>
                                 <th class="col-sm-2">Type</th>
-                                <th class="col-sm-2">Prochaine écheance du loyer</th>
-                                <th class="col-sm-1">Règlement</th>
-                                <th class="col-sm-1">Gestion</th>
+                                <th class="col-sm-1">Loyer</th>
+                                <th class="col-sm-1">Surface</th>
+                                <th class="col-sm-1">Accès</th>
                                 </thead>
                                 <!-- contenu du tableau -->
                                 <tbody>
                                     <tr id="appart_01">
                                         <td>28 rue Aristide Briand, 67000 Strasbourg</td>
                                         <td>Meublé vacances</td>
-                                        <td>05 Janvier 2016</td>
+                                        <td>500 €</td>
                                         <td>
-                                            <!-- Lien vers une page de paiement -->
-                                            <a class="btn btn-sm btn-primary">
-                                                Payer le loyer
-                                            </a>
+                                            
+                                           50 m² 
                                         </td>
                                         <td>
-                                            <!-- liens vers des pages -->
-                                            <div class="btn-group" role="group">
-                                                <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Quitance de loyer">
-                                                    <span class="glyphicon glyphicon-eur"></span>
-                                                </a>
-                                                <a  class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Signaler de la maintenance">
-                                                    <span class="glyphicon glyphicon-wrench"></span>
-                                                </a>
-                                                <a class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Documents demandés">
-                                                    <span class="glyphicon glyphicon-file"></span>
-                                                </a>
-                                            </div>
+                                            <a class="btn btn-sm btn-primary" href="details_appart.html">
+                                                Voir
+                                            </a>
                                         </td>
                                     </tr>
-                                    <tr class="bg-danger" id="appart_02">
+                                    <tr id="appart_02">
                                         <td>5 rue Henri Sale Vador, 57000 Metz</td>
                                         <td>Appartement</td>
-                                        <td>05 Décembre 2015</td>
+                                        <td>768 €</td>
+                                        <td> 70 m²</td>
                                         <td>
-                                            <a class="btn btn-sm btn-danger">
-                                                Payer le loyer
+                                            <a class="btn btn-sm btn-primary" href="details_appart.html">
+                                                Voir
                                             </a>
-                                        </td>
-                                        <td>
-                                            <!-- liens vers des pages -->
-                                            <div class="btn-group" role="group">
-                                                <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Quitance de loyer">
-                                                    <span class="glyphicon glyphicon-eur"></span>
-                                                </a>
-                                                <a  class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Signaler de la maintenance">
-                                                    <span class="glyphicon glyphicon-wrench"></span>
-                                                </a>
-                                                <a class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Documents demandés">
-                                                    <span class="glyphicon glyphicon-file"></span>
-                                                </a>
-                                            </div>
+                                           
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>245 avenue Patrick Poivre d'Abord, 54000 Nancy</td>
                                         <td>Appartement</td>
-                                        <td>10 Janvier 2016</td>
+                                        <td> 356 €</td>
+                                        <td>20 m²</td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary">
-                                                Payer le loyer
+                                            <a class="btn btn-sm btn-primary" href="details_appart.html">
+                                                Voir
                                             </a>
-                                        </td>
-                                        <td>
-                                            <!-- liens vers des pages -->
-                                            <div class="btn-group" role="group">
-                                                <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Quitance de loyer">
-                                                    <span class="glyphicon glyphicon-eur"></span>
-                                                </a>
-                                                <a  class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Signaler de la maintenance">
-                                                    <span class="glyphicon glyphicon-wrench"></span>
-                                                </a>
-                                                <a class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Documents demandés">
-                                                    <span class="glyphicon glyphicon-file"></span>
-                                                </a>
-                                            </div>
+                                            
                                         </td>
                                     </tr>
                                 </tbody>
@@ -182,7 +152,7 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-        
+
         <script src="../../lib/jquery-1.11.3.min.js"></script>
         <script src="../../lib/bootstrap-3.3/js/bootstrap.min.js"></script>
         <script>
