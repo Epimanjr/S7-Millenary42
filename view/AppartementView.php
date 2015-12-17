@@ -1,5 +1,8 @@
 <?php
 
+include_once 'model/TypeAppartement.php';
+include_once 'model/Adresse.php';
+
 /**
  * Description of AppartementView
  *
@@ -12,35 +15,35 @@ class AppartementView {
      * @return string
      */
     public static function generateFilters(){
-        return '  <div class="col-sm-1 filters" >
+        $res= '  <div class="col-sm-1 filters" >
 
-                            <form>
-
+                            <form method="GET" action="./index.php">
+                                <input name="a" type=hidden value="search"/>
                                 <div class="form-group">
                                     <label for="filter-town">Ville</label>
-                                    <select id="filter-town" class="form-control">
-                                        <option>Nancy</option>
-                                        <option>Metz</option>
-                                        <option>Strasbourg</option>
-                                        <option>Bordeaux</option>
-                                        <option>Lille</option>
+                                    <select name="ville" id="filter-town" class="form-control">';
+        $villes = Adresse::findVilles();
+        foreach ($villes as $ville) {
+            $res .= '<option>' . $ville . '</option>';
+        }                                
+                                        $res .= '
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="filter-surface">Surface</label>
-                                    <select id="filter-surface" class="form-control">
-                                        <option>< 30m²</option>
-                                        <option>de 30m² à 70m²</option>
-                                        <option>> 70m²</option>
+                                    <label for="filter-surface">Surface (m²)</label>
+                                    <select name="surface" id="filter-surface" class="form-control">
+                                        <option>< 40</option>
+                                        <option>< 80 </option>
+                                        <option>< 150</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="filter-rent">Loyer</label>
-                                    <select id="filter-rent" class="form-control">
-                                        <option>< 300$</option>
-                                        <option>de 300$ à 500$</option>
-                                        <option>de 500$ à 700$</option>
-                                        <option>> 700$</option>
+                                    <label for="filter-rent">Loyer (€)</label>
+                                    <select name="loyer" id="filter-rent" class="form-control">
+                                        <option>< 300</option>
+                                        <option>< 500</option>
+                                        <option>< 1000</option>
+                                        <option>< 2000</option>
                                     </select>
                                 </div>
 
@@ -64,6 +67,7 @@ class AppartementView {
                                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
                             </form>
                         </div>';
+        return $res;
     }
     
     /**
@@ -71,6 +75,7 @@ class AppartementView {
      * @param type $appart
      */
     public static function generateUniqueListDispay($appart) {
+        $adresse = Adresse::findById($appart->id_adresse);
         $rep = '<div class="col-sm-3">
                     <div class="thumbnail">
                         <div style="background-image: url(http://www.yooko.fr/wp-content/uploads/2013/07/appartement-W-par-Regis-Botta-7.jpg)">
@@ -78,7 +83,7 @@ class AppartementView {
                         </div>
                     <img src="http://www.yooko.fr/wp-content/uploads/2013/07/appartement-W-par-Regis-Botta-7.jpg" />
                                     <div class="caption">
-                                        <h3>Appartement<br><small>'.$appart->id_adresse.'</small></h3>
+                                        <h3>Appartement<br><small>Quartier '. $adresse->quartier . ' ' . $adresse->ville . ' (' . $adresse->codePostal .')</small></h3>
 
                                         <h4>Caractéristiques</h4>
                                         <table class="table table-hover">
@@ -87,7 +92,7 @@ class AppartementView {
                                                     Surface
                                                 </td>
                                                 <td>
-                                                    '.$appart->surface.'
+                                                    '.$appart->surface.' m²
                                                 </td>
                                             </tr>
                                             <tr>
@@ -95,7 +100,7 @@ class AppartementView {
                                                     Loyer
                                                 </td>
                                                 <td>
-                                                    '.$appart->loyer.'
+                                                    '.$appart->loyer.' €
                                                 </td>
                                             </tr>
                                             <tr>
@@ -103,7 +108,7 @@ class AppartementView {
                                                     Type
                                                 </td>
                                                 <td>
-                                                    '.$appart->id_type_appart.'
+                                                    '. TypeAppartement::findById($appart->id_type_appart)->nom .'
                                                 </td>
                                             </tr>
                                         </table>
@@ -283,13 +288,20 @@ class AppartementView {
         return $rep;
     }
     
+    public static function bitToOuiNon($bit) {
+        if($bit==1) {
+            return '<span class="label label-success">Oui</span>';
+        } else {
+            return '<span class="label label-danger">Non</span>';
+        }
+    }
+    
     /**
      * Affiche le détail d'un appartement
      * @param type $appart
      * @return string
      */
     public static function generateDetailDisplay($appart) {
-        $rep = "";
         
         /*
          * TO DO
@@ -297,15 +309,17 @@ class AppartementView {
          * Par exemple, surface et loyer sont déjà faits ! Il suffit de s'en inspirer ;)
          */
         
-        $rep .= '<div class="col-sm-12 page-content">
+        $adresse = Adresse::findById($appart->id_adresse);
+        $rep = '<div class="col-sm-12 page-content">
 
                     <div class="col-sm-5" style="position: fixed;">
                         <img class="appart-photo" src="http://www.yooko.fr/wp-content/uploads/2013/07/appartement-W-par-Regis-Botta-7.jpg"  />
                         <h4><strong>Adresse : </strong></h4>
                         <p>
-                            quartier Faubourg des trois maisons<br>
-                            42 rue générique, 54000 Nancy<br>
-                            3ème étage, appartement 14
+                            '. $adresse->numRue . ' ' . $adresse->rue . '<br>' . $adresse->codePostal . ' ' . $adresse->ville .'
+                        </p>
+                        <p>
+                            <strong>Quartier :</strong> '. $adresse->quartier .'
                         </p>
                         <p>
                             <strong>Type</strong> : Meublé vacances
@@ -320,147 +334,147 @@ class AppartementView {
                             </tr>
                             <tr>
                                 <td>Nombre de pièces</td>
-                                <td>4</td>
+                                <td>' . $appart->nbPieces . '</td>
                             </tr>
                             <tr>
                                 <td>Loyer</td>
                                 <td>' . $appart-> loyer . ' €</td>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <td>Charges</td>
                                 <td>Comprises</td>
-                            </tr>
+                            </tr>-->
                             <tr>
                                 <td>Etat</td>
-                                <td> ??</td>
+                                <td>' . $appart->etat . '</td>
                             </tr> 
                             <tr>
                                 <td>Vidéophone</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->videphone) . '</td>
                             </tr>
                             <tr>
                                 <td>Interphone</td>
-                                <td><span class="label label-success">Oui</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->interphone) . '</td>
                             </tr>
                             <tr>
                                 <td>Digicode</td>
-                                <td><span class="label label-success">Oui</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->digicode) . '</td>
                             </tr>
                             <tr>
                                 <td>Cable</td>
-                                <td><span class="label label-success">Oui</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->cable) . '</td>
                             </tr>
                             <tr>
                                 <td>Antenne TV</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->antenneTV) . '</td>
                             </tr>
                             <tr>
                                 <td>Espace Vert</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->espaceVert) . '</td>
                             </tr>
                             <tr>
                                 <td>VMC</td>
-                                <td><span class="label label-success">Oui</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->VMC) . '</td>
                             </tr>
                             <tr>
                                 <td>Piscine</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->pirsine) . '</td>
                             </tr>
                             <tr>
                                 <td>Parking Collectif</td>
-                                <td><span class="label label-success">Oui</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->parkingCollectif) . '</td>
                             </tr>
                             <tr>
                                 <td>Jardin Privé</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->jardinPrive) . '</td>
                             </tr>
                             <tr>
                                 <td>Ascenceur</td>
-                                <td><span class="label label-success">Oui</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->ascenseur) . '</td>
                             </tr>
                             <tr>
                                 <td>Loge Gardien</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->logeGardin) . '</td>
                             </tr>
                             <tr>
                                 <td>Vide Ordure</td>
-                                <td><span class="label label-success">Oui</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->ordure) . '</td>
                             </tr>
                             <tr>
                                 <td>Double Vitrage</td>
-                                <td><span class="label label-success">Oui</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->doubleVitrage) . '</td>
                             </tr>
                             <tr>
                                 <td>Climatisation</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->climatisation) . '</td>
                             </tr>
                             <tr>
                                 <td>Eau chaude collective</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->eauChaudeCollective) . '</td>
                             </tr>
                             <tr>
                                 <td>Eau froide collective</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->eauFroideCollective) . '</td>
                             </tr>
                             <tr>
                                 <td>Complément eau chaude</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->cptEauChaude) . '</td>
                             </tr>
                             <tr>
                                 <td>Complément eau froide</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->cptEauFroide) . '</td>
                             </tr>
                             <tr>
                                 <td>Chauffage</td>
-                                <td><span class="label label-success">Oui</span></td>
+                                <td> ' . $appart->chauffage . '</td>
                             </tr>
                             <tr>
                                 <td>Classe Energie</td>
-                                <td>B</td>
+                                <td> ' . $appart->classeEnergie . '</td>
                             </tr>
                             <tr>
                                 <td>Cuisine Equipée</td>
-                                <td><span class="label label-success">Oui</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->cuisineEquipee) . '</td>
                             </tr>
                             <tr>
                                 <td>Branchement machine à laver</td>
-                                <td><span class="label label-success">Oui</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->branchementMachineLaver) . '</td>
                             </tr>
                             <tr>
                                 <td>Evier</td>
-                                <td><span class="label label-success">Oui</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->evier) . '</td>
                             </tr>
                             <tr>
                                 <td>Caves</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->caves) . '</td>
                             </tr>
                             <tr>
                                 <td>Balcon</td>
-                                <td><span class="label label-success">Oui</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->balcon) . '</td>
                             </tr>
                             <tr>
                                 <td>Garages</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->garages) . '</td>
                             </tr>
                             <tr>
                                 <td>Terrasses</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->terrasses) . '</td>
                             </tr>
                             <tr>
                                 <td>Chambre de service</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->chambreService) . '</td>
                             </tr>
                             <tr>
                                 <td>Parking privé</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->parkingPrive) . '</td>
                             </tr>
                             <tr>
                                 <td>Greniers</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->grenier) . '</td>
                             </tr>
                             <tr>
                                 <td>Celliers</td>
-                                <td><span class="label label-danger">Non</span></td>
+                                <td>' . AppartementView::bitToOuiNon($appart->celliers) . '</td>
                             </tr>
                         </table>
                     </div>

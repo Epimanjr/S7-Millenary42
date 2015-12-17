@@ -155,17 +155,14 @@ class HomeController extends Controller {
         $this->begin();
         
         // Création de la vue des résultats de la recherche
-        /* TO DO (début d'idée ci-après)
-        $criteres_recherche = array();
         if (isset($_GET["ville"])) {
-            $criteres_recherche = array(
-                                    ville => $_GET["ville"],
-                                    surface => $_GET["surace"]
-                                  );
+            $ville = $_GET["ville"];
+            $surface = $_GET["surface"];
+            $loyer = $_GET["loyer"];
         }
         $AppartementView = new AppartementView();
-        $this->content = $AppartementView->generateListDisplay(Appartement::find("Requête SQL à écrire ici"));
-        */
+        $sql = "SELECT * FROM Appartement INNER JOIN Adresse ON Appartement.id_adresse=Adresse.id_adresse WHERE ville='" . $ville . "' AND surface " . $surface . " AND loyer" . $loyer;
+        $this->content = $AppartementView->generateListDisplay(Appartement::find($sql));
         
         // Création et affichage de la vue globale
         $this->end();

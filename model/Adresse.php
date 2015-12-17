@@ -181,6 +181,20 @@ class Adresse {
         }
         return $res;
     }
+    
+    public static function findVilles() {
+        $res = array();
+        // Connexion à la base
+        $c = Database::getConnection();
+        // Exécution requête
+        $query = $c->query("SELECT DISTINCT ville FROM Adresse");
+        // Parcours
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $ville = $d['ville'];
+            $res[] = $ville;
+        }
+        return $res;
+    }
 
     /**
      * Affichage d'une adresse.
