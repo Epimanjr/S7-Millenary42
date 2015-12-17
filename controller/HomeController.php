@@ -6,6 +6,7 @@ include_once 'view/AppartementView.php';
 include_once 'view/LoginView.php';
 include_once 'model/Database.php';
 include_once 'model/Appartement.php';
+include_once 'model/Option.php';
 
 class HomeController extends Controller {
 
@@ -22,7 +23,10 @@ class HomeController extends Controller {
             'home' => 'defaultAction',
             'login' => 'loginAction',
             'search' => 'searchAction',
-            'displayApp' => 'displayAppAction'
+            'displayApp' => 'displayAppAction',
+            'poserOption' => 'poserOptionAction',
+            'displayUti' => 'displayUtiAction',
+            'contactAgence' => 'contactAgenceAction'
         );
     }
 
@@ -35,6 +39,41 @@ class HomeController extends Controller {
     public function end() {
         $this->front = $this->MainView->displayFront($this->nav, $this->content);
         echo $this->front;
+    }
+    
+    public function contactAgenceAction() {
+        // Création de la vue principale
+        $this->begin();
+        
+        // Création de la vue du login
+        $LoginView = new LoginView();
+        $this->content = $this->MainView->displayFormContactAgence();
+        
+        // Création et affichage de la vue globale
+        $this->end();  
+    }
+    
+    public function displayUtiAction() {
+        // Création de la vue principale
+        $this->begin();
+        
+        // Création de la vue du login
+        $LoginView = new LoginView();
+        $this->content = $LoginView->displayUtilisateur();
+        
+        // Création et affichage de la vue globale
+        $this->end(); 
+    }
+    
+    public function poserOptionAction() {
+        $option = new Option();
+        $option->date = "2015-12-16";
+        $option->etat = "enattente";
+        $option->id_utilisateur = $_SESSION['id_utilisateur'];
+        $option->id_appartement = $_GET['id_app'];
+        $option->insert();
+        // Redirection vers la page d'accueil
+        header("Location: index.php?a=home");
     }
     
     public function defaultAction() {

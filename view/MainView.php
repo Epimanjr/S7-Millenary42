@@ -37,18 +37,18 @@ class MainView {
                             </div>
 
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="index.html"> Appartements<span class="sr-only">(current)</span></a></li>
+                                <li class="active"><a href="./"> Appartements<span class="sr-only">(current)</span></a></li>
 
                             </ul>
 
                              <ul class="nav navbar-nav navbar-right">
-                                <li><a href="contact-form.html"><span class="glyphicon glyphicon-envelope"></span> Nous contacter</a></li>
+                                <li><a href="./?a=contactAgence"><span class="glyphicon glyphicon-envelope"></span> Nous contacter</a></li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.$_SESSION['prenom'].' '.$_SESSION['nom'].' ('.$_SESSION['email'].')<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="account.html">Informations de compte</a></li>
+                                        <li><a href="./?a=displayUti">Informations de compte</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="../visiteur/index.html"><strong>Se déconnecter</strong></a></li>
+                                        <li><a href="./?a=login""><strong>Se déconnecter</strong></a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -58,6 +58,39 @@ class MainView {
                 
         $rep.='</div></nav>'.MainView::displayTitle($title1, $title2);
         return $rep;
+    }
+    
+    public static function displayFormContactAgence() {
+        return '<div class="row">
+                    <div class="col-sm-12 page-title">
+                        <h2><span class="glyphicon glyphicon-envelope"></span> Nous contacter</h2>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-sm-12 page-content">
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="contact-objet">Objet</label>
+                                <div class="col-sm-7">
+                                    <input id="contact-object" type="text" class="form-control" placeholder="Objet">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="contact-message">Message</label>
+                                <div class="col-sm-7">
+                                    <textarea id="contact-message" class="form-control" rows="5" placeholder="Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-offset-2 col-sm-9">
+                                <a class="btn btn-default pull-right"><span class="glyphicon glyphicon-send"></span> Envoyer</a>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>';
     }
     
     public static function displayTitle($title1, $title2){

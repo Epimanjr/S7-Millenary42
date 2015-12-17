@@ -109,8 +109,16 @@ class AppartementView {
                                         </table>
                                         <p>
                                             <span class="pull-right"></span>
-                                            <a href="./?a=displayApp&id_app=' . $appart->id_appart . '" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-list-alt"></span> Détails</a>
-                                        </p>
+                                            <a href="./?a=displayApp&id_app=' . $appart->id_appart . '" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-list-alt"></span> Détails</a>';
+        if(isset($_SESSION['email'])) {
+            $option = Option::findByIdUtilisateurAndIdAppartement($_SESSION['id_utilisateur'], $appart->id_appart);
+            if($option->id_option!="") {
+                $rep .= '                   <a class="btn btn-success pull-right" role="button"><span class="glyphicon glyphicon-check"></span> Option posée</a>';
+            } else {
+                $rep .= '                   <a href="./?a=poserOption&id_app=' . $appart->id_appart . '" class="btn btn-warning pull-right" role="button"><span class="glyphicon glyphicon-check"></span> Poser une option</a>';
+            }
+        }                                
+        $rep .= '                       </p>
                                     </div>
                                 </div>
                             </div> ';

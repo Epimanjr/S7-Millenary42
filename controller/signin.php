@@ -30,6 +30,7 @@ if (isset($_POST['email'], $_POST['motDePasse'])) {
         if (($motDePasse) == $compte->motDePasse) {
             // On enregistre en tant que variables de sessions, son nom d'utilisateur et son id
             $_SESSION['email'] = $email;
+            $_SESSION['id_utilisateur'] = $utilisateur->id_utilisateur;
             $_SESSION['nom'] = $utilisateur->nom;
             $_SESSION['prenom'] = $utilisateur->prenom;
             $_SESSION['telephone'] = $utilisateur->telephone;

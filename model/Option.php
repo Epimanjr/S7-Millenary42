@@ -128,6 +128,30 @@ class Option {
         $opt->etat = $d['etat'];
         return $opt;
     }
+    
+    /**
+     * Recherche d'une option avec ID utilisateur et ID appartement
+     * 
+     * @param integer $id
+     */
+    public static function findByIdUtilisateurAndIdAppartement($id_utilisateur,$id_appartement) {
+        /* Connexion à la base de données */
+        $c = Database::getConnection();
+        /* Préparation de la requête */
+       $sql = "SELECT * FROM TableOption WHERE id_utilisateur=$id_utilisateur AND id_appartement=$id_appartement";
+        /* Exécution de la requête */
+        $query = $c->query($sql);
+        /* Récupération du résultat */
+        $d = $query->fetch(PDO::FETCH_BOTH);
+        /* Création d'un Objet */
+        $opt = new Option();
+        $opt->id_option = $d['id_option'];
+        $opt->id_utilisateur = $d['id_utilisateur'];
+        $opt->id_appartement = $d['id_appartement'];
+        $opt->date = $d['date'];
+        $opt->etat = $d['etat'];
+        return $opt;
+    }
 
     /**
      * Permet de récupérer toutes les options.
