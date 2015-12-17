@@ -11,7 +11,7 @@ class Utilisateur {
     private $prenom;
     private $email;
     private $telephone;
-    private $etat;
+    private $etat = "actif";
     private $id_adresse;
     private $id_type_utilisateur;
 
