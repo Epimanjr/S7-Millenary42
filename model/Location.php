@@ -126,6 +126,28 @@ class Location {
         $loc->id_utilisateur = $d['id_utilisateur'];
         return $loc;
     }
+    
+    public static function findByIdUtilisateurAndIdAppartement($id_utilisateur,$id_appartement) {
+        /* Connexion à la base de données */
+        $c = Database::getConnection();
+        /* Préparation de la requête */
+        $sql = "select * from Location where id_utilisateur=$id_utilisateur AND id_appartement=$id_appartement";
+        /* Exécution de la requête */
+        $query = $c->query($sql);
+        /* Récupération du résultat */
+        $d = $query->fetch(PDO::FETCH_BOTH);
+        /* Création d'un Objet */
+        $loc = new Location();
+        $loc->id_location = $d['id_location'];
+        $loc->debut = $d['debut'];
+        $loc->fin = $d['fin'];
+        $loc->payeParLocataire = $d['payeParLocataire'];
+        $loc->payeParAgence = $d['payeParAgence'];
+        $loc->proprietairePaye = $d['proprietairePaye'];
+        $loc->id_appartement = $d['id_appartement'];
+        $loc->id_utilisateur = $d['id_utilisateur'];
+        return $loc;
+    }
 
     /**
      * Permet de récupérer toutes les locations.
@@ -139,6 +161,31 @@ class Location {
         $c = Database::getConnection();
         /* Préparation de la requête */
         $sql = "select * from Location";
+        /* Exécution de la requête */
+        $query = $c->query($sql);
+        /* Parcours du résultat */
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $loc = new Location();
+            $loc->id_location = $d['id_location'];
+            $loc->debut = $d['debut'];
+            $loc->fin = $d['fin'];
+            $loc->payeParLocataire = $d['payeParLocataire'];
+            $loc->payeParAgence = $d['payeParAgence'];
+            $loc->proprietairePaye = $d['proprietairePaye'];
+            $loc->id_appartement = $d['id_appartement'];
+            $loc->id_utilisateur = $d['id_utilisateur'];
+            $res[] = $loc;
+        }
+        return $res;
+    }
+    
+    public static function findByIdUtilisateur($id) {
+        /* Création d'un tableau dans lequel on va stocker toutes les locations */
+        $res = array();
+        /* Connexion à la base */
+        $c = Database::getConnection();
+        /* Préparation de la requête */
+        $sql = "select * from Location WHERE id_utilisateur=$id";
         /* Exécution de la requête */
         $query = $c->query($sql);
         /* Parcours du résultat */

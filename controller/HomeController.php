@@ -7,6 +7,7 @@ include_once 'view/LoginView.php';
 include_once 'model/Database.php';
 include_once 'model/Appartement.php';
 include_once 'model/Option.php';
+include_once 'model/Location.php';
 
 class HomeController extends Controller {
 
@@ -26,7 +27,8 @@ class HomeController extends Controller {
             'displayApp' => 'displayAppAction',
             'poserOption' => 'poserOptionAction',
             'displayUti' => 'displayUtiAction',
-            'contactAgence' => 'contactAgenceAction'
+            'contactAgence' => 'contactAgenceAction',
+            'displayLoc' => 'displayLocAction'
         );
     }
 
@@ -39,6 +41,19 @@ class HomeController extends Controller {
     public function end() {
         $this->front = $this->MainView->displayFront($this->nav, $this->content);
         echo $this->front;
+    }
+    
+    public function displayLocAction() {
+        // Création de la vue principale
+        $this->begin();
+        
+        // Création de la vue des appartements
+        $AppartementView = new AppartementView();
+        $this->content = $AppartementView->generateMesLocations(Location::findByIdUtilisateur($_SESSION['id_utilisateur']));
+        $this->content .= "Il faut ajouter une location à Jean DUPONT pour voir si ça fonctionne !";
+        
+        // Création et affichage de la vue globale
+        $this->end();  
     }
     
     public function contactAgenceAction() {

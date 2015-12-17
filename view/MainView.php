@@ -42,15 +42,16 @@ class MainView {
                             </ul>
 
                              <ul class="nav navbar-nav navbar-right">
-                                <li><a href="./?a=contactAgence"><span class="glyphicon glyphicon-envelope"></span> Nous contacter</a></li>
+                                <li><a href="./?a=displayLoc"><span class="glyphicon glyphicon-home"></span> Mes locations</a></li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.$_SESSION['prenom'].' '.$_SESSION['nom'].' ('.$_SESSION['email'].')<span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> '.$_SESSION['prenom'].' '.$_SESSION['nom'].' ('.$_SESSION['email'].')<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="./?a=displayUti">Informations de compte</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="./?a=login""><strong>Se déconnecter</strong></a></li>
                                     </ul>
                                 </li>
+                                <li><a href="./?a=contactAgence"><span class="glyphicon glyphicon-envelope"></span> Nous contacter</a></li>
                             </ul>
                         </div>
                     </nav>';

@@ -125,6 +125,62 @@ class AppartementView {
         return $rep;
     }
     
+    public static function generateUniqueLocation($appart) {
+        $rep = '<div class="col-sm-3">
+                    <div class="thumbnail">
+                        <div style="background-image: url(http://www.yooko.fr/wp-content/uploads/2013/07/appartement-W-par-Regis-Botta-7.jpg)">
+
+                        </div>
+                    <img src="http://www.yooko.fr/wp-content/uploads/2013/07/appartement-W-par-Regis-Botta-7.jpg" />
+                                    <div class="caption">
+                                        <h3>Appartement<br><small>'.$appart->id_adresse.'</small></h3>
+
+                                        <h4>Caractéristiques</h4>
+                                        <table class="table table-hover">
+                                            <tr>
+                                                <td>
+                                                    Surface
+                                                </td>
+                                                <td>
+                                                    '.$appart->surface.'
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Loyer
+                                                </td>
+                                                <td>
+                                                    '.$appart->loyer.'
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Type
+                                                </td>
+                                                <td>
+                                                    '.$appart->id_type_appart.'
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <p>
+                                            <span class="pull-right"></span>
+                                            <a href="./?a=displayApp&id_app=' . $appart->id_appart . '" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-list-alt"></span> Détails</a>';
+        if(isset($_SESSION['email'])) {
+            $location = location::findByIdUtilisateurAndIdAppartement($_SESSION['id_utilisateur'], $appart->id_appart);
+            if($option->id_location!="") {
+                $rep .= '                   <a class="btn btn-success pull-right" role="button"><span class="glyphicon glyphicon-check"></span> Appartement loué</a>';
+            } else {
+                $rep .= '                   <a class="btn btn-fail pull-right" role="button"><span class="glyphicon glyphicon-check"></span> Appartement pas loué</a>';
+                //$rep .= '                   <a href="./?a=poserOption&id_app=' . $appart->id_appart . '" class="btn btn-warning pull-right" role="button"><span class="glyphicon glyphicon-check"></span> Poser une option</a>';
+            }
+        }                                
+        $rep .= '                       </p>
+                                    </div>
+                                </div>
+                            </div> ';
+        return $rep;
+    }
+    
     /**
      * Génère l'affichage type 'liste' pour tous les appartements d'une liste
      * @param type $list
@@ -138,6 +194,22 @@ class AppartementView {
         
         foreach ($list as $flat) {
             $rep .= AppartementView::generateUniqueListDispay($flat);
+        }
+        
+        $rep .= '</div></div>';
+        
+        return $rep;
+    }
+    
+    public static function generateMesLocations($list){
+        $filters = AppartementView::generateFilters();
+        
+        $rep = '<div class="col-sm-12 page-content"><div class="col-sm-12">';
+        //$rep .= $filters;
+        $rep .= '<div class="col-sm-12">';
+        
+        foreach ($list as $flat) {
+            $rep .= AppartementView::generateUniqueLocation($flat);
         }
         
         $rep .= '</div></div>';
