@@ -120,7 +120,29 @@ class Possession {
         $pos->id_appartement = $d['id_appartement'];
         return $pos;
     }
-
+    
+    public static function findByIdUtilisateur($id) {
+        /* Création d'un tableau dans lequel on va stocker toutes les locations */
+        $res = array();
+        /* Connexion à la base */
+        $c = Database::getConnection();
+        /* Préparation de la requête */
+        $sql = "select * from Possession WHERE id_utilisateur=$id";
+        /* Exécution de la requête */
+        $query = $c->query($sql);
+        /* Parcours du résultat */
+        while ($d = $query->fetch(PDO::FETCH_BOTH)) {
+            $pos = new Possession();
+            $pos->id_possession = $d['id_possession'];
+            $pos->debut = $d['debut'];
+            $pos->fin = $d['fin'];
+            $pos->id_utilisateur = $d['id_utilisateur'];
+            $pos->id_appartement = $d['id_appartement'];
+            $res[] = $pos;
+        }
+        return $res;
+    }
+    
     /**
      * Permet de récupérer toutes les locations.
      * 

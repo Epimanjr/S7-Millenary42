@@ -8,6 +8,8 @@ include_once 'model/Database.php';
 include_once 'model/Appartement.php';
 include_once 'model/Option.php';
 include_once 'model/Location.php';
+include_once 'model/Paiement.php';
+include_once 'model/Possession.php';
 
 class HomeController extends Controller {
 
@@ -28,7 +30,9 @@ class HomeController extends Controller {
             'poserOption' => 'poserOptionAction',
             'displayUti' => 'displayUtiAction',
             'contactAgence' => 'contactAgenceAction',
-            'displayLoc' => 'displayLocAction'
+            'displayLoc' => 'displayLocAction',
+            'payerLoyer'=>'payerLoyerAction',
+            'displayPos' => 'displayPosAction'
         );
     }
 
@@ -38,19 +42,50 @@ class HomeController extends Controller {
         $this->nav = $this->MainView->displayNav($title, null, true);
     }
     
+    public function beginCustom($title1,$title2,$withconnection) {
+        $this->MainView = new MainView();
+        $this->nav = $this->MainView->displayNav($title1, $title2, $withconnection);
+    }
+    
     public function end() {
         $this->front = $this->MainView->displayFront($this->nav, $this->content);
         echo $this->front;
     }
     
+    public function payerLoyerAction() {
+        $paiement = new Paiement();
+        $paiement->montant = $_GET['loyer'];
+        $paiement->date = "2015-12-17";
+        $paiement->mode = "enLigne";
+        $paiement->type = "locataireVersAgence";
+        $paiement->id_utilisateur = $_GET['id_utilisateur'];
+        $paiement->id_location = $_GET['id_location'];
+        $paiement->insert();
+        // Redirection vers la page d'accueil
+        header("Location: index.php?a=displayLoc");
+    }
+    
     public function displayLocAction() {
         // Création de la vue principale
-        $this->begin();
+        $this->beginCustom('<span class="glyphicon glyphicon-home"></span> Mes locations',null,true);
         
         // Création de la vue des appartements
         $AppartementView = new AppartementView();
-        $this->content = $AppartementView->generateMesLocations(Location::findByIdUtilisateur($_SESSION['id_utilisateur']));
-        $this->content .= "Il faut ajouter une location à Jean DUPONT pour voir si ça fonctionne !";
+        $locations = Location::findByIdUtilisateur($_SESSION['id_utilisateur']);
+        $this->content = $AppartementView->generateMesLocations($locations);
+        
+        // Création et affichage de la vue globale
+        $this->end();  
+    }
+    
+    public function displayPosAction() {
+        // Création de la vue principale
+        $this->beginCustom('<span class="glyphicon glyphicon-home"></span> Mes appartements',null,true);
+        
+        // Création de la vue des appartements
+        $AppartementView = new AppartementView();
+        $possessions = Possession::findByIdUtilisateur($_SESSION['id_utilisateur']);
+        $this->content = $AppartementView->generateMesPossessions($possessions);
         
         // Création et affichage de la vue globale
         $this->end();  
