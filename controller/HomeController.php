@@ -3,6 +3,7 @@
 include_once 'Controller.php';
 include_once 'view/MainView.php';
 include_once 'view/AppartementView.php';
+include_once 'view/DashboardView.php';
 include_once 'view/LoginView.php';
 include_once 'model/Database.php';
 include_once 'model/Appartement.php';
@@ -32,7 +33,8 @@ class HomeController extends Controller {
             'contactAgence' => 'contactAgenceAction',
             'displayLoc' => 'displayLocAction',
             'payerLoyer' => 'payerLoyerAction',
-            'displayPos' => 'displayPosAction'
+            'displayPos' => 'displayPosAction',
+            'dashboard' => 'dashboardAction'
         );
     }
 
@@ -52,6 +54,18 @@ class HomeController extends Controller {
         echo $this->front;
     }
 
+    public function dashboardAction() {
+        // Création de la vue principale
+        $this->beginCustom('<span class="glyphicon glyphicon-th-large"></span> Tableau de bord de l\'agence', null, true);
+
+        // Création de la vue des appartements
+        $DaschboardView = new DashboardView();
+        $this->content = $DaschboardView->generateDashboard();
+
+        // Création et affichage de la vue globale
+        $this->end();
+    }
+    
     public function payerLoyerAction() {
         $paiement = new Paiement();
         $paiement->montant = $_GET['loyer'];

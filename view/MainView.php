@@ -18,9 +18,8 @@ class MainView {
                                 <a class="navbar-brand" href="#">
                                     <span class="logo-brand">42</span>
                                 </a>
-                            </div>
-
-                            <ul class="nav navbar-nav">
+                            </div>';
+            $rep.='<ul class="nav navbar-nav">
                                 <li class="active"><a href="./"> Appartements<span class="sr-only">(current)</span></a></li>
 
                             </ul>';
@@ -35,9 +34,11 @@ class MainView {
                                     <span class="logo-brand">42</span>
                                 </a>
                             </div>
-
-                            <ul class="nav navbar-nav">
-                                <li class="active"><a href="./"> Appartements<span class="sr-only">(current)</span></a></li>
+                            <ul class="nav navbar-nav">';
+            if($_SESSION['employe']==1) {
+                $rep .= '       <li class="active"><a href="./?a=dashboard"> Tableau de bord<span class="sr-only">(current)</span></a></li>';
+            }
+            $rep.= '            <li class="active"><a href="./"> Appartements<span class="sr-only">(current)</span></a></li>
 
                             </ul>
 
@@ -58,7 +59,7 @@ class MainView {
                     </nav>';
         }
                 
-        $rep.='</div></nav>'.MainView::displayTitle($title1, $title2);
+        $rep.='</nav>'.MainView::displayTitle($title1, $title2);
         return $rep;
     }
     

@@ -15,9 +15,14 @@ class AppartementView {
      * @return string
      */
     public static function generateFilters(){
-        $villeGet = $_GET["ville"];
-        $surfaceGet = $_GET["surface"];
-        $loyerGet = $_GET["loyer"];
+        $villeGet = "indifférent";
+        $surfaceGet = "indifférent";
+        $loyerGet = "indifférent";
+        if(isset($_GET['ville'])) {
+            $villeGet = $_GET["ville"];
+            $surfaceGet = $_GET["surface"];
+            $loyerGet = $_GET["loyer"];
+        }
         
         $res= '  <div class="col-sm-1 filters" >
 
@@ -96,6 +101,7 @@ class AppartementView {
         $array[] = "< 500";
         $array[] = "< 1000";
         $array[] = "< 2000";
+        $array[] = "> 2000";
         return $array;
     }
     
@@ -104,7 +110,10 @@ class AppartementView {
         $array[] = "indifférent";
         $array[] = "< 40";
         $array[] = "< 80";
-        $array[] = "< 150";
+        $array[] = "< 120";
+        $array[] = "< 160";
+        $array[] = "< 200";
+        $array[] = "> 200";
         return $array;
     }
     
