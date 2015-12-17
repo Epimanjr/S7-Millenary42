@@ -134,25 +134,25 @@ class LoginView {
                         <div class="form-group">
                             <label for="signup-name" class="col-sm-2 control-label">Nom</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="signup-name" placeholder="Nom">
+                                <input type="text" name="nom" class="form-control" id="signup-name" placeholder="Nom">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="signup-fname" class="col-sm-2 control-label">Prénom</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="signup-fname" placeholder="Prénom">
+                                <input type="text" name="prenom" class="form-control" id="signup-fname" placeholder="Prénom">
                             </div>
                         </div> 
                         <div class="form-group">
                             <label for="signup-email" class="col-sm-2 control-label">Email</label>
                             <div class="col-sm-4">
-                                <input type="email" class="form-control" id="signup-email" placeholder="Email">
+                                <input type="email" name="email" class="form-control" id="signup-email" placeholder="Email">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="signup-phone" class="col-sm-2 control-label">Téléhone</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="signup-phone" placeholder="Numéro de téléphone">
+                                <input type="text" name="tel" class="form-control" id="signup-phone" placeholder="Numéro de téléphone">
                             </div>
                         </div>
                         <h4>Adresse</h4>
@@ -160,25 +160,25 @@ class LoginView {
                         <div class="form-group">
                             <label for="signup-number" class="col-sm-2 control-label">Numéro</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="signup-number" placeholder="Numéro de rue">
+                                <input type="text" name="numerorue" class="form-control" id="signup-number" placeholder="Numéro de rue">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="signup-street" class="col-sm-2 control-label">Rue</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="signup-street" placeholder="Rue">
+                                <input type="text" name="nomrue" class="form-control" id="signup-street" placeholder="Rue">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="signup-cp" class="col-sm-2 control-label">Code postal</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="signup-cp" placeholder="Code postal">
+                                <input type="text" name="codepostal" class="form-control" id="signup-cp" placeholder="Code postal">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="signup-town" class="col-sm-2 control-label">Ville</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="signup-town" placeholder="Ville">
+                                <input type="text" name="ville" class="form-control" id="signup-town" placeholder="Ville">
                             </div>
                         </div>
                         <h4>Compte</h4>
@@ -186,13 +186,13 @@ class LoginView {
                         <div class="form-group">
                             <label for="signup-password" class="col-sm-2 control-label">Mot de passe</label>
                             <div class="col-sm-4">
-                                <input type="password" class="form-control" id="signup-password" placeholder="Mot de passe">
+                                <input type="password" name="pass" class="form-control" id="signup-password" placeholder="Mot de passe">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="signup-passconf" class="col-sm-2 control-label">Confirmer mot de passe</label>
                             <div class="col-sm-4">
-                                <input type="password" class="form-control" id="signup-passconf" placeholder="Confirmer mot de passe">
+                                <input type="password" name="pass2" class="form-control" id="signup-passconf" placeholder="Confirmer mot de passe">
                             </div>
                         </div>
 
