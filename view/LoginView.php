@@ -128,7 +128,7 @@ class LoginView {
 
                 <div class="col-sm-6 page-content">
 
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="controller/signup.php" method="POST">
 
                         <h4>Informations</h4>
                         <hr>

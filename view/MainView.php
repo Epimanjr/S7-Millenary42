@@ -50,7 +50,7 @@ class MainView {
                                     <ul class="dropdown-menu">
                                         <li><a href="./?a=displayUti">Informations de compte</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="./?a=login""><strong>Se déconnecter</strong></a></li>
+                                        <li><a href="controller/leaving.php""><strong>Se déconnecter</strong></a></li>
                                     </ul>
                                 </li>
                                 <li><a href="./?a=contactAgence"><span class="glyphicon glyphicon-envelope"></span> Contacter M42</a></li>
