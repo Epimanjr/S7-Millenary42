@@ -13,4 +13,4 @@ if (isset($_SESSION['email'])) {
 //inscription à faire ici
 
 // Redirection vers la page d'accueil
-header("Location: ../index.php?a=login");
+//header("Location: ../index.php?a=login");
