@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Millenary 42</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../lib/bootstrap-3.3/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../css/index.css" />
+        <link rel="stylesheet" href="../css/nav.css" />
+    </head>
+    <body>
+        <div class="container-fluid">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">
+                            <span class="logo-brand">42</span>
+                        </a>
+                    </div>
+
+                    <ul class="nav navbar-nav">
+                        <li ><a href="index.html"> Tableau de bord</a></li>
+                        <li class="active"><a href="apparts"> Appartements<span class="sr-only">(current)</span></a></li> <!-- Liste de tous les apparts sous forme de tableau sur la page d'après -->
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Michel Smith <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="account.html">Informations de compte</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="../visiteur/index.html"><strong>Se déconnecter</strong></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+
+            <div class="row">
+                <div class="col-sm-12 page-title">
+                    <h2><span class="glyphicon glyphicon-home"></span> Appartements</h2>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-sm-12 page-content">
+                    <div class="col-sm-12">
+
+                        <!-- Formulaire de recherche -->
+                        <div class="col-sm-1" style="position:fixed;">
+
+                            <form>
+
+                                <div class="form-group">
+                                    <label for="filter-town">Ville</label>
+                                    <select id="filter-town" class="form-control">
+                                        <option selected>Choisir ville</option>
+                                        <option>Nancy</option>
+                                        <option>Metz</option>
+                                        <option>Strasbourg</option>
+                                    </select>
+                                </div>
+
+                                <div class="checkbox" >
+                                    <label>
+                                        <input type="checkbox" id="filter-type-flat" value="option1"> Appartement
+                                    </label>
+                                </div>
+                                <div class="checkbox" >
+                                    <label>
+                                        <input type="checkbox" id="filter-type-furniture" value="option2"> Meublé mixte
+                                    </label>
+                                </div>
+                                <div class="checkbox" >
+                                    <label>
+                                        <input type="checkbox" id="filter-type-holidays" value="option3"> Meublé vacances
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
+                            </form>
+                        </div>
+
+                        <!-- Liste des appartements -->
+                        <div class="col-sm-10 col-sm-offset-2">
+
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-default">Ajouter un appartement</button>
+                                
+                            </div>
+
+                            <table class="table table-striped">
+                                <!-- header du tableau -->
+                                <thead>
+                                <th class="col-sm-6">Adresse</th>
+                                <th class="col-sm-2">Type</th>
+                                <th class="col-sm-1">Loyer</th>
+                                <th class="col-sm-1">Surface</th>
+                                <th class="col-sm-1">Accès</th>
+                                </thead>
+                                <!-- contenu du tableau -->
+                                <tbody>
+                                    <tr id="appart_01">
+                                        <td>28 rue Aristide Briand, 67000 Strasbourg</td>
+                                        <td>Meublé vacances</td>
+                                        <td>500 €</td>
+                                        <td>
+                                            
+                                           50 m² 
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-primary" href="details_appart.html">
+                                                Voir
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr id="appart_02">
+                                        <td>5 rue Henri Sale Vador, 57000 Metz</td>
+                                        <td>Appartement</td>
+                                        <td>768 €</td>
+                                        <td> 70 m²</td>
+                                        <td>
+                                            <a class="btn btn-sm btn-primary" href="details_appart.html">
+                                                Voir
+                                            </a>
+                                           
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>245 avenue Patrick Poivre d'Abord, 54000 Nancy</td>
+                                        <td>Appartement</td>
+                                        <td> 356 €</td>
+                                        <td>20 m²</td>
+                                        <td>
+                                            <a class="btn btn-sm btn-primary" href="details_appart.html">
+                                                Voir
+                                            </a>
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../../lib/jquery-1.11.3.min.js"></script>
+        <script src="../../lib/bootstrap-3.3/js/bootstrap.min.js"></script>
+        <script>
+            jQuery(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
+    </body>
+</html>

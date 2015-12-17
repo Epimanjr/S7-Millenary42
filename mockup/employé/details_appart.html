@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Millenary 42 : appartements</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../lib/bootstrap-3.3/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../css/details_appart.css" />
+        <link rel="stylesheet" href="../css/nav.css" />
+    </head>
+    <body>
+        <div class="container-fluid">
+               <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">
+                            <span class="logo-brand">42</span>
+                        </a>
+                    </div>
+
+                    <ul class="nav navbar-nav">
+                        <li ><a href="index.html"> Tableau de bord</a></li>
+                        <li class="active"><a href="apparts"> Appartements<span class="sr-only">(current)</span></a></li> <!-- Liste de tous les apparts sous forme de tableau sur la page d'après -->
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Michel Smith <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="account.html">Informations de compte</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="../visiteur/index.html"><strong>Se déconnecter</strong></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+
+            <div class="row">
+                <div class="col-sm-12 page-title">
+                    <h2><span class="glyphicon glyphicon-zoom-in"></span> Détails de l'appartement</h2>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-sm-12 page-content">
+                    
+                  
+                                
+                    <div class="col-sm-5" style="position: fixed;">
+                            <button type="button" class="btn btn-default">Modifier</button>
+                                <button type="button" class="btn btn-warning">Désactiver</button>
+                                <button type="button" class="btn btn-danger">Supprimer</button>
+                           
+                    <hr>
+                            <img class="appart-photo" src="http://www.yooko.fr/wp-content/uploads/2013/07/appartement-W-par-Regis-Botta-7.jpg"  />
+                            <div class="col-sm-9">
+                            <h4><strong>Adresse : </strong></h4>
+                            <p>
+                                quartier Faubourg des trois maisons<br>
+                                42 rue générique, 54000 Nancy<br>
+                                3ème étage, appartement 14
+                            </p>
+                            <p>
+                                <strong>Type</strong> : Meublé vacances
+                            </p>
+                            </div>
+                            <br>
+                            <div class="col-sm-3">
+                                <a class="btn btn-default pull-left"><span class="glyphicon glyphicon-check"></span> Poser une option</a>
+                            </div>
+                    </div>
+
+                    <div class="col-sm-offset-5 col-sm-7">
+                        
+                        <table class="table">
+                            <tr>
+                                <td>Surface</td>
+                                <td>70m²</td>
+                            </tr>
+                            <tr>
+                                <td>Nombre de pièces</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Loyer</td>
+                                <td>600€</td>
+                            </tr>
+                            <tr>
+                                <td>Charges</td>
+                                <td>Comprises</td>
+                            </tr>
+                            <tr>
+                                <td>Etat</td>
+                                <td> ??</td>
+                            </tr> 
+                            <tr>
+                                <td>Vidéophone</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Interphone</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Digicode</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Cable</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Antenne TV</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Espace Vert</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>VMC</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Piscine</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Parking Collectif</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Jardin Privé</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Ascenceur</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Loge Gardien</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Vide Ordure</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Double Vitrage</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Climatisation</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Eau chaude collective</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Eau froide collective</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Complément eau chaude</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Complément eau froide</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Chauffage</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Classe Energie</td>
+                                <td>B</td>
+                            </tr>
+                            <tr>
+                                <td>Cuisine Equipée</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Branchement machine à laver</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Evier</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Caves</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Balcon</td>
+                                <td><span class="label label-success">Oui</span></td>
+                            </tr>
+                            <tr>
+                                <td>Garages</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Terrasses</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Chambre de service</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Parking privé</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Greniers</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                            <tr>
+                                <td>Celliers</td>
+                                <td><span class="label label-danger">Non</span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+         <script src="../../lib/jquery-1.11.3.min.js"></script>
+        <script src="../../lib/bootstrap-3.3/js/bootstrap.min.js"></script>
+    </body>
+</html>
