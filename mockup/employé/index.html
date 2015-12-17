@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Millenary 42 : appartements</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../lib/bootstrap-3.3/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../css/index.css" />
+        <link rel="stylesheet" href="../css/nav.css" />
+    </head>
+    <body>
+        <div class="container-fluid">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">
+                            <span class="logo-brand">42</span>
+                        </a>
+                    </div>
+
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="index.html"> Tableau de bord<span class="sr-only">(current)</span></a></li>
+                        <li><a href=" "> Appartements</a></li> <!-- Liste de tous les apparts sous forme de tableau sur la page d'après -->
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Michel Smith <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="account.html">Informations de compte</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="../visiteur/index.html"><strong>Se déconnecter</strong></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+
+            <div class="row">
+                <div class="col-sm-12 page-title">
+                    <h2><span class="glyphicon glyphicon-dashboard"></span> Tableau de bord</h2>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-sm-12 page-content">
+
+                    <div class=" col-sm-6">
+                        <h3>Paiements en reyard</h3>
+                        <hr>
+                        <table class="table table-striped">
+                            <!-- header du tableau -->
+                            <thead>
+                            <th class="col-sm-5">Adresse</th>
+                            <th class="col-sm-2">Type</th>
+                            <th class="col-sm-2">Prochaine écheance du loyer</th> 
+                            <th class="col-sm-1">Rappel</th>
+                            </thead>
+                            <!-- contenu du tableau -->
+                            <tbody>
+                                <tr id="appart_01">
+                                    <td>28 rue Aristide Briand, 67000 Strasbourg</td>
+                                    <td>Meublé vacances</td>
+                                    <td>15 Octobre 2015</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-default">
+                                            Envoyer rappel
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr id="appart_02">
+                                    <td>5 rue Henri Sale Vador, 57000 Metz</td>
+                                    <td>Appartement</td>
+                                    <td>05 Décembre 2015</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-default">
+                                            Envoyer rappel
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>245 avenue Patrick Poivre d'Abord, 54000 Nancy</td>
+                                    <td>Appartement</td>
+                                    <td>10 Novembre 2015</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-default">
+                                            Envoyer rappel
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div> 
+                    <div class="col-sm-5 col-sm-offset-1">
+                        <h3>Propriétaires</h3>
+                        <hr>
+                        <table class="table table-striped">
+                            <!-- header du tableau -->
+                            <thead>
+                            <th class="col-sm-10">Nom</th>
+                            <th>Montant à régler</th>
+                            <th class="col-sm-2">Régler</th>
+                            </thead>
+                            <!-- contenu du tableau -->
+                            <tbody>
+                                <tr id="proprio01">
+                                    <td>Mme. Marie Juana</td>
+                                    <td>500 €</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-primary">
+                                            Payer
+                                        </a>
+                                    </td>
+
+
+                                </tr>
+                                <tr id="proprio02">
+                                    <td>M. Daniel Bat l'Avoine</td>
+                                    <td>200 €</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-primary">
+                                            Payer
+                                        </a>
+                                    </td>
+
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <script src="../../lib/jquery-1.11.3.min.js"></script>
+        <script src="../../lib/bootstrap-3.3/js/bootstrap.min.js"></script>
+    </body>
+</html>
