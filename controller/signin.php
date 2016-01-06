@@ -35,7 +35,9 @@ if (isset($_POST['email'], $_POST['motDePasse'])) {
             $_SESSION['prenom'] = $utilisateur->prenom;
             $_SESSION['telephone'] = $utilisateur->telephone;
             if($utilisateur->id_type_utilisateur==12) {
-                $_SESSION['employe'] = true;
+                $_SESSION['employe'] = 1;
+            } else {
+                $_SESSION['employe'] = 0;
             }
         } else {
             echo "Mot de passe incorrect";
