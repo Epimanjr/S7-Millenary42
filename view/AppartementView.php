@@ -179,6 +179,7 @@ class AppartementView {
     
     public static function generateUniqueLocation($location) {
         $appart = Appartement::findById($location->id_appartement);
+        $adresse = Adresse::findById($appart->id_adresse);
         $rep = '<div class="col-sm-3">
                     <div class="thumbnail">
                         <div style="background-image: url(http://www.yooko.fr/wp-content/uploads/2013/07/appartement-W-par-Regis-Botta-7.jpg)">
@@ -186,7 +187,7 @@ class AppartementView {
                         </div>
                     <img src="http://www.yooko.fr/wp-content/uploads/2013/07/appartement-W-par-Regis-Botta-7.jpg" />
                                     <div class="caption">
-                                        <h3>Appartement<br><small>'.$appart->id_adresse.'</small></h3>
+                                        <h3>Appartement<br><small>Quartier '. $adresse->quartier . ' ' . $adresse->ville . ' (' . $adresse->codePostal .')</small></h3>
 
                                         <h4>Caractéristiques</h4>
                                         <table class="table table-hover">
@@ -195,7 +196,7 @@ class AppartementView {
                                                     Surface
                                                 </td>
                                                 <td>
-                                                    '.$appart->surface.'
+                                                    '.$appart->surface.' m²
                                                 </td>
                                             </tr>
                                             <tr>
@@ -203,7 +204,7 @@ class AppartementView {
                                                     Loyer
                                                 </td>
                                                 <td>
-                                                    '.$appart->loyer.'
+                                                    '.$appart->loyer.' €
                                                 </td>
                                             </tr>
                                             <tr>
@@ -211,7 +212,7 @@ class AppartementView {
                                                     Type
                                                 </td>
                                                 <td>
-                                                    '.$appart->id_type_appart.'
+                                                    '. TypeAppartement::findById($appart->id_type_appart)->nom .'
                                                 </td>
                                             </tr>
                                         </table>
@@ -233,6 +234,7 @@ class AppartementView {
     
     public static function generateUniquePossession($possession) {
         $appart = Appartement::findById($possession->id_appartement);
+        $adresse = Adresse::findById($appart->id_adresse);
         $rep = '<div class="col-sm-3">
                     <div class="thumbnail">
                         <div style="background-image: url(http://www.yooko.fr/wp-content/uploads/2013/07/appartement-W-par-Regis-Botta-7.jpg)">
@@ -240,7 +242,7 @@ class AppartementView {
                         </div>
                     <img src="http://www.yooko.fr/wp-content/uploads/2013/07/appartement-W-par-Regis-Botta-7.jpg" />
                                     <div class="caption">
-                                        <h3>Appartement<br><small>'.$appart->id_adresse.'</small></h3>
+                                        <h3>Appartement<br><small>Quartier '. $adresse->quartier . ' ' . $adresse->ville . ' (' . $adresse->codePostal .')</small></h3>
 
                                         <h4>Caractéristiques</h4>
                                         <table class="table table-hover">
@@ -249,7 +251,7 @@ class AppartementView {
                                                     Surface
                                                 </td>
                                                 <td>
-                                                    '.$appart->surface.'
+                                                    '.$appart->surface.' m²
                                                 </td>
                                             </tr>
                                             <tr>
@@ -257,7 +259,7 @@ class AppartementView {
                                                     Loyer
                                                 </td>
                                                 <td>
-                                                    '.$appart->loyer.'
+                                                    '.$appart->loyer.' €
                                                 </td>
                                             </tr>
                                             <tr>
@@ -265,7 +267,7 @@ class AppartementView {
                                                     Type
                                                 </td>
                                                 <td>
-                                                    '.$appart->id_type_appart.'
+                                                    '. TypeAppartement::findById($appart->id_type_appart)->nom .'
                                                 </td>
                                             </tr>
                                         </table>
