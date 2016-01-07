@@ -164,7 +164,7 @@ class Option {
         /* Connexion à la base */
         $c = Database::getConnection();
         /* Préparation de la requête */
-        $sql = "SELECT * FROM TableOption";
+        $sql = "SELECT * FROM TableOption ORDER BY id_appartement";
         /* Exécution de la requête */
         $query = $c->query($sql);
         /* Parcours du résultat */
